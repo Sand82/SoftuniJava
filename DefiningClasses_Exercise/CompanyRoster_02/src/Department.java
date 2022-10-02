@@ -1,34 +1,54 @@
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Department {
-
    private String name;
-
    private double averageSalary;
-   private List<Employee> persons = new ArrayList<>();
+   private List<Employee> employees = new ArrayList<>();
 
-    public Department(String name,List<Employee> persons) {
-
+    public Department(String name) {
         this.name = name;
-        this.averageSalary = setAverageSalary();
-        this.persons.addAll(persons);
     }
 
     public double setAverageSalary(){
 
         double salary = 0.0;
 
-        for (var person: persons) {
+        for (var person: employees) {
             averageSalary += person.getSalary();
         }
         return salary;
     }
 
+    public double calculateAverageSalary(){
+       return employees.stream().mapToDouble(Employee::getSalary).average().orElse(0.0);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getAverageSalary() {
+        return averageSalary;
+    }
+
+    public void setAverageSalary(double averageSalary) {
+        this.averageSalary = averageSalary;
+    }
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
 
     public void addEmployee(Employee employee){
-        persons.add(employee);
+        employees.add(employee);
     }
 }
