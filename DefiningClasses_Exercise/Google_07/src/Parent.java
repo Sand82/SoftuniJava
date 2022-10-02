@@ -8,4 +8,10 @@ public class Parent {
         this.name = name;
         this.birthDay = birthDay;
     }
+
+    @Override
+    public String toString() {
+        return this.name + " " + this.birthDay;
+
+    }
 }

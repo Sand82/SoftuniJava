@@ -8,4 +8,9 @@ public class Children {
         this.name = name;
         this.birthday = birthday;
     }
+
+    @Override
+    public String toString() {
+        return this.name +" "+ this.birthday;
+    }
 }

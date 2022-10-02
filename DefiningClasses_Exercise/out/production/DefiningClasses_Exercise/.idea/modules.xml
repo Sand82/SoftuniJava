@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/CarSalesman_05/CarSalesman_05.iml" filepath="$PROJECT_DIR$/CarSalesman_05/CarSalesman_05.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CompanyRoster_02/CompanyRoster_02.iml" filepath="$PROJECT_DIR$/CompanyRoster_02/CompanyRoster_02.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/DefiningClasses_Exercise.iml" filepath="$PROJECT_DIR$/.idea/DefiningClasses_Exercise.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Google_07/Google_07.iml" filepath="$PROJECT_DIR$/Google_07/Google_07.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OpinionPoll_01/OpinionPoll_01.iml" filepath="$PROJECT_DIR$/OpinionPoll_01/OpinionPoll_01.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PokemonTrainer_06/PokemonTrainer_06.iml" filepath="$PROJECT_DIR$/PokemonTrainer_06/PokemonTrainer_06.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RawData_04/RawData_04.iml" filepath="$PROJECT_DIR$/RawData_04/RawData_04.iml" />
+    </modules>
+  </component>
+</project>
