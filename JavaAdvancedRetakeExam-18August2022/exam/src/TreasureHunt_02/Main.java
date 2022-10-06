@@ -11,8 +11,8 @@ public class Main {
     private static int playerRow = 0;
     private static int playerCol = 0;
 
-    private static int treasureRow = 0;
-    private static int treasureCol = 0;
+//    private static int treasureRow = 0;
+//    private static int treasureCol = 0;
 
     private static boolean isTreasureFound = false;
 
@@ -28,88 +28,77 @@ public class Main {
         char[][] matrix = new char[fieldRow][fieldCol];
 
         for (int row = 0; row < fieldRow; row++) {
-            List<Character> inputArray = Arrays.stream(scanner.nextLine()
-                            .split(" "))
-                    .map(e -> e.charAt(0))
-                    .collect(Collectors.toList());
+            matrix[row] = scanner.nextLine().replace(" ", "").toCharArray();
+        }
+
+        for (int row = 0; row < fieldRow; row++) {
 
             for (int col = 0; col < fieldCol; col++) {
 
-                char currChar = inputArray.get(col);
-                matrix[row][col] = currChar;
-
-                if (inputArray.get(col) == 'Y') {
+                if (matrix[row][col] == 'Y') {
                     playerRow = row;
                     playerCol = col;
                 }
-
-                if (inputArray.get(col) == 'X') {
-                    treasureRow = row;
-                    treasureCol = col;
-                }
             }
         }
+
         List<String> directions = new ArrayList<>();
+
+        List<String> commands = new ArrayList<>();
         String command = scanner.next();
 
         while (!command.equals("Finish")) {
+            commands.add(command);
+            command = scanner.next();
+        }
 
-            directions.add(command);
+        Boolean isFoundTheTreasury = false;
 
-            switch (command) {
+        for (int i = 0; i < commands.size(); i++) {
+
+            switch (commands.get(i)) {
                 case "up":
                     if (playerRow - 1 >= 0 && matrix[playerRow - 1][playerCol] != 'T') {
-                        setCoordinate(-1, 0, matrix);
+                        //setCoordinate(-1, 0, matrix);
+                        playerRow -= 1;
+                        directions.add(commands.get(i));
                     }
                     break;
                 case "down":
                     if (playerRow + 1 < fieldRow && matrix[playerRow + 1][playerCol] != 'T') {
-                        setCoordinate(+1, 0, matrix);
+                        //setCoordinate(+1, 0, matrix);
+                        directions.add(commands.get(i));
+                        playerRow += 1;
                     }
                     break;
                 case "left":
                     if (playerCol - 1 >= 0 && matrix[playerRow][playerCol - 1] != 'T') {
-                        setCoordinate(0, -1, matrix);
+                        //setCoordinate(0, -1, matrix);
+                        directions.add(commands.get(i));
+                        playerCol -= 1;
                     }
                     break;
                 case "right":
                     if (playerCol + 1 < fieldCol && matrix[playerRow][playerCol + 1] != 'T') {
-                        setCoordinate(0, +1, matrix);
+                        //setCoordinate(0, +1, matrix);
+                        directions.add(commands.get(i));
+                        playerCol += 1;
                     }
                     break;
             }
-//            System.out.println();
-//            printMatrix(matrix);
 
-            command = scanner.next();
+
+            if (matrix[playerRow][playerCol] == 'X') {
+                isFoundTheTreasury = true;
+                break;
+            }
         }
 
-        if (treasureRow == playerRow && treasureCol == playerCol) {
+        if (isFoundTheTreasury) {
             System.out.println("I've found the treasure!");
             System.out.print("The right path is " + String.join(", ", directions));
         } else {
             System.out.println("The map is fake!");
-        }
-    }
-
-    private static void setCoordinate(int rowNum, int colNum, char[][] matrix) {
-
-        matrix[playerRow][playerCol] = '-';
-        playerRow += rowNum;
-        playerCol += colNum;
-        matrix[playerRow][playerCol] = 'Y';
-        matrix[treasureRow][treasureCol] = 'X';
-    }
-
-    private static void printMatrix(char[][] matrix) {
-
-        for (int row = 0; row < matrix.length; row++) {
-
-            for (int col = 0; col < matrix[row].length; col++) {
-
-                System.out.print(matrix[row][col] + " ");
-            }
-            System.out.println();
         }
     }
 }
