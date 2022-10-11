@@ -7,8 +7,7 @@ public class Main {
     private static int parisRow = 0;
     private static int parisCol = 0;
     private static int parisEnergy = 0;
-    private static boolean isFoundHelen = false;
-
+    private static boolean isHelenFound = false;
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
@@ -34,15 +33,17 @@ public class Main {
             }
         }
 
-        String[] input = scanner.nextLine().split("\\s+");
+        while (true) {
 
-        while (parisEnergy > 0 || !isFoundHelen) {
+            String[] input = scanner.nextLine().split("\\s+");
 
             String direction = input[0];
             int spartansRow = Integer.parseInt(input[1]);
             int spartansCol = Integer.parseInt(input[2]);
 
             matrix[spartansRow][spartansCol] = 'S';
+
+            parisEnergy--;
 
             switch (direction) {
                 case "up":
@@ -71,11 +72,10 @@ public class Main {
                     break;
             }
 
-            parisEnergy--;
-
-            if (isFoundHelen) {
+            if (isHelenFound) {
 
                 System.out.println(String.format("Paris has successfully abducted Helen! Energy left: %d", parisEnergy));
+                matrix[parisRow][parisCol] = '-';
                 break;
             }
 
@@ -85,9 +85,9 @@ public class Main {
                 System.out.println(String.format("Paris died at %d;%d.", parisRow, parisCol));
                 break;
             }
-
-            input = scanner.nextLine().split("\\s+");
         }
+
+
 
         printMatrix(matrix);
     }
@@ -100,20 +100,17 @@ public class Main {
         if (matrix[currRow][currCol] == 'S') {
 
             parisEnergy -= 2;
-            matrix[currRow][currCol] = 'P';
 
         } else if (matrix[currRow][currCol] == 'H') {
 
-            isFoundHelen = true;
-            matrix[currRow][currCol] = '-';
-
-        } else {
-            matrix[currRow][currCol] = 'P';
+            isHelenFound = true;
         }
 
         matrix[parisRow][parisCol] = '-';
         parisRow = currRow;
         parisCol = currCol;
+        matrix[parisRow][parisCol] = 'P';
+
     }
 
     private static void printMatrix(char[][] matrix) {
