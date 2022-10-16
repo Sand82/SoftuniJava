@@ -10,11 +10,10 @@ public class Rhombus {
 
     public String getFigure() {
 
-        return printTop() + printMiddle() + printBottom();
+        return getTop() + getMiddle() + getBottom();
     }
 
-
-    private String printTop() {
+    private String getTop() {
 
         StringBuilder sb = new StringBuilder();
 
@@ -28,7 +27,7 @@ public class Rhombus {
         return sb.toString();
     }
 
-    private String printMiddle() {
+    private String getMiddle() {
         StringBuilder sb = new StringBuilder();
 
         sb.append(repeatAndPrintString(n, "* "))
@@ -37,7 +36,7 @@ public class Rhombus {
         return sb.toString();
     }
 
-    private String printBottom() {
+    private String getBottom() {
 
         StringBuilder sb = new StringBuilder();
 
