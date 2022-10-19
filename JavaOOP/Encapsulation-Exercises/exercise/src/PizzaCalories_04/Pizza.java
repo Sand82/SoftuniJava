@@ -21,7 +21,7 @@ public class Pizza {
     private void setName(String name) {
 
         if (name.trim().isEmpty() || name.length() < 1 || name.length() > 15) {
-            throw new IllegalArgumentException("Pizza name should be between 1 and 15 symbols.");
+            throw new IllegalArgumentException( name + " should be between 1 and 15 symbols.");
         }
         this.name = name;
     }
@@ -39,7 +39,12 @@ public class Pizza {
     }
 
     private void setToppings(int number) {
-        //this.toppings = toppings;
+
+        if (numberOfToppings > 10 || numberOfToppings < 0) {
+            throw new IllegalArgumentException("Number of toppings should be in range [0..10].");
+        }
+
+        this.toppings = toppings;
     }
 
     public String getName() {
