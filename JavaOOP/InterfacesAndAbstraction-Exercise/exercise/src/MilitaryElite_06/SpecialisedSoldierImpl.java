@@ -16,7 +16,7 @@ public abstract class SpecialisedSoldierImpl extends PrivateImpl implements Spec
     @Override
     public Enum<Corps> getCorps() {
 
-        return this.getCorps();
+        return this.corps;
     }
 
     public void setCorps(Corps corps) {

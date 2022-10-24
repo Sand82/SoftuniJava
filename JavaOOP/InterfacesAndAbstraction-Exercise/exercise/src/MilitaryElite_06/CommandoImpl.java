@@ -21,4 +21,19 @@ public class CommandoImpl extends SpecialisedSoldierImpl implements Commando, So
     public Map<String, Mission> getMissions() {
         return this.missions;
     }
+
+    @Override
+    public String toString() {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.toString()).append(System.lineSeparator());
+        sb.append("Corps: " + getCorps().name()).append(System.lineSeparator());
+        sb.append("Missions:").append(System.lineSeparator());
+
+        for (Mission value : missions.values()) {
+            sb.append("  " + value.toString()).append(System.lineSeparator());
+        }
+
+        return sb.toString().trim();
+    }
 }

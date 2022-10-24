@@ -21,4 +21,20 @@ public class EngineerImpl extends SpecialisedSoldierImpl implements Engineer, So
     public Collection<Repair> getRepairs() {
         return this.repairs;
     }
+
+    @Override
+    public String toString() {
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(super.toString()).append(System.lineSeparator());
+        sb.append("Corps: " + this.getCorps()).append(System.lineSeparator());
+        sb.append("Repairs:").append(System.lineSeparator());
+
+        for (Repair repair : repairs) {
+            sb.append("  " + repair.toString()).append(System.lineSeparator());
+        }
+
+        return sb.toString().trim();
+    }
 }

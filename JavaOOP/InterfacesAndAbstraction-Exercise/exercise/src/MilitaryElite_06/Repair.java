@@ -10,4 +10,10 @@ public class Repair {
         this.name = name;
         this.hoursWorked = hoursWorked;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Part Name: %s Hours Worked: %d",
+                this.name, this.hoursWorked);
+    }
 }

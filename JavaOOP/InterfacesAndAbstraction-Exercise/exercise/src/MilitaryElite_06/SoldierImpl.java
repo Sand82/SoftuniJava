@@ -28,4 +28,12 @@ public abstract class SoldierImpl implements Solder {
         return this.lastName;
 
     }
+
+    @Override
+    public String toString() {
+        return String.format("Name: %s %s Id: %d",
+                this.firstName,
+                this.lastName,
+                this.id);
+    }
 }

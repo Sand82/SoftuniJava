@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+
+    private static List<Private> privates = new ArrayList<>();
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -22,7 +25,11 @@ public class Main {
             input = scanner.nextLine();
         }
 
-        System.out.println();
+        for (Solder solder : militaryElite) {
+
+            System.out.println(solder);
+
+        }
     }
 
     private static Solder createSolder(String[] inputInfo) { // Private 1 Peter Petrov 22.22
@@ -34,12 +41,11 @@ public class Main {
 
         double salary = 0.0;
 
-        if (solderType != "Spy") {
+        if (!solderType.equals("Spy")) {
             salary = Double.parseDouble(inputInfo[4]);
         }
 
         Solder currentSolder = null;
-        List<Private> privates = new ArrayList<>();
 
         switch (solderType) {
             case "Private":
@@ -57,11 +63,11 @@ public class Main {
                 break;
             case "Engineer":
 
-                Corps corps = Corps.valueOf(inputInfo[4].toUpperCase());
+                Corps corps = Corps.valueOf(inputInfo[5]);
 
                 EngineerImpl engineer = new EngineerImpl(firstName, lastName, id, salary, corps);
 
-                for (int i = 5; i < solderType.length(); i += 2) {
+                for (int i = 6; i < inputInfo.length; i += 2) {
 
                     String partName = inputInfo[i];
                     int hoursWorked = Integer.parseInt(inputInfo[i + 1]);
@@ -75,10 +81,18 @@ public class Main {
                 break;
             case "Commando":
 
-                Corps commandoCorps = Corps.valueOf(inputInfo[5].toUpperCase());
+                Corps commandoCorps = Corps.valueOf(inputInfo[5]);
 
                 CommandoImpl commando = new CommandoImpl(firstName, lastName, id, salary, commandoCorps);
                 currentSolder = commando;
+
+                for (int i = 6; i < inputInfo.length; i += 2) {
+                    String missionName = inputInfo[i];
+                    State state = State.valueOf(inputInfo[i + 1]);
+
+                    Mission mission = new Mission(state, missionName);
+                    commando.addMission(mission);
+                }
                 break;
             case "Spy":
 
