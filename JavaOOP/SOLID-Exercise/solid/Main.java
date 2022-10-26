@@ -18,8 +18,12 @@ public class Main {
 
         CalorieCalculator calculator = new CalorieCalculator(products);
         ConsolePrinter consolePrinter = new ConsolePrinter(calculator);
+        QuantityCalculator quantityCalculator = new QuantityCalculator(products);
+        ConsolePrinter consolePrinter1 = new ConsolePrinter(quantityCalculator);
 
         consolePrinter.printSum();
         consolePrinter.printAverage();
+        consolePrinter1.printSum();
+        consolePrinter1.printAverage();
     }
 }

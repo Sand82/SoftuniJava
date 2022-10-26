@@ -13,4 +13,9 @@ public class Lemonade extends Drink {
     public double getAmountOfCalories() {
        return getMilliliters() * DENSITY * CALORIES_PER_100_GRAMS / 100;
     }
+
+    @Override
+    public double getQuantity() {
+        return super.getQuantity() * DENSITY;
+    }
 }

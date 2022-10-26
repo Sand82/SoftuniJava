@@ -11,4 +11,9 @@ public abstract class Food implements Product {
     public double getGrams() {
         return grams;
     }
+
+    @Override
+    public double getQuantity() {
+        return getGrams();
+    }
 }

@@ -11,4 +11,9 @@ public abstract class Drink implements Product {
     public double getMilliliters() {
         return milliliters;
     }
+
+    @Override
+    public double getQuantity() {
+        return milliliters;
+    }
 }

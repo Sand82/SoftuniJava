@@ -7,7 +7,6 @@ import java.util.List;
 
 public class ConsolePrinter extends PrinterImpl {
 
-
     public ConsolePrinter(MyCalculator calculator) {
         super(calculator);
     }
