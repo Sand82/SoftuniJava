@@ -1,9 +1,11 @@
 package solid;
 
+import solid.products.Product;
+
 import java.util.List;
 
 public interface Printer {
-    void printSum(List<Object> products);
+    void printSum();
 
-    void printAverage(List<Object> products);
+    void printAverage();
 }

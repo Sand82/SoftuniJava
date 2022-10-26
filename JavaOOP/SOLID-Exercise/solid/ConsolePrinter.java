@@ -1,6 +1,7 @@
 package solid;
 
 import solid.Printer;
+import solid.products.Product;
 
 import java.util.List;
 
@@ -12,12 +13,12 @@ public class ConsolePrinter extends PrinterImpl {
     }
 
     @Override
-    public void printSum(List<Object> products) {
-        System.out.printf("$s %f%n", GlobalConstants.SUM_FORMAT, calculator.sum(products));
+    public void printSum() {
+        System.out.printf("%s %.1f%n", GlobalConstants.SUM_FORMAT, calculator.sum());
     }
 
     @Override
-    public void printAverage(List<Object> products) {
-        System.out.printf("$s %f%n", GlobalConstants.AVERAGE_FORMAT, calculator.average(products));
+    public void printAverage() {
+        System.out.printf("%s %.1f%n", GlobalConstants.AVERAGE_FORMAT, calculator.average());
     }
 }

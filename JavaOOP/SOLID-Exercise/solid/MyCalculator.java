@@ -1,10 +1,12 @@
 package solid;
 
+import solid.products.Product;
+
 import java.util.List;
 
 public interface MyCalculator {
 
-    double sum(List<Object> products);
+    double sum();
 
-    double average(List<Object> products);
+    double average();
 }
