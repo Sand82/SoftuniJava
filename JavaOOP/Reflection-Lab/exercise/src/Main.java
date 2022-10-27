@@ -1,21 +1,37 @@
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.TreeSet;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
 
-        Class reflection = Reflection.class;
-        System.out.println(reflection);
+        Class clazz = Reflection.class;
 
-        Class superClass = reflection.getSuperclass();
-        System.out.println(superClass);
+        Method[] methods = clazz.getDeclaredMethods();
 
-        Class [] interfaces =  reflection.getInterfaces();
+        TreeSet<Method> getMethods = filteredMethods(methods, "get");
 
-        for (Class anInterface : interfaces) {
-            System.out.println(anInterface);
-        }
+        TreeSet<Method> setMethods = filteredMethods(methods, "set");
 
-        Object reflectionObject = reflection.getDeclaredConstructor().newInstance();
-        System.out.println(reflectionObject);
+        Function<Class<?>, String> formatType = c -> c == int.class ? "class int" : c.toString();
+
+        getMethods.forEach(
+                m -> System.out.printf("%s will return %s%n", m.getName(), formatType.apply(m.getReturnType())));
+
+        setMethods.forEach(
+                m -> System.out.printf("%s and will set field of %s%n", m.getName(), formatType.apply(m.getParameterTypes()[0])));
+
+    }
+
+    private static TreeSet<Method> filteredMethods(Method[] methods, String filter) {
+
+        return Arrays.stream(methods)
+                .filter(m -> m.getName().contains(filter))
+                .collect(Collectors.toCollection(
+                        () -> new TreeSet<>(Comparator.comparing(Method::getName))));
     }
 }
