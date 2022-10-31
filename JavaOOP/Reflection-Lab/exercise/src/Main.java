@@ -1,4 +1,5 @@
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -27,11 +28,11 @@ public class Main {
 
     }
 
-    private static TreeSet<Method> filteredMethods(Method[] methods, String filter) {
+    private static <T extends Member> TreeSet<T> filteredMethods(T[] methods, String filter) {
 
         return Arrays.stream(methods)
                 .filter(m -> m.getName().contains(filter))
                 .collect(Collectors.toCollection(
-                        () -> new TreeSet<>(Comparator.comparing(Method::getName))));
+                        () -> new TreeSet<>(Comparator.comparing(Member::getName))));
     }
 }
