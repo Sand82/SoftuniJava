@@ -1,4 +1,4 @@
-package StrategyPattern;
+package strategyPattern;
 
 import java.util.Comparator;
 

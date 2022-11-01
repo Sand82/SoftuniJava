@@ -1,4 +1,4 @@
-package CommandPattern;
+package commandPattern;
 
 public class VolumeDownCommand implements Command {
     private TVRemote tvRemote;

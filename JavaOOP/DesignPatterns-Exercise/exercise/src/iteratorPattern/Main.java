@@ -1,4 +1,4 @@
-package IteratorPattern;
+package iteratorPattern;
 
 import java.util.ArrayList;
 import java.util.Iterator;
