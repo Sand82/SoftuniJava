@@ -15,6 +15,5 @@ public class Main {
         volumeUpCommand.execute();
         volumeUpCommand.execute();
         volumeUpCommand.execute();
-
     }
 }
