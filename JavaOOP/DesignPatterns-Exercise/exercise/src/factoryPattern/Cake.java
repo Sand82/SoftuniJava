@@ -1,4 +1,4 @@
-package factoryPattern.factoryExercise;
+package factoryPattern;
 
 public abstract class Cake {
     public double diameter;

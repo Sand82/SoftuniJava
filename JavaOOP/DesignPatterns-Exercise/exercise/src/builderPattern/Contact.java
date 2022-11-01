@@ -1,4 +1,4 @@
-package builderExercise;
+package builderPattern;
 
 public class Contact {
 

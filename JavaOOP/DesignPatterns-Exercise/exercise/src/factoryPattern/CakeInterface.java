@@ -1,4 +1,4 @@
-package factoryPattern.factoryExercise;
+package factoryPattern;
 
 public interface CakeInterface {
     abstract public void prepare();

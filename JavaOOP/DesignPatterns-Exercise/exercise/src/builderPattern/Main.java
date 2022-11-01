@@ -1,4 +1,4 @@
-package builderExercise;
+package builderPattern;
 
 import java.util.*;
 
