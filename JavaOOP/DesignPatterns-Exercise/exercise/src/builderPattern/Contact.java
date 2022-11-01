@@ -1,5 +1,7 @@
 package builderPattern;
 
+import java.time.Period;
+
 public class Contact {
 
     private String name;
@@ -10,33 +12,13 @@ public class Contact {
     private String website;
     private String birthday;
 
-    public Contact(String name, String number) {
+    public Contact(String name, String number, String company, String title, String email, String website, String birthday) {
         this.setName(name);
         this.setNumber(number);
-    }
-
-    public Contact(String name, String number, String company) {
-        this(name, number);
         this.company = company;
-    }
-
-    public Contact(String name, String number, String company, String title) {
-        this(name, number, company);
         this.title = title;
-    }
-
-    public Contact(String name, String number, String company, String title, String email) {
-        this(name, number, company, title);
         this.email = email;
-    }
-
-    public Contact(String name, String number, String company, String title, String email, String website) {
-        this(name, number, company, title, email);
         this.website = website;
-    }
-
-    public Contact(String name, String number, String company, String title, String email, String website, String birthday) {
-        this(name, number, company, title, email, website);
         this.birthday = birthday;
     }
 
@@ -57,31 +39,64 @@ public class Contact {
     }
 
     public void setNumber(String number) {
-        if (number == null || number.trim().equals("") || number.length() < 5) {
-            throw new IllegalStateException("The name must contain at least 5 characters!");
+        if (number == null || number.trim().equals("") || number.length() < 2) {
+            throw new IllegalStateException("The name must contain at least 2 characters!");
         }
 
         this.number = number;
     }
 
-    public String getCompany() {
-        return company;
+    public static Builder builder() {
+        return new Builder();
     }
 
-    public String getTitle() {
-        return title;
-    }
+    public static class Builder {
+        private String name;
+        private String number;
+        private String company;
+        private String title;
+        private String email;
+        private String website;
+        private String birthday;
 
-    public String getEmail() {
-        return email;
-    }
+        public Builder whitName(String name) {
+            this.name = name;
+            return this;
+        }
 
-    public String getWebsite() {
-        return website;
-    }
+        public Builder whitNumber(String number) {
+            this.number = number;
+            return this;
+        }
 
-    public String getBirthday() {
-        return birthday;
+        public Builder whitCompany(String company) {
+            this.company = company;
+            return this;
+        }
+
+        public Builder whitTitle(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public Builder whitEmail(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder whitWebsite(String website) {
+            this.website = website;
+            return this;
+        }
+
+        public Builder whitBirthday(String birthday) {
+            this.birthday = birthday;
+            return this;
+        }
+
+        public Contact build() {
+            return new Contact(name, number, company, title, email, website, birthday);
+        }
     }
 
     @Override
