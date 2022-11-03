@@ -11,18 +11,17 @@ public class MyConnector {
     private static Connection connection;
     private static final String jdbcString = "jdbc:mysql://localhost:3306/";
 
-    private MyConnector() {
+    public MyConnector() {
     }
 
-    public Connection createConnection(String user, String password, String dbName) throws SQLException {
+    public void createConnection(String user, String password, String dbName) throws SQLException {
 
         Properties properties = new Properties();
-        properties.setProperty("user", "sand");
-        properties.setProperty("password", "test");
+        properties.setProperty("user", user);
+        properties.setProperty("password", password);
 
         this.connection = DriverManager.getConnection(jdbcString + dbName, properties);
 
-        return connection;
     }
 
     public static Connection getConnection() {
