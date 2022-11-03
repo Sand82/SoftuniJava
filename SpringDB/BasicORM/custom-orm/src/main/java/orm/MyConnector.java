@@ -16,12 +16,14 @@ public class MyConnector {
 
     public void createConnection(String user, String password, String dbName) throws SQLException {
 
-        Properties properties = new Properties();
-        properties.setProperty("user", user);
-        properties.setProperty("password", password);
+        if (connection == null) {
 
-        this.connection = DriverManager.getConnection(jdbcString + dbName, properties);
+            Properties properties = new Properties();
+            properties.setProperty("user", user);
+            properties.setProperty("password", password);
 
+            this.connection = DriverManager.getConnection(jdbcString + dbName, properties);
+        }
     }
 
     public static Connection getConnection() {
