@@ -4,9 +4,10 @@ import orm.MyConnector;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class Main {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, IllegalAccessException {
 
         MyConnector myConnector = new MyConnector();
 
@@ -15,5 +16,9 @@ public class Main {
         Connection connection = MyConnector.getConnection();
 
         EntityManager<User> userEntityManager = new EntityManager<User>(connection);
+
+        User user = new User("mish", 7, LocalDate.now());
+
+        userEntityManager.persist(user);
     }
 }

@@ -1,10 +1,11 @@
 package orm;
 
+import java.sql.SQLException;
 import java.util.Iterator;
 
 public interface DbContext<T> {
 
-    boolean persist(T entity) throws IllegalAccessException;
+    boolean persist(T entity) throws IllegalAccessException, SQLException;
 
     Iterable<T> find(Class<T> table);
 
