@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 public interface DbContext<T> {
 
-    boolean persist(T entity);
+    boolean persist(T entity) throws IllegalAccessException;
 
     Iterable<T> find(Class<T> table);
 
