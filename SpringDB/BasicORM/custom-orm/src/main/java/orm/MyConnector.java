@@ -21,6 +21,7 @@ public class MyConnector {
         properties.setProperty("password", "test");
 
         this.connection = DriverManager.getConnection(jdbcString + dbName, properties);
+
         return connection;
     }
 
