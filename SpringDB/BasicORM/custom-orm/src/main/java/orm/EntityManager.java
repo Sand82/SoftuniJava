@@ -62,19 +62,48 @@ public class EntityManager<T> implements DbContext<T> {
     }
 
     @Override
-    public Iterable<T> find(Class<T> table) {
-        return null;
+    public Iterable<T> find(Class<T> table)
+            throws SQLException,
+            InvocationTargetException,
+            NoSuchMethodException,
+            InstantiationException,
+            IllegalAccessException {
+
+        return find(table, null);
     }
 
     @Override
-    public Iterable<T> find(Class<T> table, String where) {
-        return null;
+    public Iterable<T> find(Class<T> table, String where) throws SQLException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+
+        String tableName = getTableName(table);
+
+        String selectQuery = String.format(
+                "SELECT * FROM %s %s ", tableName, where != null ? "WHERE " + where : "");
+
+        PreparedStatement statement = connection.prepareStatement(selectQuery);
+        ResultSet resultSet = statement.executeQuery();
+
+        List<T> result = new ArrayList<>();
+
+        while (resultSet.next()) {
+
+            T entity = table.getDeclaredConstructor().newInstance();
+            fillEntity(table, resultSet, entity);
+            result.add(entity);
+        }
+
+        return result;
     }
 
     @Override
-    public T findFirst(Class<T> table) {
+    public T findFirst(Class<T> table)
+            throws SQLException,
+            InvocationTargetException,
+            NoSuchMethodException,
+            InstantiationException,
+            IllegalAccessException {
 
-        return null;
+        return findFirst(table, null);
     }
 
     @Override
@@ -83,22 +112,22 @@ public class EntityManager<T> implements DbContext<T> {
         String tableName = getTableName(table);
 
         String selectQuery = String.format(
-                "SELECT * FROM %s %s LIMIT 1", tableName,  where != null ? "WHERE " + where : "");
-        
+                "SELECT * FROM %s %s LIMIT 1", tableName, where != null ? "WHERE " + where : "");
+
         PreparedStatement statement = connection.prepareStatement(selectQuery);
         ResultSet resultSet = statement.executeQuery();
-        
+
         resultSet.next();
-        
+
         T result = table.getDeclaredConstructor().newInstance();
-        
+
         fillEntity(table, resultSet, result);
-        
+
         return result;
     }
 
     private void fillEntity(Class<T> table, ResultSet resultSet, T entity) throws SQLException, IllegalAccessException {
-        Field [] declaredFields = table.getDeclaredFields();
+        Field[] declaredFields = table.getDeclaredFields();
 
         for (Field declaredField : declaredFields) {
             declaredField.setAccessible(true);
@@ -116,11 +145,11 @@ public class EntityManager<T> implements DbContext<T> {
 
         if (fieldType == Integer.class || fieldType == int.class) {
             value = resultSet.getInt(fieldName);
-        }else if (fieldType == String.class) {
+        } else if (fieldType == String.class) {
             value = resultSet.getString(fieldName);
-        }else if (fieldType == LocalDate.class) {
+        } else if (fieldType == LocalDate.class) {
             value = LocalDate.parse(resultSet.getString(fieldName));
-        }else if (fieldType == Long.class|| fieldType == long.class) {
+        } else if (fieldType == Long.class || fieldType == long.class) {
             value = resultSet.getLong(fieldName);
         }
 

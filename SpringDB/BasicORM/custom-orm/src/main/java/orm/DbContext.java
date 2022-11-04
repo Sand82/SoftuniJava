@@ -8,11 +8,11 @@ public interface DbContext<T> {
 
     boolean persist(T entity) throws IllegalAccessException, SQLException;
 
-    Iterable<T> find(Class<T> table);
+    Iterable<T> find(Class<T> table) throws SQLException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException;
 
-    Iterable<T> find(Class<T> table, String where);
+    Iterable<T> find(Class<T> table, String where) throws SQLException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException;
 
-    T findFirst(Class<T> table);
+    T findFirst(Class<T> table) throws SQLException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException;
 
     T findFirst(Class<T> table, String where) throws SQLException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException;
 }
