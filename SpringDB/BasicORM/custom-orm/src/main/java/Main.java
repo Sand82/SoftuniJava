@@ -19,7 +19,7 @@ public class Main {
 
         User user = new User("lub", 1, LocalDate.now());
 
-        //userEntityManager.doCreate(User.class);
+        userEntityManager.doAlter(User.class);
         userEntityManager.persist(user);
     }
 }

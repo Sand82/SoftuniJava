@@ -7,12 +7,10 @@ import Annotations.Id;
 import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class EntityManager<T> implements DbContext<T> {
@@ -38,36 +36,63 @@ public class EntityManager<T> implements DbContext<T> {
         statement.execute();
     }
 
-    private String getSQLFieldsWithTypes(Class<T> entityClass) {
+    public void doAlter(Class<T> entityClass) throws SQLException {
+        String tableName = getTableName(entityClass);
+        String addColumnStatements = getAddColumnStatementsForNewFields(entityClass);
+
+        String createQuery = String.format("ALTER TABLE %s %s", tableName, addColumnStatements);
+
+        PreparedStatement statement = connection.prepareStatement(createQuery);
+        statement.execute();
+    }
+
+    private String getAddColumnStatementsForNewFields(Class<T> entityClass) throws SQLException {
+
+        Set<String> sqlColumn = getSQLColumnNames(entityClass);
+
         List<Field> fields = Arrays.stream(entityClass.getDeclaredFields())
                 .filter(f -> !f.isAnnotationPresent(Id.class))
                 .filter(f -> f.isAnnotationPresent(Column.class))
                 .collect(Collectors.toList());
-        //.map(f -> f.getAnnotationsByType(Column.class))
 
         List<String> result = new ArrayList<>();
 
         for (Field field : fields) {
 
             String fieldName = field.getAnnotationsByType(Column.class)[0].name();
-            Class<?> type = field.getType();
 
-            String sqlType = "";
-
-            if (type == Integer.class || type == int.class) {
-                sqlType = "INT";
-            } else if (type == String.class) {
-                sqlType = "VARCHAR(200)";
-            } else if (type == LocalDate.class) {
-                sqlType = "DATE";
+            if (sqlColumn.contains(fieldName)) {
+                continue;
             }
 
-            result.add(fieldName + " " + sqlType);
+            String sqlType = getSQLType( field.getType());
+
+            result.add(String.format("ADD COLUMN %s %s", fieldName, sqlType));
         }
 
         return String.join(",", result);
     }
 
+    private Set<String> getSQLColumnNames(Class<T> entityClass) throws SQLException {
+        String schemaQuery = "select COLUMN_NAME from information_schema." +
+                " columns c where c.TABLE_SCHEMA = 'custom-orm'" +
+                " and COLUMN_NAME != 'id'" +
+                " and TABLE_NAME = 'users'";
+
+        PreparedStatement statement = connection.prepareStatement(schemaQuery);
+        ResultSet resultSet = statement.executeQuery();
+
+        Set<String> result = new HashSet<>();
+
+        while (resultSet.next()) {
+
+            String columnName = resultSet.getString("COLUMN_NAME");
+
+            result.add(columnName);
+        }
+
+        return result;
+    }
 
     @Override
     public boolean persist(T entity) throws IllegalAccessException, SQLException {
@@ -166,5 +191,41 @@ public class EntityManager<T> implements DbContext<T> {
                 .map(a -> a[0].name())
                 .collect(Collectors.joining(","));
 
+    }
+    private String getSQLFieldsWithTypes(Class<T> entityClass) {
+
+        List<Field> fields = Arrays.stream(entityClass.getDeclaredFields())
+                .filter(f -> !f.isAnnotationPresent(Id.class))
+                .filter(f -> f.isAnnotationPresent(Column.class))
+                .collect(Collectors.toList());
+
+        List<String> result = new ArrayList<>();
+
+        for (Field field : fields) {
+
+            String fieldName = field.getAnnotationsByType(Column.class)[0].name();
+            Class<?> type = field.getType();
+
+            String sqlType = getSQLType(type);
+
+            result.add(fieldName + " " + sqlType);
+        }
+
+        return String.join(",", result);
+    }
+
+    private static String getSQLType( Class<?> type) {
+
+        String sqlType = "";
+
+        if (type == Integer.class || type == int.class) {
+            sqlType = "INT";
+        } else if (type == String.class) {
+            sqlType = "VARCHAR(200)";
+        } else if (type == LocalDate.class) {
+            sqlType = "DATE";
+        }
+
+        return sqlType;
     }
 }
