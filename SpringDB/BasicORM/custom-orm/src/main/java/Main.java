@@ -34,8 +34,13 @@ public class Main {
 //      User second = userEntityManager.findFirst(User.class, "id = 2");
 //      System.out.println(first);
 //      System.out.println(second);
-        userEntityManager.find(User.class, "age < 36").forEach(i -> System.out.println(i.toString()));
-//        userEntityManager.find(User.class).forEach(i -> System.out.println(i.toString()));
+        userEntityManager.find(User.class).forEach(i -> System.out.println(i.toString()));
+//      userEntityManager.find(User.class).forEach(i -> System.out.println(i.toString()));
 
+        User toDelete = userEntityManager.findFirst(User.class, "id = 4");
+        System.out.println(toDelete);
+        System.out.println("------------------------------------");
+        userEntityManager.delete(toDelete);
+        userEntityManager.find(User.class).forEach(i -> System.out.println(i.toString()));
     }
 }

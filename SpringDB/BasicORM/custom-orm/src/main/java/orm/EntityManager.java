@@ -22,7 +22,6 @@ public class EntityManager<T> implements DbContext<T> {
         this.connection = connection;
     }
 
-
     public void doCreate(Class<T> entityClass) throws SQLException {
 
         String tableName = getTableName(entityClass);
@@ -38,6 +37,7 @@ public class EntityManager<T> implements DbContext<T> {
     }
 
     public void doAlter(Class<T> entityClass) throws SQLException {
+
         String tableName = getTableName(entityClass);
         String addColumnStatements = getAddColumnStatementsForNewFields(entityClass);
 
@@ -45,6 +45,24 @@ public class EntityManager<T> implements DbContext<T> {
 
         PreparedStatement statement = connection.prepareStatement(createQuery);
         statement.execute();
+    }
+
+    @Override
+    public boolean delete(T toDelete) throws IllegalAccessException, SQLException {
+
+        String tableName = getTableName(toDelete.getClass());
+        Field idColumn = getIdColumn(toDelete.getClass());
+
+        String idColumnName = idColumn.getAnnotationsByType(Column.class)[0].name();
+        idColumn.setAccessible(true);
+        Object idColumnValue = idColumn.get(toDelete);
+
+        String query = String.format("DELETE FROM %s WHERE %s = %s",
+                tableName, idColumnName, idColumnValue);
+
+        PreparedStatement statement = connection.prepareStatement(query);
+
+        return statement.execute();
     }
 
     @Override
@@ -127,6 +145,7 @@ public class EntityManager<T> implements DbContext<T> {
     }
 
     private void fillEntity(Class<T> table, ResultSet resultSet, T entity) throws SQLException, IllegalAccessException {
+
         Field[] declaredFields = table.getDeclaredFields();
 
         for (Field declaredField : declaredFields) {
@@ -138,6 +157,7 @@ public class EntityManager<T> implements DbContext<T> {
     }
 
     private void fillFiled(Field declaredField, ResultSet resultSet, T entity) throws SQLException, IllegalAccessException {
+
         Class<?> fieldType = declaredField.getType();
         String fieldName = declaredField.getAnnotationsByType(Column.class)[0].name();
 
@@ -175,6 +195,7 @@ public class EntityManager<T> implements DbContext<T> {
     }
 
     private boolean doUpdate(T entity, long idColumn) throws IllegalAccessException, SQLException {
+
         String tableName = getTableName(entity.getClass());
         List<String> tableFields = getColumnsWithoutId(entity.getClass());
         List<String> tableValues = getColumValuesWithoutId(entity);
@@ -206,6 +227,7 @@ public class EntityManager<T> implements DbContext<T> {
     }
 
     private List<String> getColumValuesWithoutId(T entity) throws IllegalAccessException {
+
         Class<?> aClass = entity.getClass();
         List<Field> fields = Arrays.stream(aClass.getDeclaredFields())
                 .filter(f -> !f.isAnnotationPresent(Id.class))
@@ -305,6 +327,7 @@ public class EntityManager<T> implements DbContext<T> {
     }
 
     private Set<String> getSQLColumnNames(Class<T> entityClass) throws SQLException {
+
         String schemaQuery = "select COLUMN_NAME from information_schema." +
                 " columns c where c.TABLE_SCHEMA = 'custom-orm'" +
                 " and COLUMN_NAME != 'id'" +
