@@ -46,6 +46,160 @@ public class EntityManager<T> implements DbContext<T> {
         statement.execute();
     }
 
+    @Override
+    public boolean persist(T entity) throws IllegalAccessException, SQLException {
+
+        Field idColumn = getIdColumn(entity.getClass());
+        idColumn.setAccessible(true);
+        Object idValue = idColumn.get(entity);
+
+        if (idValue == null || (long) idValue <= 0) {
+            return doInsert(entity);
+        }
+
+        return doUpdate(entity,(long) idValue);
+    }
+
+    private boolean doUpdate(T entity, long idColumn) throws IllegalAccessException, SQLException {
+        String tableName = getTableName(entity.getClass());
+        List<String> tableFields =  getColumnsWithoutId(entity.getClass());
+        List<String> tableValues = getColumValuesWithoutId(entity);
+
+
+        List<String> setStatements = new ArrayList<>();
+
+        for (int i = 0; i < tableFields.size(); i++) {
+            String statement = tableFields.get(i) + " = " + tableValues.get(i);
+            setStatements.add(statement);
+        }
+
+        String updateQuery = String.format("UPDATE %s SET %s WHERE id = %d",
+                tableName, String.join(",", setStatements), idColumn);
+
+        PreparedStatement statement = connection.prepareStatement(updateQuery);
+        return statement.execute();
+    }
+
+    private boolean doInsert(T entity) throws SQLException, IllegalAccessException {
+
+        String tableName = getTableName(entity.getClass());
+        String tableFields = String.join(",", getColumnsWithoutId(entity.getClass()));
+        String tableValues = String.join(",", getColumValuesWithoutId(entity));
+
+        String insertQuery = String.format("INSERT INTO %s (%s) VALUES (%s)", tableName, tableFields, tableValues);
+
+        return connection.prepareStatement(insertQuery).execute();
+    }
+
+    @Override
+    public Iterable<T> find(Class<T> table) {
+        return null;
+    }
+
+    @Override
+    public Iterable<T> find(Class<T> table, String where) {
+        return null;
+    }
+
+    @Override
+    public T findFirst(Class<T> table) {
+        return null;
+    }
+
+    @Override
+    public T findFirst(Class<T> table, String where) {
+        return null;
+    }
+
+    private Field getIdColumn(Class<?> clazz) {
+
+        return Arrays.stream(clazz.getDeclaredFields())
+                .filter(x -> x.isAnnotationPresent(Id.class))
+                .findFirst()
+                .orElseThrow(() -> new UnsupportedOperationException("Entity missing an Id column."));
+    }
+
+    private String getTableName(Class<?> aClass) {
+        Entity[] annotationByType = aClass.getAnnotationsByType(Entity.class);
+
+        if (annotationByType == null) {
+            throw new UnsupportedOperationException("Class must be Entity");
+        }
+
+        return annotationByType[0].name();
+    }
+
+    private List<String> getColumValuesWithoutId(T entity) throws IllegalAccessException {
+        Class<?> aClass = entity.getClass();
+        List<Field> fields = Arrays.stream(aClass.getDeclaredFields())
+                .filter(f -> !f.isAnnotationPresent(Id.class))
+                .filter(f -> f.isAnnotationPresent(Column.class))
+                .collect(Collectors.toList());
+
+        List<String> values = new ArrayList<>();
+
+        for (Field field : fields) {
+            field.setAccessible(true);
+
+            Object o = field.get(entity);
+
+            if (o instanceof LocalDate || o instanceof String) {
+                values.add("'" + o + "'");
+            } else {
+                values.add(String.valueOf(o));
+            }
+        }
+
+        return values;
+    }
+
+    private List<String> getColumnsWithoutId(Class<?> aClass) {
+
+        return Arrays.stream(aClass.getDeclaredFields())
+                .filter(f -> !f.isAnnotationPresent(Id.class))
+                .filter(f -> f.isAnnotationPresent(Column.class))
+                .map(f -> f.getAnnotationsByType(Column.class))
+                .map(a -> a[0].name())
+                .collect(Collectors.toList());
+
+    }
+    private String getSQLFieldsWithTypes(Class<T> entityClass) {
+
+        List<Field> fields = Arrays.stream(entityClass.getDeclaredFields())
+                .filter(f -> !f.isAnnotationPresent(Id.class))
+                .filter(f -> f.isAnnotationPresent(Column.class))
+                .collect(Collectors.toList());
+
+        List<String> result = new ArrayList<>();
+
+        for (Field field : fields) {
+
+            String fieldName = field.getAnnotationsByType(Column.class)[0].name();
+            Class<?> type = field.getType();
+
+            String sqlType = getSQLType(type);
+
+            result.add(fieldName + " " + sqlType);
+        }
+
+        return String.join(",", result);
+    }
+
+    private static String getSQLType( Class<?> type) {
+
+        String sqlType = "";
+
+        if (type == Integer.class || type == int.class) {
+            sqlType = "INT";
+        } else if (type == String.class) {
+            sqlType = "VARCHAR(200)";
+        } else if (type == LocalDate.class) {
+            sqlType = "DATE";
+        }
+
+        return sqlType;
+    }
+
     private String getAddColumnStatementsForNewFields(Class<T> entityClass) throws SQLException {
 
         Set<String> sqlColumn = getSQLColumnNames(entityClass);
@@ -94,138 +248,4 @@ public class EntityManager<T> implements DbContext<T> {
         return result;
     }
 
-    @Override
-    public boolean persist(T entity) throws IllegalAccessException, SQLException {
-
-        Field idColumn = getIdColumn(entity.getClass());
-        idColumn.setAccessible(true);
-        Object idValue = idColumn.get(entity);
-
-        if (idValue == null || (long) idValue <= 0) {
-            return doInsert(entity, idColumn);
-        }
-
-        return false;
-        //return doUpdate(entity, idColumn);
-    }
-
-    private boolean doInsert(T entity, Field idColumn) throws SQLException, IllegalAccessException {
-
-        String tableName = getTableName(entity.getClass());
-        String tableFields = getColumnsWithoutId(entity.getClass());
-        String tableValues = getColumValuesWithoutId(entity);
-
-        String insertQuery = String.format("INSERT INTO %s (%s) VALUES (%s)", tableName, tableFields, tableValues);
-
-        return connection.prepareStatement(insertQuery).execute();
-    }
-
-    @Override
-    public Iterable<T> find(Class<T> table) {
-        return null;
-    }
-
-    @Override
-    public Iterable<T> find(Class<T> table, String where) {
-        return null;
-    }
-
-    @Override
-    public T findFirst(Class<T> table) {
-        return null;
-    }
-
-    @Override
-    public T findFirst(Class<T> table, String where) {
-        return null;
-    }
-
-    private Field getIdColumn(Class<?> clazz) {
-
-        return Arrays.stream(clazz.getDeclaredFields())
-                .filter(x -> x.isAnnotationPresent(Id.class))
-                .findFirst()
-                .orElseThrow(() -> new UnsupportedOperationException("Entity missing an Id column."));
-    }
-
-    private String getTableName(Class<?> aClass) {
-        Entity[] annotationByType = aClass.getAnnotationsByType(Entity.class);
-
-        if (annotationByType == null) {
-            throw new UnsupportedOperationException("Class must be Entity");
-        }
-
-        return annotationByType[0].name();
-    }
-
-    private String getColumValuesWithoutId(T entity) throws IllegalAccessException {
-        Class<?> aClass = entity.getClass();
-        List<Field> fields = Arrays.stream(aClass.getDeclaredFields())
-                .filter(f -> !f.isAnnotationPresent(Id.class))
-                .filter(f -> f.isAnnotationPresent(Column.class))
-                .collect(Collectors.toList());
-
-        List<String> values = new ArrayList<>();
-
-        for (Field field : fields) {
-            field.setAccessible(true);
-
-            Object o = field.get(entity);
-
-            if (o instanceof LocalDate || o instanceof String) {
-                values.add("'" + o + "'");
-            } else {
-                values.add(String.valueOf(o));
-            }
-        }
-
-        return String.join(",", values);
-    }
-
-    private String getColumnsWithoutId(Class<?> aClass) {
-
-        return Arrays.stream(aClass.getDeclaredFields())
-                .filter(f -> !f.isAnnotationPresent(Id.class))
-                .filter(f -> f.isAnnotationPresent(Column.class))
-                .map(f -> f.getAnnotationsByType(Column.class))
-                .map(a -> a[0].name())
-                .collect(Collectors.joining(","));
-
-    }
-    private String getSQLFieldsWithTypes(Class<T> entityClass) {
-
-        List<Field> fields = Arrays.stream(entityClass.getDeclaredFields())
-                .filter(f -> !f.isAnnotationPresent(Id.class))
-                .filter(f -> f.isAnnotationPresent(Column.class))
-                .collect(Collectors.toList());
-
-        List<String> result = new ArrayList<>();
-
-        for (Field field : fields) {
-
-            String fieldName = field.getAnnotationsByType(Column.class)[0].name();
-            Class<?> type = field.getType();
-
-            String sqlType = getSQLType(type);
-
-            result.add(fieldName + " " + sqlType);
-        }
-
-        return String.join(",", result);
-    }
-
-    private static String getSQLType( Class<?> type) {
-
-        String sqlType = "";
-
-        if (type == Integer.class || type == int.class) {
-            sqlType = "INT";
-        } else if (type == String.class) {
-            sqlType = "VARCHAR(200)";
-        } else if (type == LocalDate.class) {
-            sqlType = "DATE";
-        }
-
-        return sqlType;
-    }
 }
