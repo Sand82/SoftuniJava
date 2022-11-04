@@ -6,7 +6,9 @@ import Annotations.Id;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -20,6 +22,52 @@ public class EntityManager<T> implements DbContext<T> {
     public EntityManager(Connection connection) {
         this.connection = connection;
     }
+
+
+    public void doCreate(Class<T> entityClass) throws SQLException {
+
+        String tableName = getTableName(entityClass);
+        String fieldsWithTypes = getSQLFieldsWithTypes(entityClass);
+
+        String createQuery = String.format(
+                "CREATE TABLE %s (id INT PRIMARY KEY AUTO_INCREMENT, %s)",
+                tableName, fieldsWithTypes);
+
+        PreparedStatement statement = connection.prepareStatement(createQuery);
+
+        statement.execute();
+    }
+
+    private String getSQLFieldsWithTypes(Class<T> entityClass) {
+        List<Field> fields = Arrays.stream(entityClass.getDeclaredFields())
+                .filter(f -> !f.isAnnotationPresent(Id.class))
+                .filter(f -> f.isAnnotationPresent(Column.class))
+                .collect(Collectors.toList());
+        //.map(f -> f.getAnnotationsByType(Column.class))
+
+        List<String> result = new ArrayList<>();
+
+        for (Field field : fields) {
+
+            String fieldName = field.getAnnotationsByType(Column.class)[0].name();
+            Class<?> type = field.getType();
+
+            String sqlType = "";
+
+            if (type == Integer.class || type == int.class) {
+                sqlType = "INT";
+            } else if (type == String.class) {
+                sqlType = "VARCHAR(200)";
+            } else if (type == LocalDate.class) {
+                sqlType = "DATE";
+            }
+
+            result.add(fieldName + " " + sqlType);
+        }
+
+        return String.join(",", result);
+    }
+
 
     @Override
     public boolean persist(T entity) throws IllegalAccessException, SQLException {
@@ -76,7 +124,7 @@ public class EntityManager<T> implements DbContext<T> {
     }
 
     private String getTableName(Class<?> aClass) {
-        Entity [] annotationByType = aClass.getAnnotationsByType(Entity.class);
+        Entity[] annotationByType = aClass.getAnnotationsByType(Entity.class);
 
         if (annotationByType == null) {
             throw new UnsupportedOperationException("Class must be Entity");
@@ -99,9 +147,9 @@ public class EntityManager<T> implements DbContext<T> {
 
             Object o = field.get(entity);
 
-            if (o != null && o instanceof  String) {
+            if (o instanceof LocalDate || o instanceof String) {
                 values.add("'" + o + "'");
-            }else {
+            } else {
                 values.add(String.valueOf(o));
             }
         }
