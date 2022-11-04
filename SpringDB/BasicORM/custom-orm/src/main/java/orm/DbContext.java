@@ -1,5 +1,6 @@
 package orm;
 
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.Iterator;
 
@@ -13,5 +14,5 @@ public interface DbContext<T> {
 
     T findFirst(Class<T> table);
 
-    T findFirst(Class<T> table, String where);
+    T findFirst(Class<T> table, String where) throws SQLException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException;
 }
