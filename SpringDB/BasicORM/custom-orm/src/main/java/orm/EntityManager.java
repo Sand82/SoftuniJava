@@ -294,6 +294,8 @@ public class EntityManager<T> implements DbContext<T> {
             sqlType = "VARCHAR(200)";
         } else if (type == LocalDate.class) {
             sqlType = "DATE";
+        } else if (type == Long.class || type == long.class) {
+            sqlType = "BIGINT";
         }
 
         return sqlType;
