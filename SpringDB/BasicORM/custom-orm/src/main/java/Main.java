@@ -35,22 +35,22 @@ public class Main {
 //        User second = userEntityManager.findFirst(User.class, "id = 2");
 //        System.out.println(first);
 //        System.out.println(second);
-//        userEntityManager.find(User.class).forEach(i -> System.out.println(i.toString()));
-//        userEntityManager.find(User.class).forEach(i -> System.out.println(i.toString()));
+       userEntityManager.find(User.class).forEach(i -> System.out.println(i.toString()));
+        //userEntityManager.find(User.class).forEach(i -> System.out.println(i.toString()));
 //
-//        User toDelete = userEntityManager.findFirst(User.class, "id = 4");
-//        System.out.println(toDelete);
+       User toDelete = userEntityManager.findFirst(User.class, "id = 3");
+        System.out.println(toDelete);
 //        System.out.println("------------------------------------");
 //        userEntityManager.delete(toDelete);
 //        userEntityManager.find(User.class).forEach(i -> System.out.println(i.toString()));
 
         EntityManager<Address> addressEntityManager = new EntityManager<>(connection);
         //addressEntityManager.doCreate(Address.class);
-        //Address address = new Address("Xan Krum", 25, "Sofia", "Bulgaria", "1220");
-        //addressEntityManager.persist(address);
+//        Address address = new Address("Xan Krum", 25, "Sofia", "Bulgaria", "1220");
+//        addressEntityManager.persist(address);
 
-//        Address addressToDelete = addressEntityManager.findFirst(Address.class, "id = 3");
-//        System.out.println(addressToDelete);
+        Address addressToDelete = addressEntityManager.findFirst(Address.class);
+        System.out.println(addressToDelete);
 //        addressEntityManager.delete(addressToDelete);
 //        addressEntityManager.find(Address.class).forEach(i -> System.out.println(i.toString()));
     }
