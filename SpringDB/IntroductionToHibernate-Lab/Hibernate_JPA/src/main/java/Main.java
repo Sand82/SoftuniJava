@@ -10,7 +10,7 @@ public class Main {
         EntityManager entityManager = emf.createEntityManager();
         entityManager.getTransaction().begin();
 
-        Student student = new Student("sand");
+        Student student = new Student("mish", 7);
         entityManager.persist(student);
 
         entityManager.getTransaction().commit();
