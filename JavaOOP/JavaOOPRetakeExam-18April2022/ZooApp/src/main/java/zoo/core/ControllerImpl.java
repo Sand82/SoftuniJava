@@ -14,7 +14,6 @@ import zoo.repositories.FoodRepositoryImpl;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 import static zoo.common.ConstantMessages.*;
 import static zoo.common.ExceptionMessages.*;
@@ -165,7 +164,7 @@ public class ControllerImpl implements Controller {
             sb.append(System.lineSeparator());
         }
 
-        return sb.toString();
+        return sb.toString().trim()а;
     }
 
     private Area getArea(String areaName) {

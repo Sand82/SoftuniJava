@@ -1,4 +1,5 @@
 package zoo.common;
+
 public enum Command {
     AddArea,
     BuyFood,
