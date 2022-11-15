@@ -33,8 +33,4 @@ public class SupplementRepositoryImpl implements SupplementRepository {
                 .filter(s -> s.getClass().getSimpleName().equals(type))
                 .findFirst().orElse(null);
     }
-
-    public Collection<Supplement> getSupplements() {
-        return supplements;
-    }
 }

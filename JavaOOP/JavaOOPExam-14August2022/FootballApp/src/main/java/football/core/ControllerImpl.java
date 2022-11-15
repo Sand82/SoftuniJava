@@ -38,7 +38,7 @@ public class ControllerImpl implements Controller {
             throw new NullPointerException(INVALID_FIELD_TYPE);
         }
 
-        Field field = createField(fieldType,fieldName);
+        Field field = createField(fieldType, fieldName);
 
         fields.add(field);
 
@@ -50,7 +50,7 @@ public class ControllerImpl implements Controller {
 
         if (!type.equals("Powdered") && !type.equals("Liquid")) {
 
-            throw  new IllegalArgumentException(INVALID_SUPPLEMENT_TYPE);
+            throw new IllegalArgumentException(INVALID_SUPPLEMENT_TYPE);
         }
 
         Supplement supplement = createSupplement(type);
@@ -62,9 +62,9 @@ public class ControllerImpl implements Controller {
 
     @Override
     public String supplementForField(String fieldName, String supplementType) {
-        
+
         Field field = getField(fieldName);
-        
+
         Supplement supplement = supplements.findByType(supplementType);
 
         if (supplement == null) {
@@ -74,7 +74,7 @@ public class ControllerImpl implements Controller {
 
         field.addSupplement(supplement);
         supplements.remove(supplement);
-        
+
         return String.format(SUCCESSFULLY_ADDED_SUPPLEMENT_IN_FIELD, supplementType, fieldName);
     }
 
@@ -82,6 +82,7 @@ public class ControllerImpl implements Controller {
     public String addPlayer(String fieldName, String playerType, String playerName, String nationality, int strength) {
 
         if (!playerType.equals("Men") && !playerType.equals("Women")) {
+
             throw new IllegalArgumentException(INVALID_PLAYER_TYPE);
         }
 
@@ -99,6 +100,7 @@ public class ControllerImpl implements Controller {
 
 
         if (!isValidMenField && !isValidWomanField) {
+
             return FIELD_NOT_SUITABLE;
         }
 
@@ -166,7 +168,7 @@ public class ControllerImpl implements Controller {
     private Field createField(String fieldType, String fieldName) {
         Field field = null;
 
-        if (fieldType.equals("ArtificialTurf" )) {
+        if (fieldType.equals("ArtificialTurf")) {
             field = new ArtificialTurf(fieldName);
         } else if (fieldType.equals("NaturalGrass")) {
             field = new NaturalGrass(fieldName);
@@ -176,6 +178,6 @@ public class ControllerImpl implements Controller {
     }
 
     private Field getField(String fieldName) {
-        return fields.stream().filter(f -> f.getName().equals(fieldName)).findFirst().get();
+        return fields.stream().filter(f -> f.getName().equals(fieldName)).findFirst().orElse(null);
     }
 }

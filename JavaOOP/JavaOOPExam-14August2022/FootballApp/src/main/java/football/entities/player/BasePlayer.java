@@ -10,10 +10,10 @@ public abstract class BasePlayer implements Player {
     private int strength;
 
     public BasePlayer(String name, String nationality, double kg, int strength) {
-        this.name = name;
-        this.nationality = nationality;
+        this.setName(name);
+        this.setNationality(nationality);
         this.kg = kg;
-        this.strength = strength;
+        this.setStrength(strength);
     }
 
     @Override
@@ -58,6 +58,4 @@ public abstract class BasePlayer implements Player {
     public int getStrength() {
         return this.strength;
     }
-
-
 }

@@ -13,22 +13,18 @@ import static football.common.ConstantMessages.NOT_ENOUGH_CAPACITY;
 import static football.common.ExceptionMessages.FIELD_NAME_NULL_OR_EMPTY;
 
 public abstract class BaseField implements Field {
-
     private String name;
-
     private int capacity;
-
     private Collection<Supplement> supplements;
-
-    private Map<String, Player> players;
+    private Collection<Player> players;
 
     public BaseField(String name, int capacity) {
 
-        this.name = name;
+        this.setName(name);
         this.capacity = capacity;
 
         this.supplements = new ArrayList<>();
-        this.players = new LinkedHashMap<>();
+        this.players = new ArrayList<>();
     }
 
     public void setName(String name) {
@@ -47,7 +43,7 @@ public abstract class BaseField implements Field {
 
     @Override
     public Collection<Player> getPlayers() {
-        return this.players.values();
+        return this.players;
     }
 
     @Override
@@ -63,18 +59,18 @@ public abstract class BaseField implements Field {
     @Override
     public void addPlayer(Player player) {
 
-        if (capacity <=  players.size()) {
+        if (players.size() >= capacity) {
 
             throw new IllegalStateException(NOT_ENOUGH_CAPACITY);
         }
 
-        players.put(player.getName(), player);
+        players.add(player);
     }
 
     @Override
     public void removePlayer(Player player) {
 
-        players.remove(player.getName(), player);
+        players.remove(player);
     }
 
     @Override
@@ -86,14 +82,14 @@ public abstract class BaseField implements Field {
     @Override
     public void drag() {
 
-        players.values().forEach(Player::stimulation);
+        players.forEach(Player::stimulation);
     }
 
     @Override
     public String getInfo() {
 
         String playerInfo = players.size() > 0
-                ? this.players.values().stream().map(Player::getName).collect(Collectors.joining(" "))
+                ? this.players.stream().map(Player::getName).collect(Collectors.joining(" "))
                 : "none";
 
         int supplementCount = supplements.size();
