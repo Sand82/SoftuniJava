@@ -76,9 +76,7 @@ public class ControllerImpl implements Controller {
                 .stream().filter(e -> e.getEnergy() > 50)
                 .collect(Collectors.toList());
 
-        int totalExplorersCount = explorers.size();
-
-        if (explorers.size() == 0) {
+        if (explorers.isEmpty()) {
 
             throw new IllegalArgumentException(STATE_EXPLORERS_DOES_NOT_EXISTS);
         }
@@ -90,9 +88,7 @@ public class ControllerImpl implements Controller {
 
         exploredState.add(state.getName());
 
-        explorers.stream().filter(e -> e.getEnergy() == 0).forEach(e -> this.retireExplorer(e.getName()));
-
-        int retiredExplorer = totalExplorersCount - explorers.size();
+        int retiredExplorer = (int)explorers.stream().filter(e -> e.getEnergy() == 0).count();
 
         return String.format(STATE_EXPLORER, stateName, retiredExplorer);
     }

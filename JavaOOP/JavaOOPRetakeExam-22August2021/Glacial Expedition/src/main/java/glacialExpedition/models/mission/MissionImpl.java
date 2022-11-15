@@ -12,22 +12,22 @@ public class MissionImpl implements Mission {
     @Override
     public void explore(State state, Collection<Explorer> explorers) {
 
-        List<Explorer> explorerOnMission = explorers.stream().filter(Explorer::canSearch).collect(Collectors.toList());
+        List<Explorer> explorerOnMission = explorers.stream().filter(e -> e.getEnergy() > 0).collect(Collectors.toList());
 
         for (Explorer explorer : explorerOnMission) {
 
             while (explorer.canSearch()) {
 
-                if (state.getExhibits().size() != 0) {
+                String exhibit = state.getExhibits().stream().findFirst().orElse(null);
 
-                    String exhibit = state.getExhibits().stream().findFirst().get();
+                if (exhibit != null) {
 
                     explorer.search();
                     explorer.getSuitcase().getExhibits().add(exhibit);
 
                     state.getExhibits().remove(exhibit);
 
-                }else {
+                } else {
                     return;
                 }
             }

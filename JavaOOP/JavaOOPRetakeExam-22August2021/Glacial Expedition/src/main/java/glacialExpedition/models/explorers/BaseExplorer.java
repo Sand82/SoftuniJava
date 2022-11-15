@@ -9,7 +9,6 @@ public abstract class BaseExplorer implements Explorer {
 
     private String name;
     private double energy;
-
     private Suitcase suitcase;
 
     public BaseExplorer(String name, double energy) {
@@ -45,7 +44,7 @@ public abstract class BaseExplorer implements Explorer {
 
         if (energy < 0) {
 
-            throw new IllegalArgumentException("Cannot create Explorer with negative energy.");
+            throw new IllegalArgumentException(EXPLORER_ENERGY_LESS_THAN_ZERO);
         }
         this.energy = energy;
     }
@@ -53,7 +52,7 @@ public abstract class BaseExplorer implements Explorer {
     @Override
     public boolean canSearch() {
 
-        return energy > 0;
+        return (energy > 0);
     }
 
     @Override
@@ -65,10 +64,6 @@ public abstract class BaseExplorer implements Explorer {
     @Override
     public void search() {
 
-        if (getEnergy() - 15 > 0) {
-
-            setEnergy(0);
-        }
-        setEnergy(getEnergy() - 15);
+        setEnergy(Math.max(energy - 15, 0));
     }
 }

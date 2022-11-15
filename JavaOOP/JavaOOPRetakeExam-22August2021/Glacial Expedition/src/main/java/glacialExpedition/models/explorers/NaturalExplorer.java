@@ -12,10 +12,11 @@ public class NaturalExplorer extends BaseExplorer {
     @Override
     public void search() {
 
-        if (getEnergy() - 7 < 0) {
+        setEnergy(getEnergy() - 7);
+
+        if (getEnergy() < 0) {
 
             setEnergy(0);
         }
-        setEnergy(getEnergy() - 7);
     }
 }
