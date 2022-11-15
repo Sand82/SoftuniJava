@@ -164,7 +164,7 @@ public class ControllerImpl implements Controller {
             sb.append(System.lineSeparator());
         }
 
-        return sb.toString().trim()а;
+        return sb.toString().trim();
     }
 
     private Area getArea(String areaName) {

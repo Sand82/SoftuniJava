@@ -112,11 +112,7 @@ public class ControllerImpl implements Controller {
             sb.append(String.format(System.lineSeparator()));
         }
 
-        return sb.toString();
-    }
-
-    private int getInstrumentsCount() {
-        return helperRepository.getModels().stream().mapToInt(h -> h.getInstruments().size()).sum();
+        return sb.toString().trim();
     }
 
     private Helper createHelper(String type, String helperName) {
