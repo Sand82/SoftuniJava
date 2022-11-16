@@ -64,6 +64,12 @@ public abstract class BaseExplorer implements Explorer {
     @Override
     public void search() {
 
-        setEnergy(Math.max(energy - 15, 0));
+        if (getEnergy() - 15 < 0) {
+
+            setEnergy(0);
+        } else {
+
+            setEnergy(getEnergy() - 15);
+        }
     }
 }

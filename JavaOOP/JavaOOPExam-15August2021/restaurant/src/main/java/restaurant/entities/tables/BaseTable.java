@@ -13,7 +13,6 @@ import static restaurant.common.ExceptionMessages.*;
 public abstract class BaseTable implements Table {
 
     private Collection<HealthyFood> healthyFood;
-
     private Collection<Beverages> beverages;
     private int number;
     private int size;
@@ -43,7 +42,7 @@ public abstract class BaseTable implements Table {
 
     public void setNumberOfPeople(int numberOfPeople) {
 
-        if (numberOfPeople <= 0) {
+        if (numberOfPeople < 0) {
 
             throw new IllegalArgumentException(INVALID_NUMBER_OF_PEOPLE);
         }
@@ -60,30 +59,6 @@ public abstract class BaseTable implements Table {
     public int getSize() {
 
         return this.size;
-    }
-
-    @Override
-    public int numberOfPeople() {
-
-        return this.numberOfPeople;
-    }
-
-    @Override
-    public double pricePerPerson() {
-
-        return this.pricePerPerson;
-    }
-
-    @Override
-    public boolean isReservedTable() {
-
-        return isReservedTable;
-    }
-
-    @Override
-    public double allPeople() {
-
-        return numberOfPeople * pricePerPerson;
     }
 
     @Override
@@ -129,6 +104,30 @@ public abstract class BaseTable implements Table {
         isReservedTable = false;
         allPeople = 0;
         numberOfPeople = 0;
+    }
+
+    @Override
+    public int numberOfPeople() {
+
+        return this.numberOfPeople;
+    }
+
+    @Override
+    public double pricePerPerson() {
+
+        return this.pricePerPerson;
+    }
+
+    @Override
+    public boolean isReservedTable() {
+
+        return isReservedTable;
+    }
+
+    @Override
+    public double allPeople() {
+
+        return numberOfPeople * pricePerPerson;
     }
 
     @Override

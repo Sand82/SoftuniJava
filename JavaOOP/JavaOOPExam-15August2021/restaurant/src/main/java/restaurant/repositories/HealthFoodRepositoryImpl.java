@@ -5,6 +5,7 @@ import restaurant.repositories.interfaces.HealthFoodRepository;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 public class HealthFoodRepositoryImpl implements HealthFoodRepository<HealthyFood> {
 
@@ -13,13 +14,14 @@ public class HealthFoodRepositoryImpl implements HealthFoodRepository<HealthyFoo
     @Override
     public HealthyFood foodByName(String name) {
 
-        return this.entities.stream()
-                .filter(f -> f.getName().equals(name)).findFirst().orElse(null);
+        return this.entities.stream().filter(f -> f.getName().equals(name))
+                .findFirst().orElse(null);
     }
 
     @Override
     public Collection<HealthyFood> getAllEntities() {
-        return this.entities;
+
+        return Collections.unmodifiableCollection(this.entities);
     }
 
     @Override

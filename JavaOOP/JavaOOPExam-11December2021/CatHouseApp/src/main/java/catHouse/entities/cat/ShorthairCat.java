@@ -10,7 +10,7 @@ public class ShorthairCat extends BaseCat {
 
     @Override
     public void eating() {
-        kilograms++;
+        kilograms += 1;
     }
 
     @Override

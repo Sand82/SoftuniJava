@@ -8,7 +8,6 @@ import viceCity.models.neighbourhood.GangNeighbourhood;
 import viceCity.models.players.CivilPlayer;
 import viceCity.models.players.MainPlayer;
 import viceCity.models.players.Player;
-import viceCity.repositories.interfaces.GunRepository;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

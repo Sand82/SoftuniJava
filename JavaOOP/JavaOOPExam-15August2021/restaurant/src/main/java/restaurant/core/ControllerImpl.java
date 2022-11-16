@@ -41,7 +41,7 @@ public class ControllerImpl implements Controller {
 
         if (foodExist != null) {
 
-            return String.format(FOOD_EXIST, name);
+            throw new IllegalArgumentException(String.format(FOOD_EXIST, name));
         }
 
         healthFoodRepository.add(food);
@@ -58,7 +58,7 @@ public class ControllerImpl implements Controller {
 
         if (beveragesExist != null) {
 
-            return String.format(BEVERAGE_EXIST, name);
+            throw new IllegalArgumentException(String.format(BEVERAGE_EXIST, name));
         }
 
         beverageRepository.add(beverages);
@@ -75,7 +75,7 @@ public class ControllerImpl implements Controller {
 
         if (tableAddedInRestaurant != null) {
 
-            return String.format(TABLE_IS_ALREADY_ADDED, tableNumber);
+            throw new IllegalArgumentException(String.format(TABLE_IS_ALREADY_ADDED, tableNumber));
         }
 
         tableRepository.add(table);

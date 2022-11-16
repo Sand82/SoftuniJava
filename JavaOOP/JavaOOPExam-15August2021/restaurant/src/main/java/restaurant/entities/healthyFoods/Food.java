@@ -7,9 +7,7 @@ import static restaurant.common.ExceptionMessages.*;
 public abstract class Food implements HealthyFood {
 
     private String name;
-
     private double portion;
-
     private double price;
 
     public Food(String name, double portion, double price) {
@@ -30,7 +28,7 @@ public abstract class Food implements HealthyFood {
 
     public void setPortion(double portion) {
 
-        if (portion < 0) {
+        if (portion <= 0) {
 
             throw new IllegalArgumentException(INVALID_PORTION);
         }
@@ -39,7 +37,7 @@ public abstract class Food implements HealthyFood {
 
     public void setPrice(double price) {
 
-        if (price < 0.0) {
+        if (price <= 0.0) {
 
             throw new IllegalArgumentException(INVALID_PRICE);
         }

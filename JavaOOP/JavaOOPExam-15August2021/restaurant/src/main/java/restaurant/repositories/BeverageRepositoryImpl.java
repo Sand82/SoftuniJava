@@ -1,11 +1,11 @@
 package restaurant.repositories;
 
-import restaurant.entities.drinks.BaseBeverage;
 import restaurant.entities.drinks.interfaces.Beverages;
 import restaurant.repositories.interfaces.BeverageRepository;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 public class BeverageRepositoryImpl implements BeverageRepository<Beverages> {
 
@@ -21,7 +21,7 @@ public class BeverageRepositoryImpl implements BeverageRepository<Beverages> {
     @Override
     public Collection<Beverages> getAllEntities() {
 
-        return this.entities;
+        return Collections.unmodifiableCollection(this.entities);
     }
 
     @Override

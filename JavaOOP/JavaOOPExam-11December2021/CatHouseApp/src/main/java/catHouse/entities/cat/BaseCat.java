@@ -5,11 +5,8 @@ import static catHouse.common.ExceptionMessages.*;
 public abstract class BaseCat implements Cat{
 
     private String name;
-
     private String breed;
-
     private int kilograms;
-
     private double price;
 
     public BaseCat(String name, String breed, double price) {
@@ -40,7 +37,7 @@ public abstract class BaseCat implements Cat{
 
     public void setPrice(double price) {
 
-        if (price <= 0) {
+        if (price <= 0.0) {
 
             throw new IllegalArgumentException(CAT_PRICE_CANNOT_BE_BELOW_OR_EQUAL_TO_ZERO);
         }

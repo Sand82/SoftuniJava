@@ -16,7 +16,7 @@ public abstract class BaseHouse implements House {
 
     private String name;
     private int capacity;
-    private Map<String, Cat> cats;
+    private Collection<Cat> cats;
     private Collection<Toy> toys;
 
     public BaseHouse(String name, int capacity) {
@@ -24,7 +24,7 @@ public abstract class BaseHouse implements House {
         this.name = name;
         this.capacity = capacity;
 
-        this.cats = new LinkedHashMap<>();
+        this.cats = new ArrayList<>();
         this.toys = new ArrayList<>();
     }
 
@@ -52,7 +52,7 @@ public abstract class BaseHouse implements House {
             throw new IllegalStateException(NOT_ENOUGH_CAPACITY_FOR_CAT);
         }
 
-        this.cats.put(cat.getName(), cat);
+        this.cats.add(cat);
     }
 
     @Override
@@ -70,7 +70,7 @@ public abstract class BaseHouse implements House {
     @Override
     public void feeding() {
 
-        this.cats.values().forEach(Cat::eating);
+        this.cats.forEach(Cat::eating);
     }
 
     @Override
@@ -82,7 +82,7 @@ public abstract class BaseHouse implements House {
     @Override
     public Collection<Cat> getCats() {
 
-        return this.cats.values();
+        return this.cats;
     }
 
     @Override
@@ -94,8 +94,8 @@ public abstract class BaseHouse implements House {
     @Override
     public String getStatistics() {
 
-        String catInfo = cats.values().size() != 0 ?
-                cats.values().stream().map(Cat::getName).collect(Collectors.joining(" "))
+        String catInfo = cats.size() != 0 ?
+                cats.stream().map(Cat::getName).collect(Collectors.joining(" "))
                 : "none";
 
         int toysCount = toys.size();

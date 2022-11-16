@@ -65,11 +65,13 @@ public abstract class BasePlayer implements Player {
     @Override
     public void takeLifePoints(int points) {
 
-        lifePoints -= points;
 
-        if (lifePoints < 0) {
+        if (lifePoints - points < 0) {
 
             lifePoints = 0;
+        } else {
+
+            lifePoints -= points;
         }
     }
 }

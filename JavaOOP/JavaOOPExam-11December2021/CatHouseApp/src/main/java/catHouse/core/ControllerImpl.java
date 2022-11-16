@@ -23,7 +23,7 @@ public class ControllerImpl implements Controller {
     Map<String, House> houses = new LinkedHashMap<>();
 
     @Override
-    public String addHouse(String type, String name) { //"ShortHouse" and "LongHouse".
+    public String addHouse(String type, String name) {
 
         if (!type.equals("ShortHouse") && !type.equals("LongHouse")) {
 
@@ -38,7 +38,7 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public String buyToy(String type) { //"Ball" and "Mouse"
+    public String buyToy(String type) {
 
         if (!type.equals("Ball") && !type.equals("Mouse")) {
 
@@ -123,14 +123,14 @@ public class ControllerImpl implements Controller {
     @Override
     public String getStatistics() {
 
-           StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
 
         for (House value : houses.values()) {
             sb.append(value.getStatistics());
             sb.append(System.lineSeparator());
         }
 
-        return sb.toString();
+        return sb.toString().trim();
     }
 
     private Toy createToy(String type) {
