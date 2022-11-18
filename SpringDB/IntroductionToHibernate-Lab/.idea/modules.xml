@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Hibernate_JPA/Hibernate_JPA.iml" filepath="$PROJECT_DIR$/Hibernate_JPA/Hibernate_JPA.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/IntroductionToHibernate-Lab.iml" filepath="$PROJECT_DIR$/.idea/IntroductionToHibernate-Lab.iml" />
+    </modules>
+  </component>
+</project>

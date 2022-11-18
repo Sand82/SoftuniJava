@@ -5,7 +5,7 @@ import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 
 import java.lang.annotation.Target;
 
-@Entity()
+@Entity
 @Table(name = "students")
 public class Student {
 
