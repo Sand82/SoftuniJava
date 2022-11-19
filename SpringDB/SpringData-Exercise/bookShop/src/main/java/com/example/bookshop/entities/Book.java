@@ -41,6 +41,17 @@ public class Book {
     public Book() {
     }
 
+    public Book(String title, EditionType editionType, BigDecimal price, int copies, LocalDate releaseDate, Author author, Set<Category> categories, AgeRestriction ageRestriction) {
+        this.title = title;
+        this.editionType = editionType;
+        this.price = price;
+        this.copies = copies;
+        this.releaseDate = releaseDate;
+        this.author = author;
+        this.categories = categories;
+        this.ageRestriction = ageRestriction;
+    }
+
     public int getId() {
         return id;
     }
