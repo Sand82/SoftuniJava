@@ -3,6 +3,7 @@ package com.example.bookshop.entities;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity(name = "books")
 public class Book {
@@ -17,7 +18,7 @@ public class Book {
     @Column(length = 1000)
     public String description;
 
-    @Column(name = "edition_type")
+    @Column(name = "edition_type", nullable = false)
     public EditionType editionType;
 
     @Column(nullable = false)
@@ -28,6 +29,13 @@ public class Book {
     @Column(name = "release_date")
     private LocalDate releaseDate;
 
+    @ManyToOne
+    private Author author;
+
+    @ManyToMany
+    private Set<Category> categories;
+
+    @Column(name = "age_restriction", nullable = false)
     private AgeRestriction ageRestriction;
 
     public Book() {
@@ -95,5 +103,21 @@ public class Book {
 
     public void setAgeRestriction(AgeRestriction ageRestriction) {
         this.ageRestriction = ageRestriction;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 }

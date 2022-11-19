@@ -1,6 +1,7 @@
 package com.example.bookshop.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity(name = "authors")
 public class Author {
@@ -15,12 +16,23 @@ public class Author {
     @Column(name ="last_name", nullable = false)
     private String lastName;
 
+    @OneToMany(targetEntity = Book.class, mappedBy = "author")
+    private Set<Book> books;
+
     public Author() {
     }
 
     public Author(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
     }
 
     public String getFirstName() {
@@ -46,4 +58,6 @@ public class Author {
     public void setId(int id) {
         this.id = id;
     }
+
+
 }

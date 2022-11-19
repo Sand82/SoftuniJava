@@ -1,6 +1,7 @@
 package com.example.bookshop.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity(name = "categories")
 public class Category {
