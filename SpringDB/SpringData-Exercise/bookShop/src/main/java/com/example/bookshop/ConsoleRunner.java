@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
@@ -29,6 +30,7 @@ public class ConsoleRunner implements CommandLineRunner {
     }
 
     @Override
+    @Transactional
     public void run(String... args) throws Exception {
         //seedService.seedAuthors();
         //seedService.seedCategories();
@@ -38,13 +40,28 @@ public class ConsoleRunner implements CommandLineRunner {
 
         //this._01_booksAfter2000();
         //this._02_allAuthorsWithBookBefore1990();
-        this._03_allAuthorsOrderedByBookCount();
+        //this._03_allAuthorsOrderedByBookCount();
+        this._04_allGeorgePowellBooks();
+    }
+
+    private void _04_allGeorgePowellBooks() {
+
+        Author author = this.authorRepository.getAuthorByFirstNameAndLastName("George", "Powell");
+
+        int id = author.getId();
+
+        List<Book> books = this.bookRepository.findAllByAuthorId(id);
+
+        books.stream()
+                .sorted(Comparator.comparing(Book::getReleaseDate).reversed().thenComparing(Book::getTitle))
+                .forEach(b -> System.out.println(b.getTitle() + " -> " + b.getReleaseDate()));
+
     }
 
     private void _03_allAuthorsOrderedByBookCount() {
 
 
-        List<Author> authors =this.authorRepository.findAll();
+        List<Author> authors = this.authorRepository.findAll();
 
         authors.stream()
                 .sorted((l, r) -> r.getBooks().size() - l.getBooks().size())

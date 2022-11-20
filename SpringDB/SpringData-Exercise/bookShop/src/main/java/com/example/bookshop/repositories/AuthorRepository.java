@@ -11,5 +11,7 @@ import java.util.List;
 public interface AuthorRepository extends JpaRepository<Author, Integer> {
     List<Author> findDistinctByBooksReleaseDateBefore(LocalDate releaseDate);
 
-   List<Author> findAll();
+    List<Author> findAll();
+
+    Author getAuthorByFirstNameAndLastName(String firstName, String lastName);
 }
