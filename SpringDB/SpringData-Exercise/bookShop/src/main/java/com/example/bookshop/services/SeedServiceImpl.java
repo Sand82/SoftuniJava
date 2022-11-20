@@ -15,6 +15,7 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -74,7 +75,8 @@ public class SeedServiceImpl implements SeedService {
 
         String[] bookParts = line.split("\\s+");
 
-        EditionType editionType = EditionType.values()[1];
+        int i = new Random().nextInt(3);
+        EditionType editionType = EditionType.values()[i];
 
         LocalDate publishedDate = LocalDate.parse(bookParts[1], DateTimeFormatter.ofPattern("d/M/yyyy"));
 
