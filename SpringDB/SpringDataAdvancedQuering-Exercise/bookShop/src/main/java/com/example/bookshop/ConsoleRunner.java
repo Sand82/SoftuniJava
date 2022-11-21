@@ -3,6 +3,7 @@ package com.example.bookshop;
 import com.example.bookshop.entities.AgeRestriction;
 import com.example.bookshop.entities.Author;
 import com.example.bookshop.entities.Book;
+import com.example.bookshop.entities.EditionType;
 import com.example.bookshop.repositories.AuthorRepository;
 import com.example.bookshop.repositories.BookRepository;
 import com.example.bookshop.services.SeedService;
@@ -42,7 +43,19 @@ public class ConsoleRunner implements CommandLineRunner {
         //seedService.seedBooks();
         //seedService.seedAll();
 
-        this._01_BooksTitlesByAgeRestriction(scanner);
+        //this._01_BooksTitlesByAgeRestriction(scanner);
+        //this._02_GoldenBooks();
+    }
+
+    private void _02_GoldenBooks() {
+
+        EditionType editionType =  EditionType.GOLD;
+
+        int copies = 5000;
+
+        List<Book> books = bookRepository.findByEditionTypeAndCopiesLessThan(editionType, copies);
+
+        printBooks(books);
     }
 
     private void _01_BooksTitlesByAgeRestriction(Scanner scanner) {
@@ -53,6 +66,10 @@ public class ConsoleRunner implements CommandLineRunner {
 
         List<Book> books = bookRepository.findByAgeRestriction(ageRestriction);
 
+        printBooks(books);
+    }
+
+    private static void printBooks(List<Book> books) {
         books.forEach(b -> System.out.println(b.getTitle()));
     }
 }
