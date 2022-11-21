@@ -1,36 +1,94 @@
 package app;
 
 import app.model.enums.Size;
+import app.model.ingredients.Ingredient;
+import app.model.labels.BasicLabel;
+import app.model.labels.Label;
 import app.model.shampoos.Shampoo;
+import app.repositories.BasicIngredientRepository;
+import app.repositories.BasicLabelRepository;
 import app.repositories.BasicShampooRepository;
 import net.bytebuddy.implementation.bytecode.StackManipulation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Scanner;
 
 import static javax.swing.text.StyleConstants.Size;
 
 @Component
-public class ConsoleRunner  implements CommandLineRunner {
+public class ConsoleRunner implements CommandLineRunner {
 
     private BasicShampooRepository shampooRepository;
 
+    private BasicLabelRepository labelRepository;
+
+    private BasicIngredientRepository basicIngredientRepository;
+
     @Autowired
-    public ConsoleRunner(BasicShampooRepository shampooRepository) {
+    public ConsoleRunner(BasicShampooRepository shampooRepository, BasicLabelRepository labelRepository, BasicIngredientRepository basicIngredientRepository) {
         this.shampooRepository = shampooRepository;
+        this.labelRepository = labelRepository;
+        this.basicIngredientRepository = basicIngredientRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
 
-        //findByBrand();
-
         Scanner scanner = new Scanner(System.in);
 
-        this._01_findBySize(scanner);
+        //findByBrand();
+        //this._01_findBySize(scanner);
+        //this._02_SelectShampooBySizeAndLabel(scanner);
+        //this._03_SelectAllShampooHigherThanGivenPrice(scanner);
+        this._04_SelectAllIngredientByName(scanner);
+
+    }
+
+    private void _04_SelectAllIngredientByName(Scanner scanner) {
+
+        String charInput = scanner.nextLine();
+
+        List<Ingredient> ingredients = basicIngredientRepository.findByNameStartingWith(charInput);
+
+        if (ingredients.size() != 0) {
+
+            ingredients.forEach(i -> System.out.println(i.getName() + " " + i.getPrice()));
+        } else {
+
+            System.out.println("Not exist.");
+        }
+    }
+
+    private void _03_SelectAllShampooHigherThanGivenPrice(Scanner scanner) {
+
+        Long priceInput = Long.parseLong(scanner.nextLine());
+
+        BigDecimal price = BigDecimal.valueOf(priceInput);
+
+        List<Shampoo> shampoos = shampooRepository.findByPriceGreaterThanOrderByPriceDesc(price);
+
+        printCollection(shampoos);
+    }
+
+    private void _02_SelectShampooBySizeAndLabel(Scanner scanner) {
+
+        String inputSize = scanner.nextLine();
+
+        String inputLabel = scanner.nextLine();
+
+        Size size = app.model.enums.Size.valueOf(inputSize);
+
+        Long labelId = Long.parseLong(inputLabel);
+
+        BasicLabel label = labelRepository.findById(labelId).get();
+
+        List<Shampoo> shampoos = shampooRepository.findBySizeOrLabelOrderByPriceAsc(size, label);
+
+        printCollection(shampoos);
     }
 
     private void _01_findBySize(Scanner scanner) {
@@ -39,15 +97,19 @@ public class ConsoleRunner  implements CommandLineRunner {
 
         Size size = app.model.enums.Size.valueOf(input);
 
-       List<Shampoo> shampoos = shampooRepository.findBySizeOrderByIdAsc(size);
+        List<Shampoo> shampoos = shampooRepository.findBySizeOrderByIdAsc(size);
 
-       shampoos.forEach(ch -> System.out.println(ch.getBrand() + " " + ch.getSize() +  " " + ch.getPrice() + "lv."));
+        printCollection(shampoos);
     }
 
     private void findByBrand() {
 
         List<Shampoo> shampoos = this.shampooRepository.findByBrand("Cotton Fresh");
 
-        shampoos.forEach(sh -> System.out.println(sh.getBrand() + " -> " + sh.getPrice()));
+        printCollection(shampoos);
+    }
+
+    private static void printCollection(List<Shampoo> shampoos) {
+        shampoos.forEach(ch -> System.out.println(ch.getBrand() + " " + ch.getSize() + " " + ch.getPrice() + "lv."));
     }
 }
