@@ -1,6 +1,7 @@
 package app;
 
 import app.model.enums.Size;
+import app.model.ingredients.BasicIngredient;
 import app.model.ingredients.Ingredient;
 import app.model.labels.BasicLabel;
 import app.model.labels.Label;
@@ -14,8 +15,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import static javax.swing.text.StyleConstants.Size;
 
@@ -44,8 +44,31 @@ public class ConsoleRunner implements CommandLineRunner {
         //this._01_findBySize(scanner);
         //this._02_SelectShampooBySizeAndLabel(scanner);
         //this._03_SelectAllShampooHigherThanGivenPrice(scanner);
-        this._04_SelectAllIngredientByName(scanner);
+        //this._04_SelectAllIngredientByName(scanner);
+        this._05_SelectIngredientByNames();
+        //this._06_CountByShampooPrice(scanner);
 
+    }
+
+    private void _06_CountByShampooPrice(Scanner scanner) {
+
+        Long priceInput = Long.parseLong(scanner.nextLine());
+
+        BigDecimal price = BigDecimal.valueOf(priceInput);
+
+        int count = shampooRepository.countByPriceLessThan(price);
+
+        System.out.println(count);
+
+    }
+
+    private void _05_SelectIngredientByNames() {
+
+        List<String> names = List.of("Lavender", "Herbs", "Apple");
+
+        List<Ingredient> ingredients = basicIngredientRepository.findByNameInOrderByPriceAsc(names);
+
+        printCollectionIngredients(ingredients);
     }
 
     private void _04_SelectAllIngredientByName(Scanner scanner) {
@@ -56,7 +79,7 @@ public class ConsoleRunner implements CommandLineRunner {
 
         if (ingredients.size() != 0) {
 
-            ingredients.forEach(i -> System.out.println(i.getName() + " " + i.getPrice()));
+            printCollectionIngredients(ingredients);
         } else {
 
             System.out.println("Not exist.");
@@ -107,6 +130,10 @@ public class ConsoleRunner implements CommandLineRunner {
         List<Shampoo> shampoos = this.shampooRepository.findByBrand("Cotton Fresh");
 
         printCollection(shampoos);
+    }
+
+    private static void printCollectionIngredients(List<Ingredient> ingredients) {
+        ingredients.forEach(i -> System.out.println(i.getName() + " " + i.getPrice()));
     }
 
     private static void printCollection(List<Shampoo> shampoos) {

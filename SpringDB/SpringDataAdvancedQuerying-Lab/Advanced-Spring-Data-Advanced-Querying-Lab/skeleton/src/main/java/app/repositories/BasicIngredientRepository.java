@@ -11,4 +11,8 @@ import java.util.List;
 public interface BasicIngredientRepository extends JpaRepository<BasicIngredient, Long> {
 
     List<Ingredient> findByNameStartingWith(String charInput);
+
+    Ingredient findByName(String name);
+
+    List<Ingredient> findByNameInOrderByPriceAsc(List<String> names);
 }

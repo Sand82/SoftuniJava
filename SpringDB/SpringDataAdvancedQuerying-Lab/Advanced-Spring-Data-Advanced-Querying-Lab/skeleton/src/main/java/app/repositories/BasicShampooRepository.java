@@ -21,4 +21,6 @@ public interface BasicShampooRepository extends JpaRepository<BasicShampoo, Long
     List<Shampoo> findBySizeOrLabelOrderByPriceAsc(Size size, BasicLabel label);
 
     List<Shampoo> findByPriceGreaterThanOrderByPriceDesc(BigDecimal price);
+
+    int countByPriceLessThan(BigDecimal price);
 }
