@@ -63,7 +63,15 @@ public class ConsoleRunner implements CommandLineRunner {
         //this._9_CountBooks(scanner);
         //this._10_TotalBookCopies();
         //this._11_ReducedBook(scanner);
-        this._12_IncreaseBookCopies(scanner);
+        //this._12_IncreaseBookCopies(scanner);
+        this._13_RemoveBooks(scanner);
+    }
+
+    private void _13_RemoveBooks(Scanner scanner) {
+
+        int number = Integer.parseInt(scanner.nextLine());
+
+        bookRepository.deleteByCopiesLessThan(number);
     }
 
     private void _12_IncreaseBookCopies(Scanner scanner) {
@@ -80,8 +88,6 @@ public class ConsoleRunner implements CommandLineRunner {
 
         System.out.println(String.format("%d books are released after %s so total of %d book copies were added",
                 booksUpdated, date, amount * booksUpdated));
-
-
     }
 
     private void _11_ReducedBook(Scanner scanner) {
