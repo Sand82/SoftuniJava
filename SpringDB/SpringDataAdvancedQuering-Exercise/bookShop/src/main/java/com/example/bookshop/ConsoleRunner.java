@@ -7,12 +7,19 @@ import com.example.bookshop.entities.EditionType;
 import com.example.bookshop.repositories.AuthorRepository;
 import com.example.bookshop.repositories.BookRepository;
 import com.example.bookshop.services.SeedService;
+import org.hibernate.type.LocalDateType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
@@ -45,11 +52,60 @@ public class ConsoleRunner implements CommandLineRunner {
 
         //this._01_BooksTitlesByAgeRestriction(scanner);
         //this._02_GoldenBooks();
+        //this._03_BooksByPrice();
+        //this._04_NotReleasedBooks(scanner);
+        //this._05_BooksReleasedBeforeDate(scanner);
+        this._06_AuthorsSearch(scanner);
+    }
+
+    private void _06_AuthorsSearch(Scanner scanner) {
+
+        String input = scanner.nextLine();
+
+        List<Author> authors = authorRepository.findByFirstNameEndingWith(input);
+
+        authors.forEach(a -> System.out.println(a.getFirstName() + " " + a.getLastName()));
+    }
+
+    private void _05_BooksReleasedBeforeDate(Scanner scanner) {
+
+        String dateInput = scanner.nextLine();
+
+        DateTimeFormatter format = DateTimeFormatter.ofPattern(("dd-MM-yyyy"));
+
+        LocalDate date = LocalDate.parse(dateInput, format);
+
+        List<Book> books = bookRepository.findByReleaseDateBefore(date);
+
+        printBooks(books);
+    }
+
+    private void _04_NotReleasedBooks(Scanner scanner) {
+
+        int yearString = Integer.parseInt(scanner.nextLine());
+
+        LocalDate yearBefore = LocalDate.of(yearString , 01, 01);
+
+        LocalDate yearAfter = LocalDate.of(yearString , 12, 31);
+
+        List<Book> books = bookRepository.findByReleaseDateBeforeOrReleaseDateAfter(yearBefore, yearAfter);
+
+        printBooks(books);
+    }
+
+    private void _03_BooksByPrice() {
+
+        BigDecimal lowerPrice = BigDecimal.valueOf(5.0);
+        BigDecimal higherPrice = BigDecimal.valueOf(40.0);
+
+        List<Book> books = bookRepository.findByPriceLessThanOrPriceGreaterThan(lowerPrice, higherPrice);
+
+        books.forEach(b -> System.out.println(b.getTitle() + " - $" + b.getPrice()));
     }
 
     private void _02_GoldenBooks() {
 
-        EditionType editionType =  EditionType.GOLD;
+        EditionType editionType = EditionType.GOLD;
 
         int copies = 5000;
 

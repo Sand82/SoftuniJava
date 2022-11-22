@@ -6,6 +6,7 @@ import com.example.bookshop.entities.EditionType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -15,4 +16,11 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     List<Book> findByAgeRestriction(AgeRestriction ageRestriction);
 
     List<Book> findByEditionTypeAndCopiesLessThan(EditionType editionType, int copies);
+
+    List<Book> findByPriceLessThanOrPriceGreaterThan(BigDecimal lowerPrice, BigDecimal higherPrice);
+
+
+    List<Book> findByReleaseDateBeforeOrReleaseDateAfter(LocalDate yearBefore, LocalDate yearAfter);
+
+    List<Book> findByReleaseDateBefore(LocalDate date);
 }
