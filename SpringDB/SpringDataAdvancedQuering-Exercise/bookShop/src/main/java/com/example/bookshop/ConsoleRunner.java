@@ -1,5 +1,7 @@
 package com.example.bookshop;
 
+import com.example.bookshop.dataTransferObjects.AuthorsBooksCopiesDTO;
+import com.example.bookshop.dataTransferObjects.BookTitleEditionTypeAgeRestrictionPriceDTO;
 import com.example.bookshop.entities.AgeRestriction;
 import com.example.bookshop.entities.Author;
 import com.example.bookshop.entities.Book;
@@ -58,7 +60,44 @@ public class ConsoleRunner implements CommandLineRunner {
         //this._06_AuthorsSearch(scanner);
         //this._07_BooksSearch(scanner);
         //this._8_BookTitlesSearch(scanner);
-        this._9_CountBooks(scanner);
+        //this._9_CountBooks(scanner);
+        //this._10_TotalBookCopies();
+        //this._11_ReducedBook(scanner);
+        this._12_IncreaseBookCopies(scanner);
+    }
+
+    private void _12_IncreaseBookCopies(Scanner scanner) {
+
+        String dateInput = scanner.nextLine();
+
+        DateTimeFormatter format = DateTimeFormatter.ofPattern(("dd MMM yyyy"));
+
+        LocalDate date = LocalDate.parse(dateInput, format);
+
+        int amount = Integer.parseInt(scanner.nextLine());
+
+        int booksUpdated = bookRepository.addCopiesToBooksAfter(date, amount);
+
+        System.out.println(String.format("%d books are released after %s so total of %d book copies were added",
+                booksUpdated, date, amount * booksUpdated));
+
+
+    }
+
+    private void _11_ReducedBook(Scanner scanner) {
+
+        String title = scanner.nextLine();
+
+        BookTitleEditionTypeAgeRestrictionPriceDTO book = bookRepository.findByTitle(title);
+
+        System.out.println(String.format("%s %s %s %.2f", book.getTitle(), book.getEditionType(), book.getAgeRestriction(), book.getPrice()));
+    }
+
+    private void _10_TotalBookCopies() {
+
+        List<AuthorsBooksCopiesDTO> authors = authorRepository.findByAuthorByCopiesBooks();
+
+        authors.forEach(a -> System.out.println(a.getFirstName() + " " + a.getLastName() + " - " + a.getTotalCopies()));
     }
 
     private void _9_CountBooks(Scanner scanner) {
