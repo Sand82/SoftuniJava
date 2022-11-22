@@ -57,7 +57,17 @@ public class ConsoleRunner implements CommandLineRunner {
         //this._05_BooksReleasedBeforeDate(scanner);
         //this._06_AuthorsSearch(scanner);
         //this._07_BooksSearch(scanner);
-        this._8_BookTitlesSearch(scanner);
+        //this._8_BookTitlesSearch(scanner);
+        this._9_CountBooks(scanner);
+    }
+
+    private void _9_CountBooks(Scanner scanner) {
+
+        int number = Integer.parseInt(scanner.nextLine());
+
+        int numbersOfBooks = bookRepository.countOfBooksTitleLongerThen(number);
+
+        System.out.println("There are " + numbersOfBooks + " books with longer title than " + number + " symbols");
     }
 
     private void _8_BookTitlesSearch(Scanner scanner) {
