@@ -55,7 +55,27 @@ public class ConsoleRunner implements CommandLineRunner {
         //this._03_BooksByPrice();
         //this._04_NotReleasedBooks(scanner);
         //this._05_BooksReleasedBeforeDate(scanner);
-        this._06_AuthorsSearch(scanner);
+        //this._06_AuthorsSearch(scanner);
+        //this._07_BooksSearch(scanner);
+        this._8_BookTitlesSearch(scanner);
+    }
+
+    private void _8_BookTitlesSearch(Scanner scanner) {
+
+        String input = scanner.nextLine();
+
+        List<Book> books = bookRepository.findByAuthorLastNameStartingWith(input);
+
+        books.forEach(b -> System.out.println(b.getTitle() + " (" + b.getAuthor().getFirstName() + " " + b.getAuthor().getLastName() + ")"));
+    }
+
+    private void _07_BooksSearch(Scanner scanner) {
+
+        String input = scanner.nextLine();
+
+        List<Book> books = bookRepository.findByTitleContains(input);
+
+        printBooks(books);
     }
 
     private void _06_AuthorsSearch(Scanner scanner) {
@@ -84,9 +104,9 @@ public class ConsoleRunner implements CommandLineRunner {
 
         int yearString = Integer.parseInt(scanner.nextLine());
 
-        LocalDate yearBefore = LocalDate.of(yearString , 01, 01);
+        LocalDate yearBefore = LocalDate.of(yearString, 01, 01);
 
-        LocalDate yearAfter = LocalDate.of(yearString , 12, 31);
+        LocalDate yearAfter = LocalDate.of(yearString, 12, 31);
 
         List<Book> books = bookRepository.findByReleaseDateBeforeOrReleaseDateAfter(yearBefore, yearAfter);
 
