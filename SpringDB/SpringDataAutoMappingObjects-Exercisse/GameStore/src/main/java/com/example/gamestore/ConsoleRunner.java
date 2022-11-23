@@ -26,17 +26,20 @@ public class ConsoleRunner implements CommandLineRunner {
 
         Scanner scanner = new Scanner(System.in);
 
-        String result;
+        String result = " ";
 
-        try{
+        while(!result.equals("End")) {
 
-            result = executorService.execute(scanner.nextLine());
+            try{
 
-        }catch (ValidationException ex) {
+                result = executorService.execute(scanner.nextLine());
 
-            result = ex.getMessage();
+            }catch (ValidationException ex) {
+
+                result = ex.getMessage();
+            }
+
+            System.out.println(result);
         }
-
-        System.out.println(result);
     }
 }

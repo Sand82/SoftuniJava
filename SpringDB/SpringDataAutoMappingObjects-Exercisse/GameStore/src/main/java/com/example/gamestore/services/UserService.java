@@ -10,5 +10,5 @@ public interface UserService {
 
     User login(LoginDTO loginDTO);
 
-    void logout();
+    String logout();
 }

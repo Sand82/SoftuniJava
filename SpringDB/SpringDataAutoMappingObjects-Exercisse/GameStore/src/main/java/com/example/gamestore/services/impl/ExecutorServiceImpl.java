@@ -18,34 +18,28 @@ public class ExecutorServiceImpl implements ExecutorService {
         this.userService = userService;
     }
 
-    public String execute(String commandLine){
+    public String execute(String commandLine) {
 
         String[] commandParts = commandLine.split("\\|");
 
         String commandName = commandParts[0];
 
-        String result = "";
-
-        User user = null;
-
-        switch (commandName){
+        switch (commandName) {
             case REGISTER_USER_COMMAND:
 
-                RegisterDTO registerData = new RegisterDTO(commandParts);
-                user = userService.register(registerData);
-
-                result = String.format("%s was registered.", user.getFullName());
-                break;
+                return registerUser(commandParts);
             case LOGIN_USER_COMMAND:
 
-                LoginDTO loginData = new LoginDTO(commandParts);
-                user = userService.login(loginData);
+                return loginUser(commandParts);
 
-                result = String.format("Successfully logged %s.", user.getFullName());
-                break;
             case LOGOUT_USER_COMMAND:
-                userService.logout();
-                break;
+
+              return   userService.logout();
+
+            case "End":
+              return "End";
+            default:
+                return "Wrong command type";
 //            case "":
 //                break;
 //            case "":
@@ -57,8 +51,30 @@ public class ExecutorServiceImpl implements ExecutorService {
 //            case "":
 //                break;
         }
+    }
 
+
+
+    private String loginUser(String[] commandParts) {
+        String result;
+
+        LoginDTO loginData = new LoginDTO(commandParts);
+        User user = userService.login(loginData);
+
+        if (user == null) {
+            result = "This user don't exist.";
+        }else {
+
+            result = String.format("Successfully logged %s.", user.getFullName());
+        }
         return result;
     }
 
+    private String registerUser(String[] commandParts) {
+
+        RegisterDTO registerData = new RegisterDTO(commandParts);
+        User user = userService.register(registerData);
+
+        return String.format("%s was registered.", user.getFullName());
+    }
 }

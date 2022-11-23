@@ -14,6 +14,8 @@ public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
 
+    private User user = null;
+
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
 
@@ -24,7 +26,7 @@ public class UserServiceImpl implements UserService {
     public User register(RegisterDTO model) {
 
         ModelMapper mapper = new ModelMapper();
-        User user = mapper.map(model, User.class);
+        user = mapper.map(model, User.class);
 
         long count = userRepository.count();
 
@@ -39,11 +41,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public User login(LoginDTO model) {
 
-        return userRepository.findByEmailAndPassword(model.getEmail(), model.getPassword());
+        user =  userRepository.findByEmailAndPassword(model.getEmail(), model.getPassword());
+        return user;
     }
 
     @Override
-    public void logout() {
+    public String logout() {
 
+        if (user == null) {
+
+            return "No logged user";
+        }
+
+        String userName = user.getFullName();
+
+        this.user = null;
+
+        return "Successfully logout the " + userName;
     }
 }
