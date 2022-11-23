@@ -2,6 +2,7 @@ package com.example.gamestore.entities;
 
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity(name = "games")
@@ -12,6 +13,9 @@ public class Game {
     private int id;
     @Column(nullable = false)
     private String title;
+
+    @Column(nullable = false)
+    private BigDecimal price;
     @Column(name = "trailer_id", nullable = false)
     private String trailerId;
     @Column(name = "thumbnail_url", nullable = false)

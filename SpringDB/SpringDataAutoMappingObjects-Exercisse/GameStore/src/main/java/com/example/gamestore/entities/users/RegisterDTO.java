@@ -20,10 +20,10 @@ public class RegisterDTO {
         this.confirmPassword = data[3];
         this.fullName = data[4];
 
-        this.Validate();
+        this.validateUser();
     }
 
-    private void Validate() {
+    private void validateUser() {
 
         int indexOfAt = email.indexOf("@");
         int indexOfDot = email.indexOf(".");

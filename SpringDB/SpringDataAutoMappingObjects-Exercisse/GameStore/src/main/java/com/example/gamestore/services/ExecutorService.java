@@ -4,7 +4,9 @@ public interface ExecutorService {
 
     String REGISTER_USER_COMMAND = "RegisterUser";
     String LOGIN_USER_COMMAND = "LoginUser";
-    final String LOGOUT_USER_COMMAND = "Logout";
+    String LOGOUT_USER_COMMAND = "Logout";
+
+    String ADD_GAME = "AddGame";
 
     String execute(String command);
 }

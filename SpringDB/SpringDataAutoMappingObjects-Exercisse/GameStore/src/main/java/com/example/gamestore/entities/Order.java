@@ -10,7 +10,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private User buyer;
 
     @ManyToMany(fetch = FetchType.EAGER)
