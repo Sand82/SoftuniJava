@@ -37,16 +37,12 @@ public class ExecutorServiceImpl implements ExecutorService {
             case LOGIN_USER_COMMAND:
 
                 return loginUser(commandParts);
-
             case LOGOUT_USER_COMMAND:
 
               return userService.logout();
             case ADD_GAME:
 
-               AddGameDTO gameDTO = new AddGameDTO(commandParts);
-
-               gameService.addGame(gameDTO);
-                return null;
+                return addGame(commandParts);
             case "End":
               return "End";
             default:
@@ -64,6 +60,14 @@ public class ExecutorServiceImpl implements ExecutorService {
         }
     }
 
+    private String addGame(String[] commandParts) {
+
+        AddGameDTO gameDTO = new AddGameDTO(commandParts);
+
+        String result = gameService.addGame(gameDTO);
+
+        return result;
+    }
 
 
     private String loginUser(String[] commandParts) {

@@ -1,6 +1,8 @@
 package com.example.gamestore.services.impl;
 
+import com.example.gamestore.UserState;
 import com.example.gamestore.entities.User;
+import com.example.gamestore.entities.exceptions.ValidationException;
 import com.example.gamestore.entities.users.LoginDTO;
 import com.example.gamestore.entities.users.RegisterDTO;
 import com.example.gamestore.repositories.UserRepository;
@@ -14,7 +16,6 @@ public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
 
-    private User user = null;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
@@ -26,7 +27,8 @@ public class UserServiceImpl implements UserService {
     public User register(RegisterDTO model) {
 
         ModelMapper mapper = new ModelMapper();
-        user = mapper.map(model, User.class);
+
+        User user = mapper.map(model, User.class);
 
         long count = userRepository.count();
 
@@ -41,21 +43,33 @@ public class UserServiceImpl implements UserService {
     @Override
     public User login(LoginDTO model) {
 
-        user =  userRepository.findByEmailAndPassword(model.getEmail(), model.getPassword());
+
+        User user =  userRepository.findByEmailAndPassword(model.getEmail(), model.getPassword());
+
+        if (user == null) {
+
+            throw new ValidationException("User not exist.");
+        }
+
+         if (UserState.user == null){
+
+             UserState.user = user;
+         }
+
         return user;
     }
 
     @Override
     public String logout() {
 
-        if (user == null) {
+        if (UserState.user == null) {
 
             return "No logged user";
         }
 
-        String userName = user.getFullName();
+        String userName = UserState.user.getFullName();
 
-        this.user = null;
+        UserState.user = null;
 
         return "Successfully logout the " + userName;
     }

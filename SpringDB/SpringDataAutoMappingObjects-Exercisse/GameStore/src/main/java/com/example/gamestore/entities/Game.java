@@ -40,12 +40,8 @@ public class Game {
         this.releaseDate = releaseDate;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public BigDecimal getPrice() {
+        return price;
     }
 
     public String getTitle() {
@@ -94,5 +90,9 @@ public class Game {
 
     public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 }

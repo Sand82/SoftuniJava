@@ -4,6 +4,7 @@ import com.example.gamestore.entities.exceptions.ValidationException;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class AddGameDTO {
 
@@ -12,7 +13,7 @@ public class AddGameDTO {
 
     private float size;
 
-    private String trailer;
+    private String trailerId;
 
     private String thumbnailUrl;
 
@@ -22,12 +23,13 @@ public class AddGameDTO {
 
     public AddGameDTO(String[] data) {
         this.title = data[1];
-        this.price = BigDecimal.valueOf(Long.parseLong(data[2]));
+        this.price = new BigDecimal(data[2]);
         this.size = Float.parseFloat(data[3]);
-        this.trailer = data[4];
+        this.trailerId = data[4];
         this.thumbnailUrl = data[5];
         this.description = data[6];
-        this.releaseDate = LocalDate.parse(data[7]);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        this.releaseDate = LocalDate.parse(data[7], formatter);
 
         this.validateData();
     }
@@ -54,7 +56,7 @@ public class AddGameDTO {
             throw new ValidationException("Size should be positive value");
         }
 
-        if (trailer.length() != 11) {
+        if (trailerId.length() != 11) {
             throw new ValidationException("Invalid url.");
         }
 
@@ -65,6 +67,10 @@ public class AddGameDTO {
         if (description.length() < 20) {
             throw new ValidationException("Description should be mor than 20 symbols.");
         }
+    }
+
+    public String getTrailerId() {
+        return trailerId;
     }
 
     public String getTitle() {
@@ -80,7 +86,7 @@ public class AddGameDTO {
     }
 
     public String getTrailer() {
-        return trailer;
+        return trailerId;
     }
 
     public String getThumbnailUrl() {
