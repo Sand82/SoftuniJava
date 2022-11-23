@@ -7,7 +7,6 @@ public class EmployeeDTO {
     private String firstName;
     private String lastName;
     private BigDecimal salary;
-    private String addressCity;
 
     public EmployeeDTO() {
     }
@@ -15,15 +14,7 @@ public class EmployeeDTO {
     @Override
     public String toString() {
 
-        return String.format("%s %s -> %s %.2f$", this.firstName, this.lastName, this.addressCity, this.salary);
-    }
-
-    public String getAddressCity() {
-        return addressCity;
-    }
-
-    public void setAddressCity(String addressCity) {
-        this.addressCity = addressCity;
+        return String.format("%s %s %.2f$", this.firstName, this.lastName, this.salary);
     }
 
     public String getFirstName() {
@@ -49,4 +40,6 @@ public class EmployeeDTO {
     public void setSalary(BigDecimal salary) {
         this.salary = salary;
     }
+
+
 }
