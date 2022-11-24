@@ -130,7 +130,7 @@ public class SeedServiceImpl implements SeedService {
 
         long userCount = this.userRepository.count();
 
-        int randomUserId = new Random().nextInt((int)userCount) + 1;
+        int randomUserId = new Random().nextInt((int)userCount ) + 1;
 
         Optional<User> buyer = this.userRepository.findById(randomUserId);
 
@@ -141,7 +141,7 @@ public class SeedServiceImpl implements SeedService {
 
         Optional<User> seller = getRandomUser();
 
-        product.setSeller(seller.get());
+        product.setSeller(seller.orElse(null));
 
         return product;
     }
