@@ -17,6 +17,6 @@ public class ProductShopRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        seedService.seedCategories();
+        seedService.seedProducts();
     }
 }

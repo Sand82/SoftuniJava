@@ -76,4 +76,28 @@ public class User {
     public void setAge(Integer age) {
         this.age = age;
     }
+
+    public List<Product> getSellingItems() {
+        return sellingItems;
+    }
+
+    public List<Product> getBoughtItems() {
+        return boughtItems;
+    }
+
+    public Set<User> getFriends() {
+        return friends;
+    }
+
+    public void setSellingItems(List<Product> sellingItems) {
+        this.sellingItems = sellingItems;
+    }
+
+    public void setBoughtItems(List<Product> boughtItems) {
+        this.boughtItems = boughtItems;
+    }
+
+    public void setFriends(Set<User> friends) {
+        this.friends = friends;
+    }
 }
