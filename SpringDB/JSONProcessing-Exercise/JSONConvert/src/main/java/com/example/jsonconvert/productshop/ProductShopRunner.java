@@ -32,7 +32,7 @@ public class ProductShopRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        //seedService.seedProducts();
+        seedService.seedAll();
 
         Scanner scanner = new Scanner(System.in);
 
