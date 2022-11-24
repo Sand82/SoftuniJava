@@ -1,5 +1,6 @@
 package com.example.jsonconvert.productshop.services.impl;
 
+import com.example.jsonconvert.productshop.entities.category.CategoriesProductCountExportDTO;
 import com.example.jsonconvert.productshop.entities.products.ProductInRenegeExportDTO;
 import com.example.jsonconvert.productshop.repositories.ProductRepository;
 import com.example.jsonconvert.productshop.services.ProductService;
@@ -29,5 +30,13 @@ public class ProductServiceImpl implements ProductService {
                 BigDecimal.valueOf(firstBound),BigDecimal.valueOf(secondBound));
 
         return products;
+    }
+
+    @Override
+    public List<CategoriesProductCountExportDTO> getCategoryStatistics() {
+
+        List<CategoriesProductCountExportDTO> model = productRepository.getCategoryStats();
+
+        return model;
     }
 }

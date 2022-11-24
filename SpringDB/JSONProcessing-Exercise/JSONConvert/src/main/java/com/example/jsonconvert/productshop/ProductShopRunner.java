@@ -45,7 +45,18 @@ public class ProductShopRunner implements CommandLineRunner {
 
         //productsBetweenPriceWithoutBuyer(scanner);
 
-        SuccessfullySoldProducts();
+        //SuccessfullySoldProducts();
+
+        CategoriesByProductsCount();
+    }
+
+    private void CategoriesByProductsCount() {
+
+        var model = this.productService.getCategoryStatistics();
+
+        String jsonModel = gson.toJson(model);
+
+        System.out.println(jsonModel);
     }
 
     private void SuccessfullySoldProducts() {

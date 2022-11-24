@@ -1,6 +1,7 @@
 package com.example.jsonconvert.productshop.repositories;
 
 import com.example.jsonconvert.productshop.entities.Product;
+import com.example.jsonconvert.productshop.entities.category.CategoriesProductCountExportDTO;
 import com.example.jsonconvert.productshop.entities.products.ProductInRenegeExportDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,4 +19,12 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             " Where p.price > :firstBound AND p.price < :secondBound AND p.buyer IS NULL" +
             " ORDER BY p.price ASC")
     List<ProductInRenegeExportDTO> findByPriceBetweenAndBuyerIsNullOrderByPriceAsc(BigDecimal firstBound, BigDecimal secondBound);
+
+
+    @Query("SELECT new com.example.jsonconvert.productshop.entities.category.CategoriesProductCountExportDTO(c.name, COUNT(p)," +
+            " AVG(p.price), SUM(p.price))" +
+            " FROM Product p" +
+            " JOIN p.categories c" +
+            " GROUP BY c")
+    List<CategoriesProductCountExportDTO> getCategoryStats();
 }
