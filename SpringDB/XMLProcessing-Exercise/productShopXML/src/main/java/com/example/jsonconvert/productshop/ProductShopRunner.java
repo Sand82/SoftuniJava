@@ -47,7 +47,7 @@ public class ProductShopRunner implements CommandLineRunner {
 
         //SuccessfullySoldProducts();
 
-        //CategoriesByProductsCount();
+        CategoriesByProductsCount();
     }
 
     private void CategoriesByProductsCount() {
