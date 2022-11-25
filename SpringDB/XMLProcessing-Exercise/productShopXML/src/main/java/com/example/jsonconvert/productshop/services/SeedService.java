@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 
 public interface SeedService {
 
-    void seedUsers() throws FileNotFoundException;
+    void seedUsers() throws FileNotFoundException, JAXBException;
 
     void seedCategories() throws FileNotFoundException, JAXBException;
 

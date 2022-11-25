@@ -16,7 +16,6 @@ public class ProductShopRunner implements CommandLineRunner {
 
     private SeedService seedService;
     private ProductService productService;
-
     private UserService userService;
 
     @Autowired
@@ -31,6 +30,6 @@ public class ProductShopRunner implements CommandLineRunner {
 
         Scanner scanner = new Scanner(System.in);
 
-        seedService.seedCategories();
+        seedService.seedUsers();
     }
 }

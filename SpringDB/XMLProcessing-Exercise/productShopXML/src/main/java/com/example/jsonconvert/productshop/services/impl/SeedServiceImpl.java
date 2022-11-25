@@ -4,6 +4,7 @@ import com.example.jsonconvert.productshop.entities.Category;
 import com.example.jsonconvert.productshop.entities.Product;
 import com.example.jsonconvert.productshop.entities.User;
 import com.example.jsonconvert.productshop.entities.category.CategoryImportDTO;
+import com.example.jsonconvert.productshop.entities.users.UsersImportDTO;
 import com.example.jsonconvert.productshop.repositories.CategoryRepository;
 import com.example.jsonconvert.productshop.repositories.ProductRepository;
 import com.example.jsonconvert.productshop.repositories.UserRepository;
@@ -24,7 +25,7 @@ import java.util.stream.Collectors;
 @Service
 public class SeedServiceImpl implements SeedService {
 
-    private static final String USER_XML_PATH = "src/main/resources/productShop/users.xml";
+    private static final String USER_XML_PATH = "C:\\SoftUni\\SpringDB\\XMLProcessing-Exercise\\productShopXML\\src\\main\\resources\\productShop\\users.xml";
     private static final String PRODUCT_XML_PATH = "src/main/resources/productShop/products.xml";
     private static final String CATEGORY_XML_PATH = "C:\\SoftUni\\SpringDB\\XMLProcessing-Exercise\\productShopXML\\src\\main\\resources\\productShop\\categories.xml";
     private final UserRepository userRepository;
@@ -48,14 +49,23 @@ public class SeedServiceImpl implements SeedService {
 
         CategoryImportDTO model = (CategoryImportDTO) unmarshaller.unmarshal(new FileReader(CATEGORY_XML_PATH));
 
-        List<Category> categories =model.getCategories().stream().map(m -> new Category(m.getName())).collect(Collectors.toList());
+        List<Category> categories = model.getCategories().stream().map(m -> new Category(m.getName())).collect(Collectors.toList());
 
         categoryRepository.saveAll(categories);
     }
 
     @Override
-    public void seedUsers() throws FileNotFoundException {
+    public void seedUsers() throws FileNotFoundException, JAXBException {
+        JAXBContext context = JAXBContext.newInstance(UsersImportDTO.class);
+        Unmarshaller unmarshaller = context.createUnmarshaller();
 
+        FileReader reader = new FileReader(USER_XML_PATH);
+
+        UsersImportDTO model = (UsersImportDTO) unmarshaller.unmarshal(reader);
+
+        List<User> users = model.getUsers().stream().map(m -> mapper.map(m, User.class)).collect(Collectors.toList());
+
+        userRepository.saveAll(users);
     }
 
     @Override
