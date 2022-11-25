@@ -30,6 +30,6 @@ public class ProductShopRunner implements CommandLineRunner {
 
         Scanner scanner = new Scanner(System.in);
 
-        seedService.seedUsers();
+        seedService.seedProducts();
     }
 }

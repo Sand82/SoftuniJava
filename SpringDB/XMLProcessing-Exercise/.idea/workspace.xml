@@ -104,8 +104,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/productShopXML/src/main/java/com/example/jsonconvert/productshop/services/impl/SeedServiceImpl.java</url>
-          <line>66</line>
-          <option name="timeStamp" value="4" />
+          <line>88</line>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

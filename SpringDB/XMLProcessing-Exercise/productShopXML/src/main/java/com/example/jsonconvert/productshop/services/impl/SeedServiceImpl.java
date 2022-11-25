@@ -4,6 +4,7 @@ import com.example.jsonconvert.productshop.entities.Category;
 import com.example.jsonconvert.productshop.entities.Product;
 import com.example.jsonconvert.productshop.entities.User;
 import com.example.jsonconvert.productshop.entities.category.CategoryImportDTO;
+import com.example.jsonconvert.productshop.entities.products.ProductsImportDTO;
 import com.example.jsonconvert.productshop.entities.users.UsersImportDTO;
 import com.example.jsonconvert.productshop.repositories.CategoryRepository;
 import com.example.jsonconvert.productshop.repositories.ProductRepository;
@@ -26,7 +27,7 @@ import java.util.stream.Collectors;
 public class SeedServiceImpl implements SeedService {
 
     private static final String USER_XML_PATH = "C:\\SoftUni\\SpringDB\\XMLProcessing-Exercise\\productShopXML\\src\\main\\resources\\productShop\\users.xml";
-    private static final String PRODUCT_XML_PATH = "src/main/resources/productShop/products.xml";
+    private static final String PRODUCT_XML_PATH = "C:\\SoftUni\\SpringDB\\XMLProcessing-Exercise\\productShopXML\\src\\main\\resources\\productShop\\products.xml";
     private static final String CATEGORY_XML_PATH = "C:\\SoftUni\\SpringDB\\XMLProcessing-Exercise\\productShopXML\\src\\main\\resources\\productShop\\categories.xml";
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
@@ -69,9 +70,25 @@ public class SeedServiceImpl implements SeedService {
     }
 
     @Override
-    public void seedProducts() throws FileNotFoundException {
+    public void seedProducts() throws FileNotFoundException, JAXBException {
+        JAXBContext context = JAXBContext.newInstance(ProductsImportDTO.class);
+        Unmarshaller unmarshaller = context.createUnmarshaller();
 
+        FileReader reader = new FileReader(PRODUCT_XML_PATH);
+
+        ProductsImportDTO models = (ProductsImportDTO) unmarshaller.unmarshal(reader);
+
+        List<Product> products = models
+            .getProducts().stream()
+            .map(m -> new Product(m.getName(), m.getPrice()))
+            .map(this::setRandomCategories)
+            .map(this::setRandomSeller)
+            .map(this::setRandomBuyer)
+            .collect(Collectors.toList());
+
+        productRepository.saveAll(products);
     }
+
 
     private Product setRandomCategories(Product product) {
 
