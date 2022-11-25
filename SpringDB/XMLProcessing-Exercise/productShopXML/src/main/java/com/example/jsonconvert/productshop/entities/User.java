@@ -46,6 +46,16 @@ public class User {
         this.age = age;
     }
 
+     public String getFullName() {
+
+         if (firstName == null) {
+
+             return lastName;
+         }
+
+         return firstName + " " + lastName;
+     }
+
     public int getId() {
         return id;
     }

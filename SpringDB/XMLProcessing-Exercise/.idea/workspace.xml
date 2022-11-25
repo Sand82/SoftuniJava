@@ -7,8 +7,10 @@
     <list default="true" id="13ba38fe-51ae-4dcf-a700-9895e0ab80e5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/productShopXML/src/main/java/com/example/jsonconvert/productshop/ProductShopRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/productShopXML/src/main/java/com/example/jsonconvert/productshop/ProductShopRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/productShopXML/src/main/java/com/example/jsonconvert/productshop/services/SeedService.java" beforeDir="false" afterPath="$PROJECT_DIR$/productShopXML/src/main/java/com/example/jsonconvert/productshop/services/SeedService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/productShopXML/src/main/java/com/example/jsonconvert/productshop/services/impl/SeedServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/productShopXML/src/main/java/com/example/jsonconvert/productshop/services/impl/SeedServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/productShopXML/src/main/java/com/example/jsonconvert/productshop/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/productShopXML/src/main/java/com/example/jsonconvert/productshop/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/productShopXML/src/main/java/com/example/jsonconvert/productshop/repositories/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/productShopXML/src/main/java/com/example/jsonconvert/productshop/repositories/ProductRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/productShopXML/src/main/java/com/example/jsonconvert/productshop/services/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/productShopXML/src/main/java/com/example/jsonconvert/productshop/services/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/productShopXML/src/main/java/com/example/jsonconvert/productshop/services/impl/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/productShopXML/src/main/java/com/example/jsonconvert/productshop/services/impl/ProductServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,9 +105,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/productShopXML/src/main/java/com/example/jsonconvert/productshop/services/impl/SeedServiceImpl.java</url>
-          <line>88</line>
-          <option name="timeStamp" value="5" />
+          <url>file://$PROJECT_DIR$/productShopXML/src/main/java/com/example/jsonconvert/productshop/ProductShopRunner.java</url>
+          <line>45</line>
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
