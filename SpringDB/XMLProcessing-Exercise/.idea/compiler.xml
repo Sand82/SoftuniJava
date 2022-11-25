@@ -7,14 +7,17 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="productShopXML" />
+        <module name="exercise" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="exercise" target="11" />
       <module name="productShopXML" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="exercise" options="-parameters" />
       <module name="productShopXML" options="-parameters" />
     </option>
   </component>

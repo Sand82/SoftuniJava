@@ -1,7 +1,5 @@
 package com.example.jsonconvert.productshop.services.impl;
 
-import com.example.jsonconvert.productshop.entities.User;
-import com.example.jsonconvert.productshop.entities.users.UserWithSoldProductsExportDTO;
 import com.example.jsonconvert.productshop.repositories.UserRepository;
 import com.example.jsonconvert.productshop.services.UserService;
 import org.modelmapper.ModelMapper;
@@ -23,18 +21,5 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
 
         this.mapper = new ModelMapper();
-    }
-
-    @Override
-    @Transactional
-    public List<UserWithSoldProductsExportDTO> successfullySoldProducts() {
-
-        List<User> users = this.userRepository.findAllWithSoldProducts();
-
-        List<UserWithSoldProductsExportDTO> model = users.stream()
-                .map(u -> mapper.map(u, UserWithSoldProductsExportDTO.class))
-                .collect(Collectors.toList());
-
-        return model;
     }
 }
