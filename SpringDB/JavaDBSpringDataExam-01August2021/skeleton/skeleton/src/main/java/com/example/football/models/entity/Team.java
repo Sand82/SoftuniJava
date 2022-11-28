@@ -21,7 +21,7 @@ public class Team {
     @Column(name = "fan_base", nullable = false)
     private int fanBase;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String history;
 
     @ManyToOne
