@@ -49,7 +49,7 @@ public class TownServiceImpl implements TownService {
     @Override
     public String readTownsFileContent() throws IOException {
 
-        Path path = Path.of("src", "main", "resources", "files", "json", "towns.json");
+        Path path = Path.of("C:\\SoftUni\\SpringDB\\JavaDBSpringDataExam-01August2021\\skeleton\\skeleton\\src\\main\\resources\\files\\json\\towns.json");
 
         return Files.readString(path);
     }
