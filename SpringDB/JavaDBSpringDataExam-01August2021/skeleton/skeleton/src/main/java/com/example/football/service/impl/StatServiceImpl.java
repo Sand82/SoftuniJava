@@ -36,7 +36,6 @@ public class StatServiceImpl implements StatService {
     private StatRepository statRepository;
     private final Unmarshaller unmarshaller;
     private Validator validator;
-
     private List<Stat> statsList = new ArrayList<>();
 
     @Autowired
@@ -60,8 +59,6 @@ public class StatServiceImpl implements StatService {
 
     @Override
     public String readStatsFileContent() throws IOException {
-
-
 
         return Files.readString(Path.of(path));
     }
