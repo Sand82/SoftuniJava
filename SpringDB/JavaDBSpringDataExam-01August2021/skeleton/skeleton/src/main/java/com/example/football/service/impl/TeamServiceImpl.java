@@ -18,9 +18,7 @@ import javax.validation.Validator;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class TeamServiceImpl implements TeamService {
@@ -64,7 +62,7 @@ public class TeamServiceImpl implements TeamService {
 
         TeamImportDTO[] teamImportDTO = gson.fromJson(json, TeamImportDTO[].class);
 
-        List<Team> teams = new ArrayList<>();
+        Map<String, Team> teams = new LinkedHashMap<>();
 
         StringBuilder sb = new StringBuilder();
 
@@ -79,7 +77,14 @@ public class TeamServiceImpl implements TeamService {
                 Team team = mapper.map(importDTO, Team.class);
                 team.setTown(town);
 
-                teams.add(team);
+                if (teams.containsKey(team.getName())) {
+
+                    sb.append("Invalid Team");
+                } else {
+
+                    teams.put(team.getName(),team);
+                }
+
                 sb.append(String.format("Successfully imported Team %s - %d", team.getName(), team.getFanBase()));
 
             } else {
@@ -90,7 +95,7 @@ public class TeamServiceImpl implements TeamService {
             sb.append(System.lineSeparator());
         }
 
-        teamRepository.saveAll(teams);
+        teamRepository.saveAll(teams.values());
 
         return sb.toString().trim();
     }
