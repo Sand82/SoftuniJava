@@ -1,5 +1,6 @@
 package com.example.football.models.dto;
 
+import javax.persistence.Column;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -8,16 +9,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TownPlayerImportDTO {
 
-    private String Name;
+    @Column(name = "name")
+    private String name;
 
     public TownPlayerImportDTO() {
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        name = name;
     }
 }

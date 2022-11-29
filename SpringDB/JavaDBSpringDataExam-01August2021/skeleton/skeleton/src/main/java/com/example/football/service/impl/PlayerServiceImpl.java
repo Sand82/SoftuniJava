@@ -1,5 +1,6 @@
 package com.example.football.service.impl;
 
+import com.example.football.models.dto.BestPlayerExportDTO;
 import com.example.football.models.dto.PlayerImportDTO;
 import com.example.football.models.dto.PlayersImportDTO;
 import com.example.football.models.entity.Player;
@@ -12,7 +13,9 @@ import com.example.football.repository.TeamRepository;
 import com.example.football.repository.TownRepository;
 import com.example.football.service.PlayerService;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.convert.TypeMapper;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
@@ -29,6 +32,7 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -45,7 +49,6 @@ public class PlayerServiceImpl implements PlayerService {
     private ModelMapper mapper;
     private final JAXBContext context;
     private final Unmarshaller unmarshaller;
-
     private Map<String, Player> playersList = new LinkedHashMap<>();
 
     @Autowired
@@ -65,6 +68,8 @@ public class PlayerServiceImpl implements PlayerService {
         this.validator = Validation.buildDefaultValidatorFactory().getValidator();
 
         this.mapper.addConverter(c -> LocalDate.parse(c.getSource(), DateTimeFormatter.ofPattern("dd/MM/yyyy")), String.class, LocalDate.class);
+
+
 
     }
 
@@ -94,7 +99,30 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public String exportBestPlayers() {
-        return null;
+
+        LocalDate lowerBound = LocalDate.parse("1995-01-01" );
+        LocalDate upperBoundBound = LocalDate.parse("2003-01-01" );
+
+        List<Player> players = playerRepository.findByBirthDateBetweenOrderByStatShootingDescStatPassingDescStatEnduranceDescLastName(lowerBound, upperBoundBound);
+
+        List<BestPlayerExportDTO> playersDTO = players.stream().map(this::createPlayerDTO).collect(Collectors.toList());
+
+        String result = playersDTO.stream().map(p -> p.toString()).collect(Collectors.joining(System.lineSeparator()));
+
+        return result;
+    }
+
+    private BestPlayerExportDTO createPlayerDTO(Player player){
+
+        BestPlayerExportDTO model = new BestPlayerExportDTO();
+
+        model.setFirstName(player.getFirstName());
+        model.setLastName(player.getLastName());
+        model.setPosition(player.getPosition().toString());
+        model.setStadiumName(player.getTeam().getStadiumName());
+        model.setTeamName(player.getTeam().getName());
+
+        return model;
     }
 
     private String importPlayers(PlayerImportDTO playerDTO){
