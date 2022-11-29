@@ -27,7 +27,6 @@ public class CountryServiceImpl implements CountryService {
     private CountryRepository countryRepository;
     private Validator validator;
     private ModelMapper mapper;
-
     private Map< String, Country> countriesList = new LinkedHashMap<>();
 
     @Autowired
