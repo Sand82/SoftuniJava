@@ -7,4 +7,5 @@ import softuni.exam.models.entity.Agent;
 @Repository
 public interface AgentRepository extends JpaRepository<Agent, Integer> {
 
+    Agent findByFirstName(String name);
 }
