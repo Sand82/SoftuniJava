@@ -115,7 +115,7 @@ public class ForecastServiceImpl implements ForecastService {
 
         DayOfWeek dayOfWeek = DayOfWeek.valueOf("SUNDAY");
 
-        List<Forecast> forecasts = forecastRepository.findByDayOfWeekAndCityPopulationLessThan(dayOfWeek, 150000);
+        List<Forecast> forecasts = forecastRepository.findByDayOfWeekAndCityPopulationLessThanOrderByMaxTemperatureDescIdAsc(dayOfWeek, 150000);
 
         List<CityForecastImportDTO> models = forecasts.stream().map(f -> mapper.map(f, CityForecastImportDTO.class)).collect(Collectors.toList());
 

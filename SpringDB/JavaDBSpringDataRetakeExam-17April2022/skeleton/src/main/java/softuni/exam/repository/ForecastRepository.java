@@ -12,5 +12,5 @@ import java.util.Optional;
 @Repository
 public interface ForecastRepository extends JpaRepository<Forecast, Integer> {
 
-    List<Forecast> findByDayOfWeekAndCityPopulationLessThan(DayOfWeek dayOfWeek, int population);
+    List<Forecast> findByDayOfWeekAndCityPopulationLessThanOrderByMaxTemperatureDescIdAsc(DayOfWeek dayOfWeek, int population);
 }
