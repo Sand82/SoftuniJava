@@ -1,6 +1,7 @@
 package softuni.exam.models.entity;
 
 import javax.persistence.*;
+import java.sql.Time;
 import java.time.LocalDate;
 
 @Entity
@@ -21,10 +22,10 @@ public class Forecast {
     private float minTemperature;
 
     @Column(nullable = false)
-    private LocalDate sunrise;
+    private Time sunrise;
 
     @Column(nullable = false)
-    private LocalDate sunset;
+    private Time sunset;
 
     @ManyToOne
     private City city;
@@ -64,19 +65,19 @@ public class Forecast {
         this.minTemperature = minTemperature;
     }
 
-    public LocalDate getSunrise() {
+    public Time getSunrise() {
         return sunrise;
     }
 
-    public void setSunrise(LocalDate sunrise) {
+    public void setSunrise(Time sunrise) {
         this.sunrise = sunrise;
     }
 
-    public LocalDate getSunset() {
+    public Time getSunset() {
         return sunset;
     }
 
-    public void setSunset(LocalDate sunset) {
+    public void setSunset(Time sunset) {
         this.sunset = sunset;
     }
 

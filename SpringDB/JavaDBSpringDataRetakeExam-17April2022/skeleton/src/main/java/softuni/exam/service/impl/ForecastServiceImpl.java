@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import softuni.exam.models.dto.ForecastImportDTO;
 import softuni.exam.models.dto.ForecastsImportDTO;
 import softuni.exam.models.entity.City;
+import softuni.exam.models.entity.DayOfWeek;
 import softuni.exam.models.entity.Forecast;
 import softuni.exam.repository.CityRepository;
 import softuni.exam.repository.ForecastRepository;
@@ -22,12 +23,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class ForecastServiceImpl implements ForecastService {
 
-    private final String  absolutePath = "C:\\SoftUni\\SpringDB\\JavaDBSpringDataRetakeExam-17April2022\\skeleton\\src\\main\\resources\\files\\xml\\forecasts.xml";
+    private final String absolutePath = "C:\\SoftUni\\SpringDB\\JavaDBSpringDataRetakeExam-17April2022\\skeleton\\src\\main\\resources\\files\\xml\\forecasts.xml";
     private ForecastRepository forecastRepository;
     private CityRepository cityRepository;
     private Validator validator;
@@ -80,15 +82,20 @@ public class ForecastServiceImpl implements ForecastService {
 
     private String validateInput(ForecastImportDTO forecastDTO) {
 
-        if (forecastDTO.inputValidator().size() >0 ) {
+        if (forecastDTO.inputValidator().size() > 0) {
 
             return "Invalid forecast";
         }
 
-        City city = cityRepository.getById(forecastDTO.getCityId());
+        int cityId = forecastDTO.getCityId();
 
-        Forecast forecastIdentityCheck = forecastRepository.findByDayOfWeekAndCity(forecastDTO.getDayOfWeek(), city);
+        int dayOfTheWeek = DayOfWeek.valueOf(forecastDTO.getDayOfWeek()).getValue();
 
+        City city = cityRepository.findById(cityId).get();
+
+        Forecast forecastIdentityCheck = forecastsList.stream()
+                .filter(f -> f.getDayOfWeek().equals(forecastDTO.getDayOfWeek()) && f.getCity().getCityName().equals(city.getCityName()))
+                .findFirst().orElse(null);
 
         if (forecastIdentityCheck != null) {
 
