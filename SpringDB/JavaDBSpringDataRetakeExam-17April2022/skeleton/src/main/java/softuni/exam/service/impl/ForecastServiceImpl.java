@@ -3,6 +3,7 @@ package softuni.exam.service.impl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import softuni.exam.models.dto.CityForecastImportDTO;
 import softuni.exam.models.dto.ForecastImportDTO;
 import softuni.exam.models.dto.ForecastsImportDTO;
 import softuni.exam.models.entity.City;
@@ -89,8 +90,6 @@ public class ForecastServiceImpl implements ForecastService {
 
         int cityId = forecastDTO.getCityId();
 
-        int dayOfTheWeek = DayOfWeek.valueOf(forecastDTO.getDayOfWeek()).getValue();
-
         City city = cityRepository.findById(cityId).get();
 
         Forecast forecastIdentityCheck = forecastsList.stream()
@@ -113,6 +112,29 @@ public class ForecastServiceImpl implements ForecastService {
 
     @Override
     public String exportForecasts() {
-        return null;
+
+        DayOfWeek dayOfWeek = DayOfWeek.valueOf("SUNDAY");
+
+        List<Forecast> forecasts = forecastRepository.findByDayOfWeekAndCityPopulationLessThan(dayOfWeek, 150000);
+
+        List<CityForecastImportDTO> models = forecasts.stream().map(f -> mapper.map(f, CityForecastImportDTO.class)).collect(Collectors.toList());
+
+        StringBuilder sb = new StringBuilder();
+
+        for (CityForecastImportDTO model : models) {
+
+            sb.append(String.format("   City: %s:", model.getCityName()));
+            sb.append(System.lineSeparator());
+            sb.append(String.format("        -min temperature: %.2f", model.getMinTemperature()));
+            sb.append(System.lineSeparator());
+            sb.append(String.format("        --max temperature: %.2f", model.getMaxTemperature()));
+            sb.append(System.lineSeparator());
+            sb.append(String.format(String.format("        ---sunrise: %s", model.getSunrise())));
+            sb.append(System.lineSeparator());
+            sb.append(String.format(String.format("        ---sunset: %s", model.getSunset())));
+            sb.append(System.lineSeparator());
+        }
+
+        return sb.toString().trim();
     }
 }
