@@ -7,6 +7,7 @@ import softuni.exam.models.dto.OfferInputDTO;
 import softuni.exam.models.dto.OffersInputDTO;
 import softuni.exam.models.entity.Agent;
 import softuni.exam.models.entity.Apartment;
+import softuni.exam.models.entity.ApartmentType;
 import softuni.exam.models.entity.Offer;
 import softuni.exam.repository.AgentRepository;
 import softuni.exam.repository.ApartmentRepository;
@@ -30,6 +31,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static softuni.exam.models.entity.ApartmentType.three_rooms;
+
 @Service
 public class OfferServiceImpl implements OfferService {
 
@@ -41,7 +44,6 @@ public class OfferServiceImpl implements OfferService {
     private JAXBContext context;
     private Unmarshaller unmarshaller;
     private Validator validator;
-
     private List<Offer> offersList = new ArrayList<>();
 
     @Autowired
@@ -126,6 +128,25 @@ public class OfferServiceImpl implements OfferService {
 
     @Override
     public String exportOffers() {
-        return null;
+
+        ApartmentType apartmentType = ApartmentType.valueOf("three_rooms");
+
+        List<Offer> offers = offerRepository.findByApartmentApartmentTypeOrderByApartmentAreaDescPriceAsc(apartmentType);
+
+        StringBuilder sb = new StringBuilder();
+
+        for (Offer offer : offers) {
+            sb.append(String.format("   Agent %s %s with offer %d:",
+                    offer.getAgent().getFirstName(), offer.getAgent().getLastName(), offer.getId()));
+            sb.append(System.lineSeparator());
+            sb.append(String.format("      -Apartment area: %.2f", offer.getApartment().getArea()));
+            sb.append(System.lineSeparator());
+            sb.append(String.format("      --Town %s", offer.getAgent().getTown().getTownName()));
+            sb.append(System.lineSeparator());
+            sb.append(String.format("      ---Price: %d$", offer.getPrice()));
+            sb.append(System.lineSeparator());
+        }
+
+        return sb.toString();
     }
 }
