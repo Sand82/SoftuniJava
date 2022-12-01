@@ -1,7 +1,5 @@
 package exam.service;
 
-
-
 import org.springframework.stereotype.Service;
 
 import javax.xml.bind.JAXBException;
