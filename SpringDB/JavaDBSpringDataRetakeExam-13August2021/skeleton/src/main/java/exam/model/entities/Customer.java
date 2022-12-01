@@ -1,6 +1,7 @@
 package exam.model.entities;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "customers")
@@ -20,7 +21,7 @@ public class Customer {
     private String email;
 
     @Column(name = "register_on", nullable = false)
-    private String registerOn;
+    private LocalDate registerOn;
 
     @ManyToOne
     private Town town;
@@ -60,11 +61,11 @@ public class Customer {
         this.email = email;
     }
 
-    public String getRegisterOn() {
+    public LocalDate getRegisterOn() {
         return registerOn;
     }
 
-    public void setRegisterOn(String registerOn) {
+    public void setRegisterOn(LocalDate registerOn) {
         this.registerOn = registerOn;
     }
 
