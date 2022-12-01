@@ -9,6 +9,7 @@ import exam.repository.ShopRepository;
 import exam.service.LaptopService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -104,12 +106,36 @@ public class LaptopServiceImpl implements LaptopService {
             sb.append(System.lineSeparator());
         }
 
-
         return sb;
     }
 
     @Override
     public String exportBestLaptops() {
-        return null;
+
+        List<Laptop> laptops = laptopRepository.findAll
+                (Sort.by("cpuSpeed").descending().and(Sort.by("ram").descending().and(Sort.by("storage").descending().and(Sort.by("macAddress")))));
+
+        StringBuilder sb = new StringBuilder();
+
+        for (Laptop laptop : laptops) {
+
+            sb.append(String.format("Laptop - %s", laptop.getMacAddress()));
+            sb.append(System.lineSeparator());
+            sb.append(String.format("*Cpu speed - %.2f", laptop.getCpuSpeed()));
+            sb.append(System.lineSeparator());
+            sb.append(String.format("**Ram - %d", laptop.getRam()));
+            sb.append(System.lineSeparator());
+            sb.append(String.format("***Storage - %d", laptop.getStorage()));
+            sb.append(System.lineSeparator());
+            sb.append(String.format("****Price - %.2f", laptop.getPrice()));
+            sb.append(System.lineSeparator());
+            sb.append(String.format("#Shop name - %s", laptop.getShop().getName()));
+            sb.append(System.lineSeparator());
+            sb.append(String.format("##Town - %s", laptop.getShop().getTown().getName()));
+            sb.append(System.lineSeparator());
+            sb.append(System.lineSeparator());
+        }
+
+        return sb.toString();
     }
 }
