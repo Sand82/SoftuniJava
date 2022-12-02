@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static softuni.exam.instagraphlite.util.ValidatePicturePath.validatePicturePath;
 
@@ -103,6 +104,16 @@ public class PictureServiceImpl implements PictureService {
 
     @Override
     public String exportPictures() {
-        return null;
+
+        List<Picture> picturesList = pictureRepository.findBySizeGreaterThanOrderBySizeAsc(3000.00f);
+
+        String result = picturesList.stream().map(this::pictureFormat).collect(Collectors.joining(System.lineSeparator()));
+
+        return result;
+    }
+
+    private String pictureFormat(Picture picture){
+
+        return String.format("%.2f - %s", picture.getSize(), picture.getPath());
     }
 }
