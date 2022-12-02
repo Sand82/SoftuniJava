@@ -1,6 +1,7 @@
 package softuni.exam.instagraphlite.models.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -19,11 +20,19 @@ public class User {
     @ManyToOne
     private Picture picture;
 
-    public User() {
-    }
+    @OneToMany(  targetEntity = Post.class, mappedBy="user")
+    private List<Post> posts;
 
     public int getId() {
         return id;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 
     public void setId(int id) {

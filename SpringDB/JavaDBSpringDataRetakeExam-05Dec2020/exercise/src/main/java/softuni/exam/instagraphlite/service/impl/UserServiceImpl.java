@@ -3,9 +3,11 @@ package softuni.exam.instagraphlite.service.impl;
 import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import softuni.exam.instagraphlite.models.dtos.UsersImportDTO;
 import softuni.exam.instagraphlite.models.entities.Picture;
+import softuni.exam.instagraphlite.models.entities.Post;
 import softuni.exam.instagraphlite.models.entities.User;
 import softuni.exam.instagraphlite.repository.PictureRepository;
 import softuni.exam.instagraphlite.repository.UserRepository;
@@ -17,9 +19,7 @@ import javax.validation.Validator;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -110,6 +110,42 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String exportUsersWithTheirPosts() {
-        return null;
+
+        List<User> userList = userRepository.findAll(Sort.by("id"));
+
+        Comparator<User> comparator = Comparator.comparing(u -> u.getPosts().size());
+        comparator.thenComparing(User::getId);
+
+        userList.sort(comparator.reversed());
+
+        StringBuilder result = createResult(userList);
+
+        return result.toString();
+    }
+
+    private StringBuilder createResult(List<User> userList) {
+
+        StringBuilder sb = new StringBuilder();
+
+        for (User user : userList) {
+
+            sb.append(String.format("User: %s", user.getUsername()));
+            sb.append(System.lineSeparator());
+            sb.append(String.format("Post count: %d", user.getPosts().size()));
+            sb.append(System.lineSeparator());
+            sb.append(String.format("==Post Details:"));
+            sb.append(System.lineSeparator());
+
+            for (Post post : user.getPosts()) {
+
+                sb.append(String.format("----Caption: %s", post.getCaption()));
+                sb.append(System.lineSeparator());
+                sb.append(String.format("----Picture Size: %.2f", post.getPicture().getSize()));
+                sb.append(System.lineSeparator());
+            }
+            sb.append(System.lineSeparator());
+        }
+
+        return sb;
     }
 }
