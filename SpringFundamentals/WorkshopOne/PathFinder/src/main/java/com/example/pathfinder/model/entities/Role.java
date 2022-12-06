@@ -9,18 +9,16 @@ import jdk.jfr.Enabled;
 public class Role extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
-    private RoleEnums name;
+    private RoleEnums role;
 
     public Role() {
     }
 
-    public RoleEnums getName() {
-        return name;
+    public RoleEnums getRole() {
+        return role;
     }
 
-    public void setName(RoleEnums name) {
-        this.name = name;
+    public void setRole(RoleEnums role) {
+        this.role = role;
     }
-
-
 }

@@ -9,18 +9,18 @@ import java.util.Set;
 @Table(name = "routes")
 public class Route extends BaseEntity {
 
-    @Column(name = "gpx_coordinates", nullable = false, columnDefinition = "LONGTEXT")
-    private String gpxCoordinates;
+    @Column(unique = true, nullable = false)
+    private String name;
 
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "level_enum", nullable = false)
+    @Column(name = "gpx_coordinates", nullable = false, columnDefinition = "LONGTEXT")
+    private String gpxCoordinates;
+
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private LevelEnum level;
-
-    @Column(unique = true, nullable = false)
-    private String name;
 
     @Column(name = "video_url", nullable = false)
     private String videoUrl;
