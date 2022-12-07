@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+
+</head>
+<body>
+<select >
+    <option
+            th:each="lang : ${all}"
+            th:value="${lang}"
+            th:text="${lang}">
+    </option>
+</select>
+</body>
+</html>

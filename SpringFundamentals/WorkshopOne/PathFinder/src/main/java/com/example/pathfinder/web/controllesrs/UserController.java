@@ -14,7 +14,7 @@ public class UserController {
     public String login() {
 
 
-        return login();
+        return "login";
     }
 
     @PostMapping("/login")
@@ -28,7 +28,7 @@ public class UserController {
     public String register(){
 
 
-        return register();
+        return "register";
     }
 
     @PostMapping
