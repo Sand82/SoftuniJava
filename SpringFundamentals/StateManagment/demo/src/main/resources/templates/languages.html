@@ -4,12 +4,23 @@
 
 </head>
 <body>
-<select >
-    <option
-            th:each="lang : ${all}"
-            th:value="${lang}"
-            th:text="${lang}">
-    </option>
-</select>
+<form  th:action="@{/save}"
+       method="post">
+    <select name="lang">
+        <option
+                th:each="lang : ${all}"
+                th:value="${lang}"
+                th:text="${lang}"
+                th:selected="${lang} == ${preferredLang}">
+        </option>
+    </select>
+
+    <input type="submit" value="Chang language">
+</form>
+
+<br>
+<br>
+<br>
+Your preferred lani is <span th:text="${preferredLang}"></span>
 </body>
 </html>
