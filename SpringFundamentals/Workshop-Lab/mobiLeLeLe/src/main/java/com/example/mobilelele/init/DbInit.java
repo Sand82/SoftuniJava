@@ -1,10 +1,9 @@
 package com.example.mobilelele.init;
 
 import com.example.mobilelele.model.entities.BrandEntity;
-import com.example.mobilelele.model.entities.CategoryEnum;
+import com.example.mobilelele.model.enums.CategoryEnum;
 import com.example.mobilelele.model.entities.ModelEntity;
 import com.example.mobilelele.repositories.BrandRepository;
-import com.example.mobilelele.repositories.ModelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

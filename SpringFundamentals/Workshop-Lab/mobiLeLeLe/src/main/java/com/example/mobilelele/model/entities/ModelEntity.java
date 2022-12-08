@@ -1,5 +1,6 @@
 package com.example.mobilelele.model.entities;
 
+import com.example.mobilelele.model.enums.CategoryEnum;
 import jakarta.persistence.*;
 
 @Entity

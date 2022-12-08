@@ -3,7 +3,6 @@ package com.example.mobilelele.model.entities;
 import jakarta.persistence.*;
 
 import java.time.Instant;
-import java.time.LocalDate;
 
 @MappedSuperclass
 public abstract class BaseEntity {

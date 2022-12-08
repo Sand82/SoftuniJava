@@ -1,4 +1,4 @@
-package com.example.mobilelele.model.entities;
+package com.example.mobilelele.model.enums;
 
 public enum CategoryEnum {
     CAR,
