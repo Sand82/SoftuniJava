@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>MobiLeLeLe</title>
@@ -67,6 +67,7 @@
 <div class="container">
     <h2 class="text-center text-white">Login</h2>
     <form method="POST"
+          th:action="@{/users/login}"
           class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
         <div class="form-group">
             <label for="username" class="text-white font-weight-bold">Username</label>
