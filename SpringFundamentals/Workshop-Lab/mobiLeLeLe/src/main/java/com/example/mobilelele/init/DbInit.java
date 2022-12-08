@@ -1,11 +1,17 @@
 package com.example.mobilelele.init;
 
 import com.example.mobilelele.model.entities.BrandEntity;
+import com.example.mobilelele.model.entities.UserEntity;
+import com.example.mobilelele.model.entities.UserRoleEntity;
 import com.example.mobilelele.model.enums.CategoryEnum;
 import com.example.mobilelele.model.entities.ModelEntity;
+import com.example.mobilelele.model.enums.RoleEnum;
 import com.example.mobilelele.repositories.BrandRepository;
+import com.example.mobilelele.repositories.UserRepository;
+import com.example.mobilelele.repositories.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,11 +20,20 @@ import java.util.List;
 public class DbInit implements CommandLineRunner {
 
     private BrandRepository brandRepository;
+    private UserRepository userRepository;
+
+    private UserRoleRepository userRoleRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public DbInit(BrandRepository brandRepository) {
+    public DbInit(BrandRepository brandRepository,
+                  UserRepository userRepository,
+                  UserRoleRepository userRoleRepository, PasswordEncoder passwordEncoder) {
 
         this.brandRepository = brandRepository;
+        this.userRepository = userRepository;
+        this.userRoleRepository = userRoleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -47,5 +62,38 @@ public class DbInit implements CommandLineRunner {
 
             brandRepository.save(ford);
         }
+
+        if (userRoleRepository.count() == 0) {
+
+            UserRoleEntity admin = new UserRoleEntity().setRole(RoleEnum.ADMIN);
+            UserRoleEntity user = new UserRoleEntity().setRole(RoleEnum.USER);
+
+            userRoleRepository.saveAll(List.of(admin, user));
+        }
+
+        if (userRepository.count() == 0) {
+
+            UserEntity admin = new UserEntity()
+                    .setFirstName("Sand")
+                    .setLastName("Stef")
+                    .setUsername("Sand82")
+                    .setPassword(passwordEncoder.encode("123456"))
+                    .setActive(true)
+                    .setImageUrl("https://img.freepik.com/free-photo/portrait-successful-man-having-stubble-posing-with-broad-smile-keeping-arms-folded_171337-1267.jpg?w=2000")
+                    .setUserRoles(List.of(userRoleRepository.findById(1l).get(), userRoleRepository.findById(2l).get()));
+
+            UserEntity user = new UserEntity()
+                    .setFirstName("Mimeto")
+                    .setLastName("Stef")
+                    .setUsername("Mimi")
+                    .setPassword(passwordEncoder.encode("123456"))
+                    .setActive(true)
+                    .setImageUrl("https://images.pexels.com/photos/38554/girl-people-landscape-sun-38554.jpeg?auto=compress&cs=tinysrgb&w=600")
+                    .setUserRoles(List.of(userRoleRepository.findById(1l).get()));
+
+            userRepository.saveAll(List.of(admin, user));
+        }
     }
+
+
 }

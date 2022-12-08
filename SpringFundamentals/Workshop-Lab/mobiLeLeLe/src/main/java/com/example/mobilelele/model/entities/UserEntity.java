@@ -96,4 +96,17 @@ public class UserEntity extends BaseEntity {
         this.password = password;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", username='" + username + '\'' +
+                ", password='N/A" + '\'' +
+                ", isActive=" + isActive +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", userRoles=" + userRoles +
+                '}';
+    }
 }
