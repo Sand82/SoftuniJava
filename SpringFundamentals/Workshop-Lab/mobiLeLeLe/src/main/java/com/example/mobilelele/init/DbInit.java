@@ -21,7 +21,6 @@ public class DbInit implements CommandLineRunner {
 
     private BrandRepository brandRepository;
     private UserRepository userRepository;
-
     private UserRoleRepository userRoleRepository;
     private PasswordEncoder passwordEncoder;
 
