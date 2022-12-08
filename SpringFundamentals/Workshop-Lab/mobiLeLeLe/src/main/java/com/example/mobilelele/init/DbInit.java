@@ -41,6 +41,9 @@ public class DbInit implements CommandLineRunner {
         if (brandRepository.count() == 0) {
 
             BrandEntity ford = new BrandEntity().setName("Ford");
+            BrandEntity honda = new BrandEntity().setName("Honda");
+            BrandEntity opel = new BrandEntity().setName("Opel");
+
 
             ModelEntity fiesta = new ModelEntity().setName("Fiesta")
                     .setImageUrl("https://www.motopfohe.bg/files/news/archive/2017/08/blob-server.jpg")
@@ -54,12 +57,18 @@ public class DbInit implements CommandLineRunner {
                     .setEndYear(2002)
                     .setCategory(CategoryEnum.CAR);
 
-            ford.setModels(List.of(fiesta, escort));
+            ModelEntity nc750s = new ModelEntity().setName("NC750S")
+                    .setImageUrl("https://cdn.visordown.com/article-images/8/82383.png")
+                    .setStartYear(2014)
+                    .setEndYear(null)
+                    .setCategory(CategoryEnum.MOTORCYCLE);
+
+            ford.setModels(List.of(fiesta, escort, nc750s));
 
             fiesta.setBrand(ford);
             escort.setBrand(ford);
 
-            brandRepository.save(ford);
+            brandRepository.saveAll(List.of(ford, opel, honda));
         }
 
         if (userRoleRepository.count() == 0) {

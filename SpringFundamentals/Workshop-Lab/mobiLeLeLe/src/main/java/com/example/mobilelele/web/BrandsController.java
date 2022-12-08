@@ -22,7 +22,7 @@ public class BrandsController {
     @GetMapping("/all")
     private String allBrands(Model model){
 
-        model.addAttribute("allBrands", null);
+        model.addAttribute("brands", brandService.getAllBrands());
 
         return "brands";
     }

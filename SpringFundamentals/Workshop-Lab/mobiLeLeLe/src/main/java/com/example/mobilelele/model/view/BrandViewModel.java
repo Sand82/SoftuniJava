@@ -1,12 +1,13 @@
 package com.example.mobilelele.model.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BrandViewModel {
 
     private String name;
 
-    List<ModelViewModel> models;
+    List<ModelViewModel> models = new ArrayList<>();
 
     public BrandViewModel() {
     }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -68,9 +68,11 @@
 <div class="container">
     <h2 class="text-center text-white m-3">All Brands</h2>
     <div class='row mb-4 d-flex justify-content-around'>
-        <div class="brand-section col-md-5 mr-auto d-flex flex-column">
+        <div
+                th:each="brand: ${brands}"
+                class="brand-section col-md-5 mr-auto d-flex flex-column">
             <h2>Car brand:
-                <span>Brand name</span>
+                <span th:text="${brand.name}">Brand name</span>
             </h2>
             <div>Models:
                 <table>
@@ -82,13 +84,15 @@
                         <th>End Year</th>
                         <th>Picture</th>
                     </tr>
-                    <tr>
-                        <th>No</th>
-                        <th>Model Name</th>
-                        <th>Model Category</th>
-                        <th>Model Start Year</th>
-                        <th>Model End Year</th>
-                        <th><img alt="image" src="/"
+                    <tr th:each="model, inter: ${brand.model}"
+                        th:object="${model}"
+                    >
+                        <th th:text="*{inter.index} + 1">No</th>
+                        <th th:text="*{name}">Model Name</th>
+                        <th th:text="*{category}">Model Category</th>
+                        <th th:text="*{startYear}">Model Start Year</th>
+                        <th th:text="*{endYear}?:'-'">Model End Year</th>
+                        <th><img alt="image" th:src="*{imageUrl}"
                                  class="img-thumbnail rounded"></th>
                     </tr>
                 </table>
