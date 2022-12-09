@@ -41,6 +41,15 @@ public class BrandServiceImpl implements BrandService {
                 brands.stream()
                         .map(b -> new BrandViewModel().setName(b.getName())).toList();
 
+        addModelsOnBrands(models, brandsDTOS);
+
+        brandsDTOS = brandsDTOS.stream().filter(b -> b.getModels().size() > 0).toList();
+
+        return brandsDTOS;
+    }
+
+    private void addModelsOnBrands(List<ModelEntity> models, List<BrandViewModel> brandsDTOS) {
+
         for (BrandViewModel brandsDTO : brandsDTOS) {
 
             List<ModelViewModel> modelsDTO = new ArrayList<>();
@@ -55,9 +64,5 @@ public class BrandServiceImpl implements BrandService {
             }
             brandsDTO.setModels(modelsDTO);
         }
-
-        brandsDTOS = brandsDTOS.stream().filter(b -> b.getModels().size() > 0).toList();
-
-        return brandsDTOS;
     }
 }

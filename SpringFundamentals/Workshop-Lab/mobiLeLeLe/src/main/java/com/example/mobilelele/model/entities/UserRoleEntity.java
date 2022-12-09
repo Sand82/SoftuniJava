@@ -25,4 +25,6 @@ public class UserRoleEntity extends BaseEntity {
         this.role = role;
         return this;
     }
+
+
 }

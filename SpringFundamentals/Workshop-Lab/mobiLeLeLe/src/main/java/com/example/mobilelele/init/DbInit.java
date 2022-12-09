@@ -1,19 +1,17 @@
 package com.example.mobilelele.init;
 
-import com.example.mobilelele.model.entities.BrandEntity;
-import com.example.mobilelele.model.entities.UserEntity;
-import com.example.mobilelele.model.entities.UserRoleEntity;
+import com.example.mobilelele.model.entities.*;
 import com.example.mobilelele.model.enums.CategoryEnum;
-import com.example.mobilelele.model.entities.ModelEntity;
+import com.example.mobilelele.model.enums.EngineEnum;
 import com.example.mobilelele.model.enums.RoleEnum;
-import com.example.mobilelele.repositories.BrandRepository;
-import com.example.mobilelele.repositories.UserRepository;
-import com.example.mobilelele.repositories.UserRoleRepository;
+import com.example.mobilelele.model.enums.TransmissionEnum;
+import com.example.mobilelele.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Component
@@ -24,15 +22,23 @@ public class DbInit implements CommandLineRunner {
     private UserRoleRepository userRoleRepository;
     private PasswordEncoder passwordEncoder;
 
+    private OfferRepository offerRepository;
+    private final ModelRepository modelRepository;
+
     @Autowired
     public DbInit(BrandRepository brandRepository,
                   UserRepository userRepository,
-                  UserRoleRepository userRoleRepository, PasswordEncoder passwordEncoder) {
+                  UserRoleRepository userRoleRepository,
+                  PasswordEncoder passwordEncoder,
+                  OfferRepository offerRepository,
+                  ModelRepository modelRepository) {
 
         this.brandRepository = brandRepository;
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.offerRepository = offerRepository;
+        this.modelRepository = modelRepository;
     }
 
     @Override
@@ -43,7 +49,6 @@ public class DbInit implements CommandLineRunner {
             BrandEntity ford = new BrandEntity().setName("Ford");
             BrandEntity honda = new BrandEntity().setName("Honda");
             BrandEntity opel = new BrandEntity().setName("Opel");
-
 
             ModelEntity fiesta = new ModelEntity().setName("Fiesta")
                     .setImageUrl("https://www.motopfohe.bg/files/news/archive/2017/08/blob-server.jpg")
@@ -67,6 +72,7 @@ public class DbInit implements CommandLineRunner {
 
             fiesta.setBrand(ford);
             escort.setBrand(ford);
+            nc750s.setBrand(honda);
 
             brandRepository.saveAll(List.of(ford, opel, honda));
         }
@@ -101,7 +107,23 @@ public class DbInit implements CommandLineRunner {
 
             userRepository.saveAll(List.of(admin, user));
         }
+
+        if (offerRepository.count() == 0) {
+
+            ModelEntity ford = modelRepository.findByName("Fiesta");
+            BigDecimal price = BigDecimal.valueOf(10000);
+
+            OfferEntity fiestaOffer = new OfferEntity()
+                    .setModel(ford)
+                    .setEngine(EngineEnum.GASOLINE)
+                    .setImageUrl("https://www.motopfohe.bg/files/news/archive/2017/08/blob-server.jpg")
+                    .setYear(2017)
+                    .setPrice(price)
+                    .setMileage(50000)
+                    .setTransmission(TransmissionEnum.MANUAL)
+                    .setDescription("The Ford Fiesta is a supermini car marketed by Ford since 1976 over seven generations. Over the years, the Fiesta has mainly been developed and manufactured by Ford's European operations, and has been positioned below the Escort (later the Focus).");
+
+            offerRepository.save(fiestaOffer);
+        }
     }
-
-
 }
