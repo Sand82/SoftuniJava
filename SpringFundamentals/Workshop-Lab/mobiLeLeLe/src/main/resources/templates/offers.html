@@ -79,7 +79,7 @@
             </div>
             <div class="card-body pb-1">
                 <h5
-                 th:text="*{year}"
+                 th:text="*{year} + ' ' + *{modelBrandName} + ' ' + *{modelName}"
                  class="card-title">Offer year Brand name Model name
                 </h5>
             </div>
@@ -92,7 +92,7 @@
                 </li>
             </ul>
             <div class="card-body">
-                <a class="card-link" href="/">Details</a>
+                <a class="card-link" th:href="@{/offers/{id}/details(id=*{id})}">Details</a>
             </div>
         </div>
     </div>

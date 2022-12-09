@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 
 public class OfferSummeryViewModel {
 
+    private Long id;
     private EngineEnum engine;
 
     private String imageUrl;
@@ -95,6 +96,15 @@ public class OfferSummeryViewModel {
 
     public OfferSummeryViewModel setModelBrandName(String modelBrandName) {
         this.modelBrandName = modelBrandName;
+        return this;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public OfferSummeryViewModel setId(Long id) {
+        this.id = id;
         return this;
     }
 }
