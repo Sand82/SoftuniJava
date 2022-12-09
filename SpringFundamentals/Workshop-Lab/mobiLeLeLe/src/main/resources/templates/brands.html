@@ -84,10 +84,10 @@
                         <th>End Year</th>
                         <th>Picture</th>
                     </tr>
-                    <tr th:each="model, inter: ${brand.model}"
+                    <tr th:each="model, iStat: ${brand.models}"
                         th:object="${model}"
                     >
-                        <th th:text="*{inter.index} + 1">No</th>
+                        <th th:text="${iStat.index} + 1">No</th>
                         <th th:text="*{name}">Model Name</th>
                         <th th:text="*{category}">Model Category</th>
                         <th th:text="*{startYear}">Model Start Year</th>

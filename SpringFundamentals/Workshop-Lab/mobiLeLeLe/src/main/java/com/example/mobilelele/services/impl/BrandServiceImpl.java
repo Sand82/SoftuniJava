@@ -39,9 +39,9 @@ public class BrandServiceImpl implements BrandService {
 
         List<BrandViewModel> brandsDTOS =
                 brands.stream()
-                .map(b -> mapper.map(b, BrandViewModel.class)).toList();
+                        .map(b -> new BrandViewModel().setName(b.getName())).toList();
 
-        for (BrandViewModel brandsDTO : brandsDTOS.stream().filter(b -> b.getModels().size() > 0).toList()) {
+        for (BrandViewModel brandsDTO : brandsDTOS) {
 
             List<ModelViewModel> modelsDTO = new ArrayList<>();
 
@@ -49,12 +49,14 @@ public class BrandServiceImpl implements BrandService {
 
                 if (model.getBrand().getName().equals(brandsDTO.getName())) {
 
-                   ModelViewModel modelDTO = mapper.map(model, ModelViewModel.class);
-                   modelsDTO.add(modelDTO);
+                    ModelViewModel modelDTO = mapper.map(model, ModelViewModel.class);
+                    modelsDTO.add(modelDTO);
                 }
             }
-             brandsDTO.setModels(modelsDTO);
+            brandsDTO.setModels(modelsDTO);
         }
+
+        brandsDTOS = brandsDTOS.stream().filter(b -> b.getModels().size() > 0).toList();
 
         return brandsDTOS;
     }
