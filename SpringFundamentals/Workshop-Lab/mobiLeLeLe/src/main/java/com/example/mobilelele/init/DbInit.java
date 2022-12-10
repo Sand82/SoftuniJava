@@ -111,19 +111,33 @@ public class DbInit implements CommandLineRunner {
         if (offerRepository.count() == 0) {
 
             ModelEntity ford = modelRepository.findByName("Fiesta");
-            BigDecimal price = BigDecimal.valueOf(10000);
+            ModelEntity honda = modelRepository.findByName("Honda");
+            BigDecimal priceFord = BigDecimal.valueOf(50000);
+            BigDecimal priceMotor = BigDecimal.valueOf(10000);
 
             OfferEntity fiestaOffer = new OfferEntity()
                     .setModel(ford)
                     .setEngine(EngineEnum.GASOLINE)
                     .setImageUrl("https://www.motopfohe.bg/files/news/archive/2017/08/blob-server.jpg")
-                    .setYear(2017)
-                    .setPrice(price)
-                    .setMileage(50000)
+                    .setYear(2014)
+                    .setPrice(priceFord)
+                    .setMileage(20000)
                     .setTransmission(TransmissionEnum.MANUAL)
-                    .setDescription("The Ford Fiesta is a supermini car marketed by Ford since 1976 over seven generations. Over the years, the Fiesta has mainly been developed and manufactured by Ford's European operations, and has been positioned below the Escort (later the Focus).");
+                    .setDescription("The Ford Fiesta is a supermini car marketed by Ford since 1976 over seven generations." +
+                            " Over the years, the Fiesta has mainly been developed and manufactured by Ford's European operations, and has been positioned below the Escort (later the Focus).");
 
-            offerRepository.save(fiestaOffer);
+            OfferEntity nc750s = new OfferEntity()
+                    .setModel(honda)
+                    .setEngine(EngineEnum.GASOLINE)
+                    .setImageUrl("https://cdn.visordown.com/article-images/8/82383.png")
+                    .setYear(2017)
+                    .setPrice(priceMotor)
+                    .setMileage(10000)
+                    .setTransmission(TransmissionEnum.MANUAL)
+                    .setDescription("A complete kit to select gears with a traditional foot shifter on the NC750S. Dual Clutch Transmission model. Works in conjunction with, or in place of, the.");
+
+
+            offerRepository.saveAll(List.of(fiestaOffer, nc750s));
         }
     }
 }

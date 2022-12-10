@@ -15,6 +15,7 @@ public class OfferDetailsViewModel {
     private Integer mileage;
     private BigDecimal price;
     private TransmissionEnum transmission;
+    private String description;
     private int year;
     private String modelName;
     private String modelBrandName;
@@ -139,6 +140,15 @@ public class OfferDetailsViewModel {
 
     public OfferDetailsViewModel setId(Long id) {
         this.id = id;
+        return this;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public OfferDetailsViewModel setDescription(String description) {
+        this.description = description;
         return this;
     }
 }
