@@ -41,4 +41,16 @@ public class UserServiceImpl implements UserService {
 
         currentUser.setAnonymous(false).setName(userName);
     }
+
+    @Override
+    public boolean getUserNameFree(String userName) {
+
+        Optional<UserEntity> user = userRepository.findByUsername(userName);
+
+        if (user != null) {
+            return false;
+        }
+
+        return true;
+    }
 }

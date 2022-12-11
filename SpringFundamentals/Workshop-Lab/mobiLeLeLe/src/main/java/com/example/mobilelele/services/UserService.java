@@ -5,4 +5,6 @@ public interface UserService {
     boolean isAuthenticate(String userName, String password);
 
     void loginUser(String userName);
+
+    boolean getUserNameFree(String userName);
 }

@@ -3,6 +3,9 @@ package com.example.mobilelele.model.view;
 import com.example.mobilelele.model.enums.EngineEnum;
 import com.example.mobilelele.model.enums.TransmissionEnum;
 import jakarta.persistence.Column;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -10,7 +13,9 @@ import java.time.Instant;
 public class OfferDetailsViewModel {
 
     private Long id;
+
     private EngineEnum engine;
+
     private String imageUrl;
     private Integer mileage;
     private BigDecimal price;

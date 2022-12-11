@@ -2,19 +2,28 @@ package com.example.mobilelele.model.binding;
 
 import com.example.mobilelele.model.enums.EngineEnum;
 import com.example.mobilelele.model.enums.TransmissionEnum;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 
 public class OfferUpdateBindingModel {
 
     private Long id;
+    @NotBlank
     private String description;
+    @NotNull
     private EngineEnum engine;
+    @NotBlank
     private String imageUrl;
+    @PositiveOrZero
     private Integer mileage;
+    @NotNull
+    @Min(100)
     private BigDecimal price;
+    @NotNull
     private TransmissionEnum transmission;
+    @NotNull
+    @Min(1930)
     private int year;
 
     public OfferUpdateBindingModel() {

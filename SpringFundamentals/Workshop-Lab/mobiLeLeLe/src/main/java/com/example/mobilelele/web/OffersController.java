@@ -6,9 +6,12 @@ import com.example.mobilelele.model.enums.TransmissionEnum;
 import com.example.mobilelele.model.view.OfferDetailsViewModel;
 import com.example.mobilelele.repositories.OfferRepository;
 import com.example.mobilelele.services.OfferService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/offers")
@@ -57,8 +60,29 @@ public class OffersController {
 
         return "update";
     }
+
+    @GetMapping("/{id}/edit/errors") //Edit errors
+    public String editOfferErrors(@PathVariable Long id, Model model) {
+
+        model.addAttribute("engines", EngineEnum.values());
+        model.addAttribute("transmissions", TransmissionEnum.values());
+
+        return "update";
+    }
+
     @PatchMapping("/{id}/edit") //Edit
-    public String editOffer(@PathVariable Long id,  OfferUpdateBindingModel offerModel) {
+    public String editOffer(@PathVariable Long id,
+                            @Valid OfferUpdateBindingModel offerModel,
+                            BindingResult bindingResult,
+                            RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+
+            redirectAttributes.addFlashAttribute("offerModel", offerModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.offerModel", bindingResult);
+
+            return "redirect:/offers/" + id + "/edit/errors";
+        }
 
         offerModel.setId(id);
 

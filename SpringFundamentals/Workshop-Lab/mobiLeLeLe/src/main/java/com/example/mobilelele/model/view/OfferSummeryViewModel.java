@@ -9,19 +9,12 @@ public class OfferSummeryViewModel {
 
     private Long id;
     private EngineEnum engine;
-
     private String imageUrl;
-
     private Integer mileage;
-
     private BigDecimal price;
-
     private TransmissionEnum transmission;
-
     private int year;
-
     private String modelName;
-
     private String modelBrandName;
 
     public OfferSummeryViewModel() {
