@@ -13,58 +13,9 @@
 
 <body>
 
-<div>
-    <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
-        <a class="navbar-brand" href="/"><img alt="car picture" src="/img/car.png" class="logo"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<div th:replace="fragments/navbar">
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto col-12 justify-content-between">
-                <li class="nav-item"
-                >
-                    <a class="nav-link" href="/brands/all">All Brands</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/offers/add">Add Offer</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/offers/all">All Offers</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Admin
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/">Action</a>
-                        <a class="dropdown-item" href="/">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/">Something else here</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <div class="form-inline my-2 my-lg-0 border px-3">
-                        <div class="logged-user"
-                             text="Welcome, Gosho"></div>
-                        <a class="nav-link" href="/users/logout">Logout</a>
-                    </div>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/users/register">Register</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/users/login">Login</a>
-                </li>
-
-            </ul>
-        </div>
-    </nav>
 </div>
-
 
 <div class="container">
     <h2 class="text-center text-white">Update Offer</h2>
@@ -72,7 +23,7 @@
             th:object="${offerModel}"
             th:action="@{/offers/{id}/edit(id=*{id})}"
             th:method="PATCH"
-          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+            class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
         <div class="row">
             <div class="form-group col-md-6 mb-3">
                 <label for="mileage" class="text-white font-weight-bold">Mileage</label>
@@ -81,8 +32,8 @@
                         th:errorclass="is-invalid"
                         id="mileage"
                         type="number"
-                       class="form-control"
-                       placeholder="Mileage in kilometers"/>
+                        class="form-control"
+                        placeholder="Mileage in kilometers"/>
                 <p class="invalid-feedback  errors alert alert-danger">
                     Mileage in kilometers is required.
                 </p>
@@ -93,7 +44,7 @@
                         th:field="*{price}"
                         th:errorclass="is-invalid"
                         id="price" type="number" class="form-control"
-                       placeholder="Suggested price"/>
+                        placeholder="Suggested price"/>
                 <p class="invalid-feedback errors alert alert-danger">
                     Suggested price is required and should be more than 100 BG.
                 </p>
@@ -147,7 +98,7 @@
                         th:field="*{year}"
                         th:errorclass="is-invalid"
                         id="year" type="number" step="1" class="form-control"
-                       placeholder="Manufacturing year"/>
+                        placeholder="Manufacturing year"/>
                 <p class="invalid-feedback errors alert alert-danger">
                     Manufacturing year is required.
                 </p>
@@ -161,7 +112,7 @@
                     th:field="*{description}"
                     th:errorclass="is-invalid"
                     id="description" type="textarea" class="form-control" rows="3"
-                      placeholder="Description"></textarea>
+                    placeholder="Description"></textarea>
             <p class="invalid-feedback errors alert alert-danger">
                 Description is required.
             </p>
@@ -172,7 +123,7 @@
                     th:field="*{imageUrl}"
                     th:errorclass="is-invalid"
                     id="imageUrl" type="url" class="form-control"
-                   placeholder="Put vehicle image URL here">
+                    placeholder="Put vehicle image URL here">
             <p class="invalid-feedback errors alert alert-danger">
                 Vehicle image URL is required.
             </p>
