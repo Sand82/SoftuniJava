@@ -7,4 +7,8 @@ public interface UserService {
     void registerUser(UserRegisterBindingModel userRegisterBindingModel);
 
     UserServiceModel findUserByUserNameAndPassword(String userName, String password);
+
+    void loginUser(Long id, String username);
+
+    void logout();
 }

@@ -21,11 +21,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class UserController {
 
     private final UserService userService;
-    private final CurrentUser currentUser;
 
-    public UserController(UserService userService, CurrentUser currentUser) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.currentUser = currentUser;
     }
 
     @ModelAttribute
@@ -73,7 +71,7 @@ public class UserController {
             return "redirect:login";
         }
 
-        loginUser(user.getId(), user.getUsername());
+        userService.loginUser(user.getId(), user.getUsername());
 
         return "redirect:/";
     }
@@ -102,10 +100,11 @@ public class UserController {
         return "redirect:login";
     }
 
-    private void loginUser(Long id, String username) {
+    @GetMapping("/logout")
+    public String logout() {
 
-        currentUser
-                .setId(id)
-                .setUsername(username);
+        userService.logout();
+
+        return "redirect:/";
     }
 }
