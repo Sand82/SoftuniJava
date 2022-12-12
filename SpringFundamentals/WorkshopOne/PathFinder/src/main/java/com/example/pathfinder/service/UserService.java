@@ -14,4 +14,6 @@ public interface UserService {
     void logout();
 
     UserViewModel createUserViewModel(Long id);
+
+    boolean isNameExists(String username);
 }

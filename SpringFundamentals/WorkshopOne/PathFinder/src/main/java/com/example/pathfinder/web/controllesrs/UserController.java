@@ -68,6 +68,12 @@ public class UserController {
             return "redirect:login";
         }
 
+        boolean isNameExists = userService.isNameExists(user.getUsername());
+
+        if (isNameExists) {
+            //TODO
+        }
+
         userService.loginUser(user.getId(), user.getUsername());
 
         return "redirect:/";

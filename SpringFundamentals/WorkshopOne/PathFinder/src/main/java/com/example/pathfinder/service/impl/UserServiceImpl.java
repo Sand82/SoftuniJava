@@ -72,4 +72,10 @@ public class UserServiceImpl implements UserService {
 
         return userViewModel;
     }
+
+    @Override
+    public boolean isNameExists(String username) {
+
+        return userRepository.existsByUsername(username);
+    }
 }
