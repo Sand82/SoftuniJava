@@ -1,10 +1,10 @@
 package com.example.mobilelele.init;
 
 import com.example.mobilelele.model.entities.*;
-import com.example.mobilelele.model.enums.CategoryEnum;
-import com.example.mobilelele.model.enums.EngineEnum;
-import com.example.mobilelele.model.enums.RoleEnum;
-import com.example.mobilelele.model.enums.TransmissionEnum;
+import com.example.mobilelele.model.entities.enums.CategoryEnum;
+import com.example.mobilelele.model.entities.enums.EngineEnum;
+import com.example.mobilelele.model.entities.enums.RoleEnum;
+import com.example.mobilelele.model.entities.enums.TransmissionEnum;
 import com.example.mobilelele.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

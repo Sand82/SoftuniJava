@@ -1,12 +1,10 @@
 package com.example.mobilelele.model.entities;
 
-import com.example.mobilelele.model.enums.EngineEnum;
-import com.example.mobilelele.model.enums.TransmissionEnum;
+import com.example.mobilelele.model.entities.enums.EngineEnum;
+import com.example.mobilelele.model.entities.enums.TransmissionEnum;
 import jakarta.persistence.*;
-import org.apache.catalina.User;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 
 @Entity
 @Table(name = "offers")

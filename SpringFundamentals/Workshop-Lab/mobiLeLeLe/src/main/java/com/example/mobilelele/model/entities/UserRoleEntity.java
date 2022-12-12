@@ -1,7 +1,7 @@
 package com.example.mobilelele.model.entities;
 
 
-import com.example.mobilelele.model.enums.RoleEnum;
+import com.example.mobilelele.model.entities.enums.RoleEnum;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

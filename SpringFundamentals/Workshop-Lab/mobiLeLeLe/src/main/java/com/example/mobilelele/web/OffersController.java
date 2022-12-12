@@ -1,8 +1,8 @@
 package com.example.mobilelele.web;
 
 import com.example.mobilelele.model.binding.OfferUpdateBindingModel;
-import com.example.mobilelele.model.enums.EngineEnum;
-import com.example.mobilelele.model.enums.TransmissionEnum;
+import com.example.mobilelele.model.entities.enums.EngineEnum;
+import com.example.mobilelele.model.entities.enums.TransmissionEnum;
 import com.example.mobilelele.model.view.OfferDetailsViewModel;
 import com.example.mobilelele.repositories.OfferRepository;
 import com.example.mobilelele.services.OfferService;

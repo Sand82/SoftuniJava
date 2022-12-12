@@ -1,10 +1,8 @@
 package com.example.pathfinder.model.entities;
 
 import com.example.pathfinder.model.entities.enums.LevelEnum;
-import com.example.pathfinder.model.entities.enums.RoleEnums;
 import jakarta.persistence.*;
 
-import java.util.HashMap;
 import java.util.Set;
 
 @Entity

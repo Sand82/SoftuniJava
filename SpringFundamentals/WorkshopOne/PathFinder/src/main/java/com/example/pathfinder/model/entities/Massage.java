@@ -4,10 +4,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import org.hibernate.annotations.CollectionId;
 
 import java.time.LocalDate;
-import java.util.Date;
+
 @Entity
 @Table(name = "massages")
 public class Massage extends BaseEntity {

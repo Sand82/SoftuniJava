@@ -10,5 +10,4 @@ public class PathFinderApplication {
 
 		SpringApplication.run(PathFinderApplication.class, args);
 	}
-
 }

@@ -1,9 +1,6 @@
 package com.example.mobilelele.model.view;
 
-import com.example.mobilelele.model.enums.CategoryEnum;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import com.example.mobilelele.model.entities.enums.CategoryEnum;
 
 public class ModelViewModel {
 

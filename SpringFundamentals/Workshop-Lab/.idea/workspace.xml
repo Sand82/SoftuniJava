@@ -4,7 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="be200ba8-bf74-4173-928c-2fb7bc3f7768" name="Changes" comment="" />
+    <list default="true" id="be200ba8-bf74-4173-928c-2fb7bc3f7768" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/init/DbInit.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/init/DbInit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/model/binding/OfferUpdateBindingModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/model/binding/OfferUpdateBindingModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/model/entities/ModelEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/model/entities/ModelEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/model/entities/OfferEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/model/entities/OfferEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/model/entities/UserRoleEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/model/entities/UserRoleEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/model/enums/CategoryEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/model/entities/enums/CategoryEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/model/enums/EngineEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/model/entities/enums/EngineEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/model/enums/RoleEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/model/entities/enums/RoleEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/model/enums/TransmissionEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/model/entities/enums/TransmissionEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/model/services/OfferUpdateServiceModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/model/services/OfferUpdateServiceModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/model/view/ModelViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/model/view/ModelViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/model/view/OfferDetailsViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/model/view/OfferDetailsViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/model/view/OfferSummeryViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/model/view/OfferSummeryViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/security/CurrentUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/security/CurrentUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/services/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/services/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/services/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/web/OffersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/web/OffersController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobiLeLeLe/src/main/java/com/example/mobilelele/web/UserRegistrationController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobiLeLeLe/src/main/resources/templates/auth-register.html" beforeDir="false" afterPath="$PROJECT_DIR$/mobiLeLeLe/src/main/resources/templates/auth-register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WorkshopOne/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../WorkshopOne/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WorkshopOne/PathFinder/src/main/java/com/example/pathfinder/PathFinderApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../WorkshopOne/PathFinder/src/main/java/com/example/pathfinder/PathFinderApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WorkshopOne/PathFinder/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../WorkshopOne/PathFinder/src/main/resources/application.yml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,7 +66,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/SoftUni/SpringFundamentals/Workshop-Lab/mobiLeLeLe",
+    "last_opened_file_path": "C:/SoftUni/SpringFundamentals/WorkshopOne",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>

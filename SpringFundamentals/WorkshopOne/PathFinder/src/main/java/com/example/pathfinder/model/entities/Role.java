@@ -2,7 +2,6 @@ package com.example.pathfinder.model.entities;
 
 import com.example.pathfinder.model.entities.enums.RoleEnums;
 import jakarta.persistence.*;
-import jdk.jfr.Enabled;
 
 @Entity
 @Table(name = "roles")
