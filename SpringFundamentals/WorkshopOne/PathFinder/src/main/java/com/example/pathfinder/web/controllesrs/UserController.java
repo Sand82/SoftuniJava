@@ -1,8 +1,11 @@
 package com.example.pathfinder.web.controllesrs;
 
 
+import com.example.pathfinder.model.bindings.UserLoginBindingModel;
 import com.example.pathfinder.model.bindings.UserRegisterBindingModel;
+import com.example.pathfinder.model.services.UserServiceModel;
 import com.example.pathfinder.service.UserService;
+import com.example.pathfinder.util.CurrentUser;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,37 +21,67 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class UserController {
 
     private final UserService userService;
+    private final CurrentUser currentUser;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, CurrentUser currentUser) {
         this.userService = userService;
+        this.currentUser = currentUser;
     }
 
     @ModelAttribute
-    public UserRegisterBindingModel userRegisterBindingModel () {
+    public UserRegisterBindingModel userRegisterBindingModel() {
 
-        return  new UserRegisterBindingModel();
+        return new UserRegisterBindingModel();
     }
 
-    @GetMapping("/login")
-    public String login() {
+    @ModelAttribute
+    public UserLoginBindingModel userLoginBindingModel() {
 
+        return new UserLoginBindingModel();
+    }
+
+
+    @GetMapping("/login")
+    public String login(Model model) {
+
+        model.addAttribute("isNotExist", false);
 
         return "login";
     }
 
     @PostMapping("/login")
-    public String loginConfirm() {
+    public String loginConfirm(@Valid UserLoginBindingModel userLoginBindingModel, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+
+            redirectAttributes
+                    .addFlashAttribute("userLoginBindingModel", userLoginBindingModel)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.userLoginBindingModel", bindingResult);
+
+            return "redirect:login";
+        }
+
+        UserServiceModel user = userService.findUserByUserNameAndPassword(userLoginBindingModel.getUsername(), userLoginBindingModel.getPassword());
+
+        if (user == null) {
+
+            redirectAttributes
+                    .addFlashAttribute("isNotExist", true)
+                    .addFlashAttribute("userLoginBindingModel", userLoginBindingModel)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.userLoginBindingModel", bindingResult);
+
+            return "redirect:login";
+        }
+
+        loginUser(user.getId(), user.getUsername());
 
         return "redirect:/";
     }
 
     @GetMapping("/register")
-    public String register(Model model){
+    public String register(Model model) {
 
-//        if (!model.containsAttribute("userRegisterBindingModel")) {
-//
-//            model.addAttribute("userRegisterBindingModel", new UserRegisterBindingModel());
-//        }
+        //Create and inject new instance of UserRegisterBindingModel model from userRegisterBindingModel method with annotation @ModelAttribute.
 
         return "register";
     }
@@ -66,6 +99,13 @@ public class UserController {
 
         userService.registerUser(userRegisterBindingModel);
 
-        return "redirect:/";
+        return "redirect:login";
+    }
+
+    private void loginUser(Long id, String username) {
+
+        currentUser
+                .setId(id)
+                .setUsername(username);
     }
 }

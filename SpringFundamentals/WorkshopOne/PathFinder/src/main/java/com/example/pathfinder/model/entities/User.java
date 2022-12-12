@@ -23,7 +23,7 @@ public class User extends BaseEntity {
    @Column(nullable = false)
    private String username;
 
-   @ManyToMany
+   @ManyToMany(fetch = FetchType.EAGER)
    private Set<Role> roles;
 
    public User() {

@@ -7,10 +7,10 @@ import com.example.pathfinder.model.services.UserServiceModel;
 import com.example.pathfinder.repository.UserRepository;
 import com.example.pathfinder.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -18,9 +18,12 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private ModelMapper mapper;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper mapper) {
+    private PasswordEncoder passwordEncoder;
+
+    public UserServiceImpl(UserRepository userRepository, ModelMapper mapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.mapper = mapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -31,7 +34,15 @@ public class UserServiceImpl implements UserService {
         User user = mapper.map(userServiceModel, User.class);
 
         user.setLevel(LevelEnum.BEGINNER);
+        user.setPassword(userRegisterBindingModel.getPassword());
 
         userRepository.save(user);
+    }
+
+    @Override
+    public UserServiceModel findUserByUserNameAndPassword(String userName, String password) {
+
+
+        return userRepository.findByUsernameAndPassword(userName, password).stream().map(u -> mapper.map(u, UserServiceModel.class)).findFirst().orElse(null);
     }
 }
