@@ -1,8 +1,7 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/commons::head">
-
+<head th:replace="~{fragments/commons::head}">
 </head>
 <body>
 <main class="p-5 align-content-center bg-blur my-register-div">
@@ -10,14 +9,17 @@
     <div class="d-flex justify-content-center ">
         <div class="row g-3">
             <form
-                    action="/"
-                    method="">
+                    th:action="@{/users/register}"
+                    th:method="POST"
+                    th:object="${userRegisterBindingModel}">
+
                 <div>
                     <div class="col-auto">
                         <label for="inputUsername" class="col-form-label ">Username</label>
                     </div>
                     <div class="col-auto">
-                        <input name="username"
+                        <input
+                                th:field="*{username}"
 
                                required minlength="5" maxlength="20"
                                type="text"
@@ -39,7 +41,8 @@
                         <label for="inputFullName" class="col-form-label ">Full Name</label>
                     </div>
                     <div class="col-auto">
-                        <input name="fullname"
+                        <input
+                               th:field="*{fullName}"
                                required minlength="5" maxlength="20"
                                type="text"
                                id="inputFullName"
@@ -56,7 +59,8 @@
                         <label for="inputEmail" class="col-form-label ">Email</label>
                     </div>
                     <div class="col-auto">
-                        <input name="email"
+                        <input
+                               th:field="*{email}"
                                required
                                type="email"
                                id="inputEmail"
@@ -71,7 +75,8 @@
                         <label for="inputAge" class="col-form-label ">Age</label>
                     </div>
                     <div class="col-auto">
-                        <input name="age" required
+                        <input
+                               th:field="*{age}" required
                                type="number"
                                id="inputAge"
                                class="form-control"
@@ -86,7 +91,8 @@
                         <label for="inputPassword" class="col-form-label ">Password</label>
                     </div>
                     <div class="col-auto">
-                        <input name="password"
+                        <input
+                               th:field="*{password}"
                                required minlength="5" maxlength="20"
                                type="password"
                                id="inputPassword"
@@ -104,7 +110,8 @@
                         <label for="inputConfirmPassword" class="col-form-label ">Confirm Password</label>
                     </div>
                     <div class="col-auto">
-                        <input name="confirmPassword"
+                        <input
+                               th:field="*{confirmPassword}"
                                required minlength="5" maxlength="20"
                                type="password"
                                id="inputConfirmPassword"
@@ -125,7 +132,7 @@
         </div>
     </div>
 </main>
-<footer th:replace="fragments/commons::footer" class="footer bg-blur rounded">
+<footer th:replace="~{fragments/commons::footer}" class="footer bg-blur rounded">
 
 </footer>
 </body>

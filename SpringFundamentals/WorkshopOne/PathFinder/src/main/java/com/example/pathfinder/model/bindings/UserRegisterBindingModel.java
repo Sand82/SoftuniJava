@@ -1,5 +1,7 @@
 package com.example.pathfinder.model.bindings;
 
+import jakarta.validation.constraints.Min;
+
 public class UserRegisterBindingModel {
 
     private String username;
@@ -8,7 +10,8 @@ public class UserRegisterBindingModel {
 
     private String email;
 
-    private int age;
+    @Min(10)
+    private Integer age;
 
     private String password;
 
@@ -44,11 +47,11 @@ public class UserRegisterBindingModel {
         return this;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public UserRegisterBindingModel setAge(int age) {
+    public UserRegisterBindingModel setAge(Integer age) {
         this.age = age;
         return this;
     }
