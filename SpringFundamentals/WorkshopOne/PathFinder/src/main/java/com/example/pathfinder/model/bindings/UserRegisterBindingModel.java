@@ -1,20 +1,29 @@
 package com.example.pathfinder.model.bindings;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Size;
 
 public class UserRegisterBindingModel {
 
+    @Size(min = 4)
     private String username;
 
+    @Size(min = 4)
     private String fullName;
 
+    @Email
     private String email;
 
-    @Min(10)
+    @Min(0)
+    @Max(90)
     private Integer age;
 
+    @Size(min = 5, max = 20)
     private String password;
 
+    @Size(min = 5, max = 20)
     private String confirmPassword;
 
     public UserRegisterBindingModel() {

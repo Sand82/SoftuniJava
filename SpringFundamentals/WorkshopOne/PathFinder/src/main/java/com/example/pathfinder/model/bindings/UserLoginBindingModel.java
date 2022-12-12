@@ -1,9 +1,13 @@
 package com.example.pathfinder.model.bindings;
 
+import jakarta.validation.constraints.Size;
+
 public class UserLoginBindingModel {
 
+    @Size(min = 4)
     private String username;
 
+    @Size(min = 4)
     private String password;
 
     public UserLoginBindingModel() {

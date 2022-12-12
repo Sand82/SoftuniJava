@@ -28,4 +28,11 @@ public class RouteController {
 
         return "routes";
     }
+
+    @GetMapping("/add")
+    public String addRoutes() {
+
+
+        return "add-routes";
+    }
 }

@@ -5,15 +5,10 @@ import com.example.pathfinder.model.entities.enums.LevelEnum;
 public class UserViewModel {
 
     private long id;
-
     private String username;
-
     private int age;
-
     private String fullName;
-
     private LevelEnum level;
-
     public UserViewModel() {
     }
 
