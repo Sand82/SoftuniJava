@@ -4,12 +4,15 @@ import com.example.pathfinder.model.bindings.UserRegisterBindingModel;
 import com.example.pathfinder.model.entities.User;
 import com.example.pathfinder.model.entities.enums.LevelEnum;
 import com.example.pathfinder.model.services.UserServiceModel;
+import com.example.pathfinder.model.view.UserViewModel;
 import com.example.pathfinder.repository.UserRepository;
 import com.example.pathfinder.service.UserService;
 import com.example.pathfinder.util.CurrentUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -58,5 +61,15 @@ public class UserServiceImpl implements UserService {
 
         currentUser.setUsername(null);
         currentUser.setId(null);
+    }
+
+    @Override
+    public UserViewModel createUserViewModel(Long id) {
+
+        Optional<User> user = userRepository.findById(id);
+
+        UserViewModel userViewModel = mapper.map(user, UserViewModel.class);
+
+        return userViewModel;
     }
 }
