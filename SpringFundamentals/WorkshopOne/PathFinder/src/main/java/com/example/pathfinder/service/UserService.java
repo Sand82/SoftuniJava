@@ -1,6 +1,7 @@
 package com.example.pathfinder.service;
 
 import com.example.pathfinder.model.bindings.UserRegisterBindingModel;
+import com.example.pathfinder.model.entities.User;
 import com.example.pathfinder.model.services.UserServiceModel;
 import com.example.pathfinder.model.view.UserViewModel;
 
@@ -16,4 +17,6 @@ public interface UserService {
     UserViewModel createUserViewModel(Long id);
 
     boolean isNameExists(String username);
+
+    User getById(Long id);
 }

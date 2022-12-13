@@ -1,10 +1,10 @@
 package com.example.pathfinder.model.services;
 
-import com.example.pathfinder.model.entities.Category;
 import com.example.pathfinder.model.entities.Picture;
 import com.example.pathfinder.model.entities.User;
+import com.example.pathfinder.model.entities.enums.CategoryNameEnum;
 import com.example.pathfinder.model.entities.enums.LevelEnum;
-import jakarta.persistence.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Set;
 
@@ -17,7 +17,7 @@ public class RouteServiceModel {
     private LevelEnum level;
     private String videoUrl;
     private User author;
-    private Set<Category> categories;
+    private Set<CategoryNameEnum> categories;
     private Set<Picture> pictures;
 
     public RouteServiceModel() {
@@ -86,11 +86,11 @@ public class RouteServiceModel {
         return this;
     }
 
-    public Set<Category> getCategories() {
+    public Set<CategoryNameEnum> getCategories() {
         return categories;
     }
 
-    public RouteServiceModel setCategories(Set<Category> categories) {
+    public RouteServiceModel setCategories(Set<CategoryNameEnum> categories) {
         this.categories = categories;
         return this;
     }
