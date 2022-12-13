@@ -10,17 +10,13 @@ import java.util.Set;
 
 public class RouteDetailsViewModel {
 
-
     private String name;
-
     private String description;
-
     private String gpxCoordinates;
-
     private LevelEnum level;
-
     private String videoUrl;
 
+    private String authorFullName;
     private Set<Picture> pictures;
 
     public RouteDetailsViewModel() {
@@ -77,6 +73,15 @@ public class RouteDetailsViewModel {
 
     public RouteDetailsViewModel setPictures(Set<Picture> pictures) {
         this.pictures = pictures;
+        return this;
+    }
+
+    public String getAuthorFullName() {
+        return authorFullName;
+    }
+
+    public RouteDetailsViewModel setAuthorFullName(String authorFullName) {
+        this.authorFullName = authorFullName;
         return this;
     }
 }

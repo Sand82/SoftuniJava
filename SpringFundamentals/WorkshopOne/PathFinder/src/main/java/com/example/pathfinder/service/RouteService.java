@@ -2,6 +2,7 @@ package com.example.pathfinder.service;
 
 import com.example.pathfinder.model.bindings.RouteAddBindingModel;
 import com.example.pathfinder.model.entities.Route;
+import com.example.pathfinder.model.view.RouteDetailsViewModel;
 import com.example.pathfinder.model.view.RouteViewModel;
 
 import java.io.IOException;
@@ -12,5 +13,5 @@ public interface RouteService {
 
     void createRoute(RouteAddBindingModel routeAddBindingModel) throws IOException;
 
-    Route findRouteById(Long id);
+    RouteDetailsViewModel findRouteById(Long id);
 }

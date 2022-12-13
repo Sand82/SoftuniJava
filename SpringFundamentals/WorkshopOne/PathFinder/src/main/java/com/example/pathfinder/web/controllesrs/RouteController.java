@@ -1,6 +1,7 @@
 package com.example.pathfinder.web.controllesrs;
 
 import com.example.pathfinder.model.bindings.RouteAddBindingModel;
+import com.example.pathfinder.model.view.RouteDetailsViewModel;
 import com.example.pathfinder.model.view.RouteViewModel;
 import com.example.pathfinder.service.RouteService;
 import com.example.pathfinder.util.CurrentUser;
@@ -36,7 +37,9 @@ public class RouteController {
     @GetMapping("/details/{id}")
     public String details(@PathVariable Long id, Model model){
 
-        model.addAttribute("route", routeService.findRouteById(id));
+        RouteDetailsViewModel routeDetailsViewModel = routeService.findRouteById(id);
+
+        model.addAttribute("routeDetailsViewModel", routeDetailsViewModel);
 
         return "route-details";
     }

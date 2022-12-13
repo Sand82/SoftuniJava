@@ -4,6 +4,7 @@ import com.example.pathfinder.model.bindings.RouteAddBindingModel;
 import com.example.pathfinder.model.entities.Category;
 import com.example.pathfinder.model.entities.Route;
 import com.example.pathfinder.model.services.RouteServiceModel;
+import com.example.pathfinder.model.view.RouteDetailsViewModel;
 import com.example.pathfinder.model.view.RouteViewModel;
 import com.example.pathfinder.repository.RouteRepository;
 import com.example.pathfinder.service.CategoryService;
@@ -62,9 +63,13 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public Route findRouteById(Long id) {
-        
-        return routeRepository.findById(id).get();
+    public RouteDetailsViewModel findRouteById(Long id) {
+
+        Route route = routeRepository.findById(id).get();
+
+        RouteDetailsViewModel routeDetailsViewModel = mapper.map(route, RouteDetailsViewModel.class);
+
+        return routeDetailsViewModel;
     }
 
     private void saveRoute(RouteServiceModel routeServiceModel) {
