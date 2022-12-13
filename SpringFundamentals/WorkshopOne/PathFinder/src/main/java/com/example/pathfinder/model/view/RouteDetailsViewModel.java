@@ -15,7 +15,6 @@ public class RouteDetailsViewModel {
     private String gpxCoordinates;
     private LevelEnum level;
     private String videoUrl;
-
     private String authorFullName;
     private Set<Picture> pictures;
 

@@ -49,16 +49,16 @@
         </section>
         <section id="map"></section>
         <section id="video">
-            <iframe id="frame" src="https://www.youtube.com/embed/">
+            <iframe id="frame" th:src="'https://www.youtube.com/embed/' + *{videoUrl}">
             </iframe>
         </section>
         <section class="route-description text-center">
             <h4>Description:</h4>
-            <p id="route-description">Description: </p>
+            <p id="route-description" th:text="*{description}">Description: </p>
         </section>
         <section class="gallery">
-            <img class="rounded" src="/images/pic4.jpg" height="100%" alt="">
-            <img class="rounded" src="/images/pic1.jpg" height="100%" alt="">
+            <img th:each="p : *{pictures}" class="rounded" th:src="${p.url}" height="100%" alt="">
+
         </section>
         <section class="comments">
             <h1>Comments</h1>
