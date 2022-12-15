@@ -6,4 +6,6 @@ public interface UserService {
     boolean usernameAndEmailValidation(String username, String email);
 
     void addUserInDatabase(UserRegisterBindingModel userRegisterBindingModel);
+
+    boolean loginUser(String username, String password);
 }
