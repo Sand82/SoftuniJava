@@ -3,6 +3,7 @@ package com.example.likebook.web;
 
 import com.example.likebook.models.bindings.UserLoginBindingModel;
 import com.example.likebook.models.bindings.UserRegisterBindingModel;
+import com.example.likebook.security.CurrentUser;
 import com.example.likebook.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -19,9 +20,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class UserController {
     
     private UserService userService;
+    private CurrentUser currentUser;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, CurrentUser currentUser) {
         this.userService = userService;
+        this.currentUser = currentUser;
     }
 
     @GetMapping("/register")
@@ -93,6 +96,17 @@ public class UserController {
         }
 
         return "redirect:/";
+    }
+
+    @GetMapping("/logout")
+    public String logout(){
+
+        if (currentUser.getId() != null) {
+
+            userService.logout();
+        }
+
+        return "redirect:login";
     }
 
     @ModelAttribute

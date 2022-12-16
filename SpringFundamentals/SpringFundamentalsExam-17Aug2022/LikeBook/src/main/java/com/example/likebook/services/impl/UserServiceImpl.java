@@ -60,6 +60,13 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
+    @Override
+    public void logout() {
+
+        currentUser.setId(null);
+        currentUser.setUsername(null);
+    }
+
     private void createSession(User user) {
 
         currentUser.setId(user.getId());
