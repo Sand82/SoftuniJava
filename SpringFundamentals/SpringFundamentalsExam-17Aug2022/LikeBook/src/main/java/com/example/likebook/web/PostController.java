@@ -26,11 +26,6 @@ public class PostController {
     @GetMapping("/add")
     public String add(Model model) {
 
-        if (!model.containsAttribute("isExist")) {
-
-            model.addAttribute("isExist", true);
-        }
-
         return "post-add";
     }
 
@@ -39,21 +34,15 @@ public class PostController {
 
         if (bindingResult.hasFieldErrors()) {
 
-            setReturningModel(moodAddBindingModel, bindingResult, redirectAttributes, true);
+            redirectAttributes.addFlashAttribute("moodAddBindingModel", moodAddBindingModel)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.moodAddBindingModel", bindingResult);
 
-            return "redirect:post-add";
+            return "redirect:add";
         }
 
         moodService.createMood(moodAddBindingModel);
 
         return "redirect:/";
-    }
-
-    private static void setReturningModel(MoodAddBindingModel moodAddBindingModel, BindingResult bindingResult, RedirectAttributes redirectAttributes, boolean isExist) {
-
-        redirectAttributes.addFlashAttribute("moodAddBindingModel", moodAddBindingModel)
-                .addFlashAttribute("org.springframework.validation.BindingResult.moodAddBindingModel", bindingResult)
-                .addFlashAttribute("isExist", isExist);
     }
 
     @ModelAttribute
