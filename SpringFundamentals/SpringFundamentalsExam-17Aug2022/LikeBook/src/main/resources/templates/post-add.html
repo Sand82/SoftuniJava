@@ -8,28 +8,35 @@
     <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add post</span></h1>
     <hr class="hr-3 w-25 bg-white"/>
 
-    <form class="mx-auto w-25 bg-blur rounded" method="" action="/" >
+    <form
+            th:action="@{/posts/add}"
+            th:method="POST"
+            th:object="${moodAddBindingModel}"
+            class="mx-auto w-25 bg-blur rounded"  >
 
         <div class="form-group">
             <div class="label-holder text-white textCol d-flex justify-content-center">
                 <label for="content" class="h4 mb-2">Content</label>
             </div>
-            <textarea type="text" class="form-control" id="content" name="content"></textarea>
-            <small class="text-danger">Content error message</small>
+            <textarea
+                    th:field="*{content}"
+                    th:errorclass="is-invalid"
+                    type="text" class="form-control" id="content" name="content"></textarea>
+            <small class="invalid-feedback text-danger">Content length must be between 2 and 150 symbols.</small>
         </div>
 
         <div class="form-group">
             <div class="text-white label-holder d-flex justify-content-center">
                 <label for="mood" class="h4 mb-2">Mood</label>
             </div>
-            <select class="browser-default custom-select" id="mood" name="mood">
-                <option value="">Select mood</option>
-                <option value="HAPPY">Happy</option>
-                <option value="SAD">Sad</option>
-                <option value="INSPIRED">Inspired</option>
+            <select
+                    th:field="*{mood}"
+                    th:errorclass="is-invalid"
+                    class="browser-default custom-select" id="mood" name="mood">
+                <option value="" selected>Select mood</option>
+                <option th:each="m : ${T(com.example.likebook.models.entities.enums.MoodEnum).values()}" th:value="${m}" th:text="${m}">Select mood</option>
             </select>
-
-            <small class="text-danger">Mood error message</small>
+            <small class="invalid-feedback text-danger">Mood can not be empty value.</small>
         </div>
 
         <div class="button-holder d-flex justify-content-center">
