@@ -27,17 +27,20 @@
 
             <div class="col-6 mt-1 mb-1">
                 <h3 class="mySticky bg-gray text-dark  mb-0 mt-2">All Other Posts</h3>
-                <h6 class="mySticky bg-gray text-dark  mb-0 mt-0">{otherUsersPostsTotalCount} total posts</h6>
+                <h6 class="mySticky bg-gray text-dark  mb-0 mt-0" th:text="|${totalPosts} total posts|" >{otherUsersPostsTotalCount} total posts</h6>
                 <div class="bg-dark rounded m-auto" style="height: 68.5vh; overflow: auto">
                     <th:block>
                         <br>
-                        <ul class="list-group list-group-horizontal text-dark">
+                        <ul
+                                th:each=" o : ${otherPosts}"
+                                th:object="${o}"
+                                class="list-group list-group-horizontal text-dark">
                             <li class="list-group-item">
                                 <table>
                                     <tr>
-                                        <td style="width: 15%"><a> {username}: </a></td>
+                                        <td style="width: 15%" th:text="*{username}"><a> {username}: </a></td>
                                         <td>
-                                            <a>{content}</a>
+                                            <a th:text="*{content}">{content}</a>
                                         </td>
                                     </tr>
                                 </table>
@@ -45,9 +48,9 @@
                             <li class="list-group-item bg-gray">
                                 <table>
                                     <tr>
-                                        <td style="width: 10%">Mood: {mood}</td>
-                                        <td class="text-primary">{numberOfLikes} likes</td>
-                                        <td><a class="ml-3 text-danger" href="/"><img src="/img/like.png" width="43px" height="40px"></a></td>
+                                        <td style="width: 10%" th:text="|Mood: *{mood}|">Mood: {mood}</td>
+                                        <td class="text-primary" th:text="|*{likes} likes|">{numberOfLikes} likes</td>
+                                        <td><a class="ml-3 text-danger" th:href="@{/posts/like/{id}(id =*{id})}"><img src="/img/like.png" width="43px" height="40px"></a></td>
                                     </tr>
                                 </table>
                             </li>

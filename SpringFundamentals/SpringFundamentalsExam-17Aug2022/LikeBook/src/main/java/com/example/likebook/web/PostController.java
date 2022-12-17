@@ -23,8 +23,10 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping("/likes")
-    public String likes(){
+    @GetMapping("/like/{id}")
+    public String like(@PathVariable Long id){
+
+        postService.setLike(id);
 
         return  "redirect:/";
     }

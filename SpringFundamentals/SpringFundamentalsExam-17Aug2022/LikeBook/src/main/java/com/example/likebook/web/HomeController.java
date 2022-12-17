@@ -1,6 +1,7 @@
 package com.example.likebook.web;
 
 import com.example.likebook.models.views.MyPostViewModel;
+import com.example.likebook.models.views.OtherUserViewModel;
 import com.example.likebook.security.CurrentUser;
 import com.example.likebook.services.PostService;
 import org.springframework.stereotype.Controller;
@@ -32,8 +33,14 @@ public class HomeController {
 
         String username = currentUser.getUsername();
 
+        List<OtherUserViewModel> otherPosts = postService.getOtherPosts();
+
+        int totalPosts = otherPosts.size();
+
         model.addAttribute("myPosts", myPosts);
         model.addAttribute("username", username);
+        model.addAttribute("otherPosts", otherPosts);
+        model.addAttribute("totalPosts", totalPosts);
 
         return "home";
     }

@@ -23,6 +23,11 @@ public class Post extends BaseEntity {
     public Post() {
     }
 
+    public void addLike(User user){
+
+        userLikes.add(user);
+    }
+
     public String getContent() {
         return content;
     }

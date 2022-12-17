@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean usernameAndEmailValidation(String username, String email) {
 
-        Optional<User> user = userRepository.findByUsernameAndEmail(username, email);
+        User user = userRepository.findByUsernameAndEmail(username, email).orElse(null);
 
         if (user == null) {
 
@@ -65,6 +65,12 @@ public class UserServiceImpl implements UserService {
 
         currentUser.setId(null);
         currentUser.setUsername(null);
+    }
+
+    @Override
+    public User getUserBuId(Long id) {
+
+        return userRepository.findById(id).orElse(null);
     }
 
     private void createSession(User user) {

@@ -11,4 +11,6 @@ public interface UserService {
     boolean loginUser(String username, String password);
 
     void logout();
+
+    User getUserBuId(Long id);
 }
