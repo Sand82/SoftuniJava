@@ -2,14 +2,12 @@ package com.example.likebook.web;
 
 import com.example.likebook.models.bindings.MoodAddBindingModel;
 import com.example.likebook.services.MoodService;
+import com.example.likebook.services.PostService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -17,10 +15,18 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class PostController {
 
     private MoodService moodService;
+    private final PostService postService;
 
-    public PostController(MoodService moodService) {
+    public PostController(MoodService moodService, PostService postService) {
 
         this.moodService = moodService;
+        this.postService = postService;
+    }
+
+    @GetMapping("/likes")
+    public String likes(){
+
+        return  "redirect:/";
     }
 
     @GetMapping("/add")
@@ -43,6 +49,14 @@ public class PostController {
         moodService.createMood(moodAddBindingModel);
 
         return "redirect:/";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id){
+
+        postService.deletePost(id);
+
+        return  "redirect:/";
     }
 
     @ModelAttribute
