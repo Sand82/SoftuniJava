@@ -8,4 +8,6 @@ public interface UserService {
     void createUser(UserRegisterBindingModel userRegisterBindingModel);
 
     boolean getByUsernameAndPassword(String username, String password);
+
+    void logout();
 }

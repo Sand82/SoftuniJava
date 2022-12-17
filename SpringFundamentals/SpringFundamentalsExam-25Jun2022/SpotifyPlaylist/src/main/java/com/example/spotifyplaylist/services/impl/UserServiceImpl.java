@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 
         if (user == null) {
 
-           return false;
+            return false;
         }
 
         return true;
@@ -58,5 +58,12 @@ public class UserServiceImpl implements UserService {
         currentUser.setUsername(username);
 
         return true;
+    }
+
+    @Override
+    public void logout() {
+
+        currentUser.setId(null);
+        currentUser.setUsername(null);
     }
 }
