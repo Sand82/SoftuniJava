@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="d0e421bc-3597-4bdb-877f-81f32cb9b446" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/LikeBook/src/main/resources/templates/fragments/commons.html" beforeDir="false" afterPath="$PROJECT_DIR$/LikeBook/src/main/resources/templates/fragments/commons.html" afterDir="false" />
+    <list default="true" id="fa91d480-2897-49df-9aea-6f02a1b83179" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../SpringFundamentalsExam-17Aug2022/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringFundamentalsExam-17Aug2022/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpringFundamentalsExam-17Aug2022/LikeBook/src/main/resources/templates/fragments/commons.html" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringFundamentalsExam-17Aug2022/LikeBook/src/main/resources/templates/fragments/commons.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,8 +13,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
-  <component name="ProjectId" id="2IwynGKi1l3oSoWCu0ZMZmlU5NI" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="2J3GrAVQOsZNRkUAfY1EWODM6xT" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -27,41 +24,22 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "C:/SoftUni/SpringFundamentals/SpringFundamentalsExam-25Jun2022",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="d0e421bc-3597-4bdb-877f-81f32cb9b446" name="Changes" comment="" />
-      <created>1671107105444</created>
+      <changelist id="fa91d480-2897-49df-9aea-6f02a1b83179" name="Changes" comment="" />
+      <created>1671299548573</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1671107105444</updated>
-      <workItem from="1671201812855" duration="556000" />
-      <workItem from="1671299466920" duration="81000" />
+      <updated>1671299548573</updated>
+      <workItem from="1671299549761" duration="91000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
 </project>
