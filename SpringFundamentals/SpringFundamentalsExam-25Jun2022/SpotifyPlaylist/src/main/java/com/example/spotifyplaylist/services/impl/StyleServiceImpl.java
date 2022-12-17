@@ -32,4 +32,10 @@ public class StyleServiceImpl implements StyleService {
             styleRepository.saveAll(styles);
         }
     }
+
+    @Override
+    public Style getStyle(StyleEnum style) {
+
+        return styleRepository.findByName(style);
+    }
 }

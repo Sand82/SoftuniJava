@@ -24,6 +24,11 @@ public class User extends BaseEntity{
     public User() {
     }
 
+    public void addSong(Song song) {
+
+        playList.add(song);
+    }
+
     public String getUsername() {
         return username;
     }
