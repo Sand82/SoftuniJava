@@ -1,5 +1,6 @@
 package com.example.spotifyplaylist.web;
 
+import com.example.spotifyplaylist.models.bindings.UserLoginBindingModel;
 import com.example.spotifyplaylist.models.bindings.UserRegisterBindingModel;
 import com.example.spotifyplaylist.services.UserService;
 import jakarta.validation.Valid;
@@ -23,10 +24,38 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login() {
+    public String login(Model model) {
 
+        if (!model.containsAttribute("isFound")) {
+
+            model.addAttribute("isFound", true);
+        }
 
         return "login";
+    }
+
+    @PostMapping("/login")
+    public String confirmLogin(@Valid UserLoginBindingModel userLoginBindingModel,
+                               BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes){
+
+        if (bindingResult.hasFieldErrors()) {
+
+            setReturningLoginModel(userLoginBindingModel, bindingResult, redirectAttributes, true);
+
+            return "redirect:login";
+        }
+
+        boolean isFound = userService.getByUsernameAndPassword(userLoginBindingModel.getUsername(), userLoginBindingModel.getPassword());
+
+        if (!isFound) {
+
+            setReturningLoginModel(userLoginBindingModel, bindingResult, redirectAttributes, false);
+
+            return "redirect:login";
+        }
+
+        return "redirect:/";
     }
 
     @GetMapping("/register")
@@ -53,24 +82,24 @@ public class UserController {
 
         if (bindingResult.hasErrors()) {
 
-            setReturningModel(userRegisterBindingModel, bindingResult, redirectAttributes, true, false);
+            setReturningRegisterModel(userRegisterBindingModel, bindingResult, redirectAttributes, true, false);
 
             return "redirect:register";
         }
 
         if (!userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
 
-            setReturningModel(userRegisterBindingModel, bindingResult, redirectAttributes, false, false);
+            setReturningRegisterModel(userRegisterBindingModel, bindingResult, redirectAttributes, false, false);
 
             return "redirect:register";
         }
 
-        boolean isExist = userService.getByUsernameOrPassword(userRegisterBindingModel.getUsername(), userRegisterBindingModel.getEmail());
+        boolean isExist = userService.getByUsernameOrEmail(userRegisterBindingModel.getUsername(), userRegisterBindingModel.getEmail());
 
 
         if (isExist) {
 
-            setReturningModel(userRegisterBindingModel, bindingResult, redirectAttributes, true, true);
+            setReturningRegisterModel(userRegisterBindingModel, bindingResult, redirectAttributes, true, true);
 
             return "redirect:register";
         }
@@ -80,11 +109,21 @@ public class UserController {
         return "redirect:login";
     }
 
-    private static void setReturningModel(UserRegisterBindingModel userRegisterBindingModel,
-                                          BindingResult bindingResult,
-                                          RedirectAttributes redirectAttributes,
-                                          boolean isValidPasswordConfirmation,
-                                          boolean isExist) {
+    private static void setReturningLoginModel(UserLoginBindingModel userLoginBindingModel,
+                                               BindingResult bindingResult,
+                                               RedirectAttributes redirectAttributes,
+                                               boolean isFound) {
+        redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel)
+                .addFlashAttribute("org.springframework.validation.BindingResult.userLoginBindingModel", bindingResult)
+                .addFlashAttribute("isFound", isFound);
+    }
+
+
+    private static void setReturningRegisterModel(UserRegisterBindingModel userRegisterBindingModel,
+                                                  BindingResult bindingResult,
+                                                  RedirectAttributes redirectAttributes,
+                                                  boolean isValidPasswordConfirmation,
+                                                  boolean isExist) {
 
         redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel)
                 .addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult)
@@ -103,5 +142,11 @@ public class UserController {
     public UserRegisterBindingModel userRegisterBindingModel() {
 
         return new UserRegisterBindingModel();
+    }
+
+    @ModelAttribute
+    public UserLoginBindingModel userLoginBindingModel() {
+
+        return new UserLoginBindingModel();
     }
 }

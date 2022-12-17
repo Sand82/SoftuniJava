@@ -5,16 +5,16 @@ import jakarta.validation.constraints.Size;
 
 public class UserRegisterBindingModel {
 
-    @Size(min= 2, max = 20)
+    @Size(min= 3, max = 20)
     private String username;
 
     @Email
     private String email;
 
-    @Size(min= 2, max = 20)
+    @Size(min= 3, max = 20)
     private String password;
 
-    @Size(min= 2, max = 20)
+    @Size(min= 3, max = 20)
     private String confirmPassword;
 
     public UserRegisterBindingModel() {
