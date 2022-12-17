@@ -28,31 +28,35 @@ public class User extends BaseEntity{
         return username;
     }
 
-    public void setUsername(String username) {
+    public User setUsername(String username) {
         this.username = username;
+        return this;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public User setPassword(String password) {
         this.password = password;
+        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public User setEmail(String email) {
         this.email = email;
+        return this;
     }
 
     public List<Song> getPlayList() {
         return playList;
     }
 
-    public void setPlayList(List<Song> playList) {
+    public User setPlayList(List<Song> playList) {
         this.playList = playList;
+        return this;
     }
 }

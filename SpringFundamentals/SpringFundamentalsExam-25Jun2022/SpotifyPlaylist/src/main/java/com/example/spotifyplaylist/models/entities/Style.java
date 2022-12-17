@@ -22,15 +22,17 @@ public class Style extends BaseEntity{
         return name;
     }
 
-    public void setName(StyleEnum name) {
+    public Style setName(StyleEnum name) {
         this.name = name;
+        return this;
     }
 
     public String getDescription() {
         return Description;
     }
 
-    public void setDescription(String description) {
+    public Style setDescription(String description) {
         Description = description;
+        return this;
     }
 }

@@ -29,39 +29,44 @@ public class Song extends BaseEntity {
         return performer;
     }
 
-    public void setPerformer(String performer) {
+    public Song setPerformer(String performer) {
         this.performer = performer;
+        return this;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public Song setTitle(String title) {
         this.title = title;
+        return this;
     }
 
     public Integer getDuration() {
         return Duration;
     }
 
-    public void setDuration(Integer duration) {
+    public Song setDuration(Integer duration) {
         Duration = duration;
+        return this;
     }
 
     public LocalDate getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(LocalDate releaseDate) {
+    public Song setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
+        return this;
     }
 
     public Style getStyle() {
         return style;
     }
 
-    public void setStyle(Style style) {
+    public Song setStyle(Style style) {
         this.style = style;
+        return this;
     }
 }
