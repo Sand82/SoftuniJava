@@ -64,4 +64,10 @@ public class UserServiceImpl implements UserService {
         currentUser.setId(null);
         currentUser.setUsername(null);
     }
+
+    @Override
+    public User getById() {
+
+        return userRepository.findById(currentUser.getId()).orElse(null);
+    }
 }
