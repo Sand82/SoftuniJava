@@ -19,4 +19,6 @@ public interface UserService {
     void saveSong(Song song);
 
     List<AllSongViewModel> getUserList();
+
+    User getUser();
 }

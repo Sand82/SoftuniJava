@@ -17,6 +17,8 @@ public class Song extends BaseEntity {
     @Column(nullable = false)
     private LocalDate releaseDate;
 
+    private boolean isDelete = false;
+
     @ManyToOne
     private Style style;
 
@@ -65,6 +67,15 @@ public class Song extends BaseEntity {
 
     public Song setStyle(Style style) {
         this.style = style;
+        return this;
+    }
+
+    public boolean isDelete() {
+        return isDelete;
+    }
+
+    public Song setDelete(boolean delete) {
+        isDelete = delete;
         return this;
     }
 }

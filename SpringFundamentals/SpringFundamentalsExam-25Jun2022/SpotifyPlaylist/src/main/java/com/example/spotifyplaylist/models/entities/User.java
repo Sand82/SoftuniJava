@@ -3,6 +3,8 @@ package com.example.spotifyplaylist.models.entities;
 import jakarta.persistence.*;
 import jdk.jfr.Enabled;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Entity

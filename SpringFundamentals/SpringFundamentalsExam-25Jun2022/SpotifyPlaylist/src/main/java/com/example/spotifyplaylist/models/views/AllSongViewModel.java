@@ -6,12 +6,12 @@ import jakarta.persistence.Column;
 import java.time.LocalDate;
 
 public class AllSongViewModel {
-
     private Long id;
     private String performer;
     private String title;
     private Integer Duration;
     private Style style;
+    private Boolean isDelete;
 
     public AllSongViewModel() {
     }
@@ -58,6 +58,15 @@ public class AllSongViewModel {
 
     public AllSongViewModel setPerformer(String performer) {
         this.performer = performer;
+        return this;
+    }
+
+    public Boolean getDelete() {
+        return isDelete;
+    }
+
+    public AllSongViewModel setDelete(Boolean delete) {
+        isDelete = delete;
         return this;
     }
 }

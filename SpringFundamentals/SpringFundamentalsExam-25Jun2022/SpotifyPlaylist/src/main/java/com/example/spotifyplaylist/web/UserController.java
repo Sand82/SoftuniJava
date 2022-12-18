@@ -41,7 +41,7 @@ public class UserController {
     @PostMapping("/login")
     public String confirmLogin(@Valid UserLoginBindingModel userLoginBindingModel,
                                BindingResult bindingResult,
-                               RedirectAttributes redirectAttributes){
+                               RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasFieldErrors()) {
 
@@ -138,10 +138,7 @@ public class UserController {
     @GetMapping("/logout")
     public String logout() {
 
-        if (currentUser.getId() == null) {
-
-            userService.logout();
-        }
+        userService.logout();
 
         return "redirect:login";
     }

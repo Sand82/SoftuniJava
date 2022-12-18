@@ -4,7 +4,9 @@ import com.example.spotifyplaylist.models.bindings.UserRegisterBindingModel;
 import com.example.spotifyplaylist.models.entities.Song;
 import com.example.spotifyplaylist.models.entities.User;
 import com.example.spotifyplaylist.models.views.AllSongViewModel;
+import com.example.spotifyplaylist.repositories.SongRepository;
 import com.example.spotifyplaylist.repositories.UserRepository;
+import com.example.spotifyplaylist.services.SongService;
 import com.example.spotifyplaylist.services.UserService;
 import com.example.spotifyplaylist.seurity.CurrentUser;
 import org.modelmapper.ModelMapper;
@@ -15,12 +17,17 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
-    public final UserRepository userRepository;
-    public final ModelMapper mapper;
-    public final CurrentUser currentUser;
+    private final UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper mapper, CurrentUser currentUser) {
+    private final SongRepository songRepository;
+    private final SongService songService;
+    private final ModelMapper mapper;
+    private final CurrentUser currentUser;
+
+    public UserServiceImpl(UserRepository userRepository, SongRepository songRepository, SongService songService, ModelMapper mapper, CurrentUser currentUser) {
         this.userRepository = userRepository;
+        this.songRepository = songRepository;
+        this.songService = songService;
         this.mapper = mapper;
         this.currentUser = currentUser;
     }
@@ -29,7 +36,6 @@ public class UserServiceImpl implements UserService {
     public boolean getByUsernameOrEmail(String username, String email) {
 
         User user = userRepository.findByUsernameOrEmail(username, email);
-
 
         if (user == null) {
 
@@ -74,7 +80,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveSong(Song song) {
 
-        User user = userRepository.findById(currentUser.getId()).orElse(null);
+        User user = getUser();
 
         user.addSong(song);
 
@@ -84,10 +90,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<AllSongViewModel> getUserList() {
 
-        User user = userRepository.findById(currentUser.getId()).orElse(null);
+        User user = getUser();
 
-        List<AllSongViewModel> model = user.getPlayList().stream().map(s -> mapper.map(s, AllSongViewModel.class)).toList();
+        List<AllSongViewModel> model = user.getPlayList().stream().map(s -> mapper.map(s, AllSongViewModel.class)).filter(s -> !s.getDelete()).toList();
 
         return model;
+    }
+
+
+    public User getUser() {
+
+        return userRepository.findById(currentUser.getId()).orElse(null);
     }
 }
