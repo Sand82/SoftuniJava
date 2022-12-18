@@ -1,5 +1,6 @@
 package com.example.battleships.web;
 
+import com.example.battleships.models.bindings.UserLoginBindingModel;
 import com.example.battleships.models.bindings.UserRegisterBindingModel;
 import com.example.battleships.services.UserService;
 import jakarta.validation.Valid;
@@ -20,6 +21,41 @@ public class UserController {
 
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+    @GetMapping("/login")
+    public String login(Model model) {
+
+        if (!model.containsAttribute("isExist")) {
+
+            model.addAttribute("isExist", true);
+        }
+
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String loginConfirm(@Valid UserLoginBindingModel userLoginBindingModel,
+                               BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasFieldErrors()) {
+
+            setReturningLoginModel(userLoginBindingModel, bindingResult, redirectAttributes, true);
+
+            return "redirect:login";
+        }
+
+        boolean isExist = userService.getByUsernameAndPassword(userLoginBindingModel.getUsername(), userLoginBindingModel.getPassword());
+
+        if (!isExist) {
+
+            setReturningLoginModel(userLoginBindingModel, bindingResult, redirectAttributes, false);
+
+            return "redirect:login";
+        }
+
+        return "redirect:/";
     }
 
     @GetMapping("/register")
@@ -71,26 +107,43 @@ public class UserController {
         return "login";
     }
 
-    private static void setReturningRegisterModel(UserRegisterBindingModel userRegisterBindingModel,
-                                                  BindingResult bindingResult,
-                                                  RedirectAttributes redirectAttributes,
-                                                  boolean isNotValidPassConfirmation,
-                                                  boolean isExist) {
-        redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel)
-            .addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult)
-            .addFlashAttribute("isNotValidPassConfirmation", isNotValidPassConfirmation)
-            .addFlashAttribute("isExist", isExist);
-    }
+    @GetMapping("/logout")
+    public String logout(){
 
-    @GetMapping("/login")
-    public String login() {
+        userService.logout();
 
-        return "login";
+        return "redirect:login";
     }
 
     @ModelAttribute
     public UserRegisterBindingModel userRegisterBindingModel() {
 
         return new UserRegisterBindingModel();
+    }
+
+    @ModelAttribute
+    public UserLoginBindingModel userLoginBindingModel() {
+
+        return new UserLoginBindingModel();
+    }
+
+    private static void setReturningLoginModel(UserLoginBindingModel userLoginBindingModel,
+                                               BindingResult bindingResult,
+                                               RedirectAttributes redirectAttributes,
+                                               boolean isExist) {
+        redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel)
+                .addFlashAttribute("org.springframework.validation.BindingResult.userLoginBindingModel", bindingResult)
+                .addFlashAttribute("isExist", isExist);
+    }
+
+    private static void setReturningRegisterModel(UserRegisterBindingModel userRegisterBindingModel,
+                                                  BindingResult bindingResult,
+                                                  RedirectAttributes redirectAttributes,
+                                                  boolean isNotValidPassConfirmation,
+                                                  boolean isExist) {
+        redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel)
+                .addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult)
+                .addFlashAttribute("isNotValidPassConfirmation", isNotValidPassConfirmation)
+                .addFlashAttribute("isExist", isExist);
     }
 }
