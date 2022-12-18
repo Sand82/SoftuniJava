@@ -3,11 +3,14 @@ package com.example.spotifyplaylist.services.impl;
 import com.example.spotifyplaylist.models.bindings.UserRegisterBindingModel;
 import com.example.spotifyplaylist.models.entities.Song;
 import com.example.spotifyplaylist.models.entities.User;
+import com.example.spotifyplaylist.models.views.AllSongViewModel;
 import com.example.spotifyplaylist.repositories.UserRepository;
 import com.example.spotifyplaylist.services.UserService;
 import com.example.spotifyplaylist.seurity.CurrentUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -76,5 +79,15 @@ public class UserServiceImpl implements UserService {
         user.addSong(song);
 
         userRepository.save(user);
+    }
+
+    @Override
+    public List<AllSongViewModel> getUserList() {
+
+        User user = userRepository.findById(currentUser.getId()).orElse(null);
+
+        List<AllSongViewModel> model = user.getPlayList().stream().map(s -> mapper.map(s, AllSongViewModel.class)).toList();
+
+        return model;
     }
 }
