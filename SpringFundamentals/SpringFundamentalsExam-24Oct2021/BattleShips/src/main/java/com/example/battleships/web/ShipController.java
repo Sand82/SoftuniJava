@@ -1,6 +1,7 @@
 package com.example.battleships.web;
 
 import com.example.battleships.models.bindings.AddShipBindingModel;
+import com.example.battleships.models.bindings.FightShipsBindingModel;
 import com.example.battleships.services.ShipService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,14 @@ public class ShipController {
 
     public ShipController(ShipService shipService) {
         this.shipService = shipService;
+    }
+
+    @PostMapping("/fight")
+    public String fightResult(FightShipsBindingModel fightShipsBindingModel) {
+
+        shipService.setBattle(fightShipsBindingModel);
+
+        return "redirect:/";
     }
 
     @GetMapping("/add")
@@ -43,6 +52,12 @@ public class ShipController {
         shipService.createShip(addShipBindingModel);
 
         return "redirect:/";
+    }
+
+    @ModelAttribute
+    public FightShipsBindingModel fightShipsBindingModel() {
+
+        return new FightShipsBindingModel();
     }
 
     @ModelAttribute
