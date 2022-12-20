@@ -12,7 +12,6 @@ import java.util.List;
 public class Author extends BaseEntity {
 
     private String name;
-
     @OneToMany(mappedBy = "author")
     private List<Book> books;
 
