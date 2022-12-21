@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.List;
 @Entity
 @Table(name = "brands")
-public class BrandEntity extends BaseEntity{
+public class BrandEntity extends BaseEntity {
 
     @Column
     private String name;

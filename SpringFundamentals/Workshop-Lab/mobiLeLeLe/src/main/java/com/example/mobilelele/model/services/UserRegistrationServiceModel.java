@@ -1,9 +1,5 @@
 package com.example.mobilelele.model.services;
 
-import com.example.mobilelele.model.validator.UniqueUserName;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-
 public class UserRegistrationServiceModel {
 
     private String firstName;

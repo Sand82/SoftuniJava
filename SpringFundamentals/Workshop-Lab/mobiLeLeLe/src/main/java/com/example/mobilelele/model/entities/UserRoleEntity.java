@@ -1,6 +1,6 @@
 package com.example.mobilelele.model.entities;
 
-
+import com.example.mobilelele.model.entities.BaseEntity;
 import com.example.mobilelele.model.entities.enums.RoleEnum;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

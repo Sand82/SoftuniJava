@@ -6,14 +6,14 @@ import com.example.mobilelele.model.services.OfferUpdateServiceModel;
 import com.example.mobilelele.model.view.OfferDetailsViewModel;
 import com.example.mobilelele.model.view.OfferSummeryViewModel;
 import com.example.mobilelele.repositories.OfferRepository;
+
 import com.example.mobilelele.services.OfferService;
-import com.example.mobilelele.web.excptions.ObjectNotFoundException;
+import org.hibernate.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class OfferServiceImpl implements OfferService {
@@ -49,8 +49,7 @@ public class OfferServiceImpl implements OfferService {
 
         OfferUpdateServiceModel model = createOfferUpdateModel(offerModel);
 
-        OfferEntity offerEntity = offerRepository.findById(offerModel.getId()).orElseThrow(
-                () -> new ObjectNotFoundException("Offer whit id " + offerModel.getId() + " don't exist."));
+        OfferEntity offerEntity = offerRepository.findById(offerModel.getId()).orElse(null);
 
         offerEntity.setMileage(model.getMileage())
                 .setPrice(model.getPrice())

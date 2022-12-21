@@ -49,7 +49,7 @@ public class BooksController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping()
+    @PostMapping
     public ResponseEntity<BookDTO> create(@RequestBody BookDTO book, UriComponentsBuilder builder) {
 
       long bookId = booksService.createBook(book);
@@ -58,6 +58,12 @@ public class BooksController {
                 .buildAndExpand(bookId).toUri();
 
       return ResponseEntity.created(location).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<BookDTO> update(@PathVariable Long id, @RequestBody BookDTO book) {
+
+        throw new UnsupportedOperationException("Comming soon!");
     }
 }
 

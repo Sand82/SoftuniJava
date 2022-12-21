@@ -1,6 +1,7 @@
 package com.example.mobilelele.init;
 
 import com.example.mobilelele.model.entities.*;
+
 import com.example.mobilelele.model.entities.enums.CategoryEnum;
 import com.example.mobilelele.model.entities.enums.EngineEnum;
 import com.example.mobilelele.model.entities.enums.RoleEnum;

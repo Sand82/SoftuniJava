@@ -2,7 +2,6 @@ package com.example.mobilelele.services;
 
 import com.example.mobilelele.model.binding.UserRegistrationBindingModel;
 import com.example.mobilelele.model.services.UserLoginServiceModel;
-import com.example.mobilelele.model.services.UserRegistrationServiceModel;
 
 public interface UserService {
 
@@ -12,7 +11,7 @@ public interface UserService {
 
     boolean getUserNameFree(String userName);
 
-    public boolean login(UserLoginServiceModel userLoginServiceModel);
+
 
     void registerAndLoginUser(UserRegistrationBindingModel model);
 }
