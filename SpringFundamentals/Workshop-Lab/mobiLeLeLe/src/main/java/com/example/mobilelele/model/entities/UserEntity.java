@@ -1,9 +1,6 @@
 package com.example.mobilelele.model.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.List;
 
@@ -28,7 +25,7 @@ public class UserEntity extends BaseEntity {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<UserRoleEntity> userRoles;
 
     public UserEntity() {
