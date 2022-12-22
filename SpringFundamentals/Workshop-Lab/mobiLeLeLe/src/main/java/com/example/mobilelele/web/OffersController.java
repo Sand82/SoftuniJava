@@ -1,8 +1,10 @@
 package com.example.mobilelele.web;
 
+import com.example.mobilelele.model.binding.CarAddBindingModel;
 import com.example.mobilelele.model.binding.OfferUpdateBindingModel;
 import com.example.mobilelele.model.entities.enums.EngineEnum;
 import com.example.mobilelele.model.entities.enums.TransmissionEnum;
+import com.example.mobilelele.model.view.AddModelViewModel;
 import com.example.mobilelele.model.view.OfferDetailsViewModel;
 import com.example.mobilelele.repositories.OfferRepository;
 import com.example.mobilelele.services.OfferService;
@@ -12,6 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/offers")
@@ -30,6 +35,35 @@ public class OffersController {
         model.addAttribute("offers", offerService.getAllOffers());
 
         return "offers";
+    }
+
+    @GetMapping("/add")
+    public String add(Model model) {
+
+        List<AddModelViewModel> addModelViewModels = offerService.getModels();
+
+        model.addAttribute("addModelViewModels", addModelViewModels);
+
+        return "offer-add";
+    }
+
+    @PostMapping("/add")
+    public String confirmAdd(@Valid CarAddBindingModel carAddBindingModel,
+                             BindingResult bindingResult,
+                             RedirectAttributes redirectAttributes,
+                             Principal principal){
+
+        if (bindingResult.hasFieldErrors()) {
+
+            redirectAttributes.addFlashAttribute("carAddBindingModel", carAddBindingModel)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.carAddBindingModel", bindingResult);
+
+            return "redirect:add";
+        }
+
+        offerService.createOffer(carAddBindingModel, principal);
+
+        return "redirect:all";
     }
 
     @GetMapping("/{id}/details") //Details Get
@@ -89,5 +123,11 @@ public class OffersController {
         offerService.updateOffer(offerModel);
 
         return "redirect:/offers/" + id + "/details";
+    }
+
+    @ModelAttribute
+    public CarAddBindingModel carAddBindingModel(){
+
+       return new CarAddBindingModel();
     }
 }

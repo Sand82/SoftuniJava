@@ -10,6 +10,7 @@ import com.example.mobilelele.repositories.UserRepository;
 import com.example.mobilelele.repositories.UserRoleRepository;
 import com.example.mobilelele.services.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -86,6 +87,12 @@ public class UserServiceImpl implements UserService {
         userRepository.save(newUser);
 
         //login(newUser);
+    }
+
+    @Override
+    public UserEntity getByUsername(String name) {
+
+        return userRepository.findByUsername(name).orElse(null);
     }
 
 }

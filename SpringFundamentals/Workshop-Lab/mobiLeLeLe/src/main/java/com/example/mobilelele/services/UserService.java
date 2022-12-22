@@ -1,7 +1,8 @@
 package com.example.mobilelele.services;
 
 import com.example.mobilelele.model.binding.UserRegistrationBindingModel;
-import com.example.mobilelele.model.services.UserLoginServiceModel;
+import com.example.mobilelele.model.entities.UserEntity;
+import org.springframework.security.core.userdetails.User;
 
 public interface UserService {
 
@@ -11,7 +12,7 @@ public interface UserService {
 
     boolean getUserNameFree(String userName);
 
-
-
     void registerAndLoginUser(UserRegistrationBindingModel model);
+
+    UserEntity getByUsername(String name);
 }
