@@ -1,5 +1,6 @@
 package com.example.mobilelele.config;
 
+import com.example.mobilelele.model.entities.enums.RoleEnum;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +30,7 @@ public class ApplicationSecurityConfiguration
                 .authorizeHttpRequests()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .requestMatchers("/", "/users/login", "/users/register").permitAll()
+                .requestMatchers("/statistics").hasRole(RoleEnum.ADMIN.name())
                 .requestMatchers("/**").authenticated()
                .and()
                 .formLogin().loginPage("/users/login")

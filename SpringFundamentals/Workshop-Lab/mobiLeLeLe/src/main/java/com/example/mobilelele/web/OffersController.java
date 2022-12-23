@@ -67,9 +67,9 @@ public class OffersController {
     }
 
     @GetMapping("/{id}/details") //Details Get
-    public String showOffer(@PathVariable Long id, Model model) {
+    public String showOffer(@PathVariable Long id, Model model, Principal principal) {
 
-        model.addAttribute("offer", offerService.findById(id));
+        model.addAttribute("offer", offerService.findById(id, principal.getName()));
 
         return "details";
     }
@@ -82,9 +82,9 @@ public class OffersController {
     }
 
     @GetMapping("/{id}/edit") //Edit
-    public String editOffer(@PathVariable Long id, Model model) {
+    public String editOffer(@PathVariable Long id, Model model, Principal principal) {
 
-        OfferDetailsViewModel offerDetailsViewModel = offerService.findById(id);
+        OfferDetailsViewModel offerDetailsViewModel = offerService.findById(id, principal.getName());
 
         OfferUpdateBindingModel offerModel = offerService.createOfferUpdateModel(id, offerDetailsViewModel);
 

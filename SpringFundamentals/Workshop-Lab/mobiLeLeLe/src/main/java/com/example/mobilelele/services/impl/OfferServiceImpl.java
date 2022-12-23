@@ -15,6 +15,7 @@ import com.example.mobilelele.repositories.OfferRepository;
 import com.example.mobilelele.services.ModelService;
 import com.example.mobilelele.services.OfferService;
 import com.example.mobilelele.services.UserService;
+import org.apache.catalina.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -123,14 +124,16 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public OfferDetailsViewModel findById(Long id) {
+    public OfferDetailsViewModel findById(Long id, String username) {
 
         OfferEntity offerEntity = offerRepository.findById(id).get();
 
         OfferDetailsViewModel model = mapDetailsView(offerEntity);
 
-        model.setSellerFirstName("Sand");
-        model.setSellerLastName("Stef");
+        UserEntity user = userService.getByUsername(username);
+
+        model.setSellerFirstName(user.getFirstName());
+        model.setSellerLastName(user.getLastName());
 
         return model;
     }

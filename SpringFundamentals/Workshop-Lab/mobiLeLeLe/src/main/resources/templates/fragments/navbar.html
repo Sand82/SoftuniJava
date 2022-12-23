@@ -28,10 +28,7 @@
                         Admin
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" th:href="@{/}">Action</a>
-                        <a class="dropdown-item" th:href="@{/}">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" th:href="@{/}">Something else here</a>
+                        <a class="dropdown-item" th:href="@{/statistics}">Statistics</a>
                     </div>
                 </li>
             </th:block>
@@ -41,11 +38,10 @@
                         <div class="logged-user"
                              text="Welcome, ">
                             <th:block sec:authentication="name"></th:block>
-
                         </div>
 
                         <form class="nav-link" th:action="@{/users/logout}" th:method="POST">
-                            <input class="nav-link" type="submit" value="logout">
+                            <input class="btn btn-link nav-link" type="submit" value="logout">
                         </form>
                     </div>
                 </li>
