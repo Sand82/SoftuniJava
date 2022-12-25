@@ -1,0 +1,34 @@
+logging:
+    level:
+        org:
+            hibernate:
+                SQL: DEBUG
+                type:
+                    descriptor: TRACE
+spring:
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        password: test
+        url: jdbc:mysql://localhost:3306/cloudinary_exercise?createDatabaseIfNotExist=true
+        username: root
+    jpa:
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.MySQL8Dialect
+                format_sql: true
+    main:
+        allow-circular-references: true
+    mvc:
+        hidden-method:
+            filter:
+                enabled: true
+    servlet:
+        multipart:
+            max-file-size: 10MB
+            max-request-size: 10MB
+cloudinary:
+    api-key: 677978995954513
+    api-secret: ${CLOUDINARY_API_SICRET}
+    cloud-name: sandoki

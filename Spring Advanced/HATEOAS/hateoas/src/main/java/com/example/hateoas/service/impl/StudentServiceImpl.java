@@ -1,5 +1,6 @@
 package com.example.hateoas.service.impl;
 
+import com.example.hateoas.models.dto.StudentDTO;
 import com.example.hateoas.models.entities.Course;
 import com.example.hateoas.models.entities.Order;
 import com.example.hateoas.models.entities.Student;
@@ -7,6 +8,7 @@ import com.example.hateoas.repositories.CourseRepository;
 import com.example.hateoas.repositories.OrderRepository;
 import com.example.hateoas.repositories.StudentRepository;
 import com.example.hateoas.service.StudentService;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -18,12 +20,20 @@ public class StudentServiceImpl implements StudentService {
     private StudentRepository studentRepository;
     private CourseRepository courseRepository;
     private OrderRepository orderRepository;
+    private ModelMapper modelMapper;
 
-    public StudentServiceImpl(StudentRepository studentRepository, CourseRepository courseRepository, OrderRepository orderRepository) {
+
+    public StudentServiceImpl(StudentRepository studentRepository,
+                              CourseRepository courseRepository,
+                              OrderRepository orderRepository,
+                              ModelMapper modelMapper)
+                               {
+
         this.studentRepository = studentRepository;
         this.courseRepository = courseRepository;
         this.orderRepository = orderRepository;
-    }
+        this.modelMapper = modelMapper;
+                               }
 
     @Override
     public void initializeDatabase() {
@@ -63,5 +73,27 @@ public class StudentServiceImpl implements StudentService {
 
             orderRepository.saveAll(List.of(order1, order2, order3));
         }
+    }
+
+    @Override
+    public StudentDTO getStudent(Long studentsId) {
+
+        StudentDTO model = studentRepository
+                .findById(studentsId)
+                .map(s -> modelMapper.map(s, StudentDTO.class)).orElse(null);
+
+        return model;
+    }
+
+    @Override
+    public StudentDTO updateStudent(Long id, StudentDTO studentDTO) {
+
+        return null;
+    }
+
+    @Override
+    public List<StudentDTO> getAllStudents() {
+
+        return studentRepository.findAll().stream().map(s -> modelMapper.map(s, StudentDTO.class)).toList();
     }
 }
