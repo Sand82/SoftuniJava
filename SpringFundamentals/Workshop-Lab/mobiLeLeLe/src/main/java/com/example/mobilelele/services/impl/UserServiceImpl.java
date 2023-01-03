@@ -4,13 +4,15 @@ import com.example.mobilelele.model.binding.UserRegistrationBindingModel;
 import com.example.mobilelele.model.entities.UserEntity;
 import com.example.mobilelele.model.entities.UserRoleEntity;
 import com.example.mobilelele.model.entities.enums.RoleEnum;
-import com.example.mobilelele.model.services.UserLoginServiceModel;
 import com.example.mobilelele.model.services.UserRegistrationServiceModel;
 import com.example.mobilelele.repositories.UserRepository;
 import com.example.mobilelele.repositories.UserRoleRepository;
 import com.example.mobilelele.services.UserService;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,21 +22,23 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
     private final UserRoleRepository userRoleRepository;
-
-    private ModelMapper mapper;
+    private final ModelMapper mapper;
+    private final MobileleUserServiceImpl mobileleUserService;
 
     public UserServiceImpl(UserRepository userRepository,
                            PasswordEncoder passwordEncoder,
                            UserRoleRepository userRoleRepository,
-                           ModelMapper mapper) {
+                           ModelMapper mapper,
+                           MobileleUserServiceImpl mobileleUserService) {
 
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.userRoleRepository = userRoleRepository;
         this.mapper = mapper;
+        this.mobileleUserService = mobileleUserService;
     }
 
     @Override
@@ -72,7 +76,7 @@ public class UserServiceImpl implements UserService {
 
         UserRegistrationServiceModel userRegistrationServiceModel = mapper.map(userRegistrationBindingModel, UserRegistrationServiceModel.class);
 
-        UserRoleEntity userRole = userRoleRepository.findByRole(RoleEnum.USER.toString());
+        UserRoleEntity userRole = userRoleRepository.findByRole(RoleEnum.USER);
 
         UserEntity newUser = new UserEntity();
 
@@ -84,9 +88,17 @@ public class UserServiceImpl implements UserService {
                 .setPassword(passwordEncoder.encode(userRegistrationServiceModel.getPassword()))
                 .setUserRoles(List.of(userRole));
 
-        userRepository.save(newUser);
+//        UserDetails principal = mobileleUserService.loadUserByUsername(newUser.getUsername());
+//
+//        Authentication authentication = new UsernamePasswordAuthenticationToken(
+//                principal,
+//                newUser.getPassword(),
+//                principal.getAuthorities()
+//        );
+//
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        //login(newUser);
+        userRepository.save(newUser);
     }
 
     @Override
@@ -94,5 +106,4 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.findByUsername(name).orElse(null);
     }
-
 }

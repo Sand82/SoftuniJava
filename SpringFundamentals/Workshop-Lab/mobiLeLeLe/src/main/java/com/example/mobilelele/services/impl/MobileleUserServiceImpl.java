@@ -32,6 +32,10 @@ public class MobileleUserServiceImpl implements UserDetailsService {
         return mapToUserDetails(user);
     }
 
+    public void registration() {
+
+    }
+
     private static UserDetails mapToUserDetails(UserEntity userEntity) {
 
         List<GrantedAuthority> authorities = userEntity.getUserRoles().stream()
