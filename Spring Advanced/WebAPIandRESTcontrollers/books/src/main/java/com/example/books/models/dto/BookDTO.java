@@ -2,6 +2,7 @@ package com.example.books.models.dto;
 
 public class BookDTO {
 
+    private Long id;
     private String title;
     private String authorName;
 
@@ -23,6 +24,15 @@ public class BookDTO {
 
     public BookDTO setAuthorName(String authorName) {
         this.authorName = authorName;
+        return this;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public BookDTO setId(Long id) {
+        this.id = id;
         return this;
     }
 }

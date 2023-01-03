@@ -27,7 +27,7 @@ public class BooksServiceImpl implements BooksService {
 
         return bookRepository.findAll().stream().map(b -> {
            BookDTO model = new BookDTO();
-           model.setTitle(b.getTitle()).setAuthorName(b.getAuthor().getName());
+           model.setTitle(b.getTitle()).setAuthorName(b.getAuthor().getName()).setId(b.getId());
 
            return model;
 

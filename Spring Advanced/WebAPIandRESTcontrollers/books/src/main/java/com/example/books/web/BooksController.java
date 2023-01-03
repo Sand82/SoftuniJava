@@ -10,7 +10,6 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/books")
 public class BooksController {
 
     private BooksService booksService;
@@ -19,7 +18,7 @@ public class BooksController {
         this.booksService = booksService;
     }
 
-    @GetMapping()
+    @GetMapping("/books")
     public ResponseEntity<List<BookDTO>> getAllBooks() {
 
         List<BookDTO> allBooks = booksService.getAllBooks();
@@ -27,7 +26,7 @@ public class BooksController {
         return ResponseEntity.ok(allBooks);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/books/{id}")
     public ResponseEntity<BookDTO> getBookDyId(@PathVariable Long id) {
 
         BookDTO model = booksService.getBookById(id);
@@ -41,7 +40,7 @@ public class BooksController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @GetMapping("/books/delete/{id}")
     public ResponseEntity<BookDTO> deleteBook(@PathVariable Long id) {
 
         booksService.deleteBook(id);
@@ -49,7 +48,7 @@ public class BooksController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping
+    @PostMapping("/books")
     public ResponseEntity<BookDTO> create(@RequestBody BookDTO book, UriComponentsBuilder builder) {
 
       long bookId = booksService.createBook(book);
@@ -60,7 +59,7 @@ public class BooksController {
       return ResponseEntity.created(location).build();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/books/{id}")
     public ResponseEntity<BookDTO> update(@PathVariable Long id, @RequestBody BookDTO book) {
 
         throw new UnsupportedOperationException("Comming soon!");
