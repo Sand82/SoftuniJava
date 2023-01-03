@@ -25,7 +25,7 @@ public class BooksServiceImpl implements BooksService {
     @Override
     public List<BookDTO> getAllBooks() {
 
-        return bookRepository.findAll().stream().map(b -> {
+        return bookRepository.findAll().stream().filter(b -> !b.isDelete()).map(b -> {
            BookDTO model = new BookDTO();
            model.setTitle(b.getTitle()).setAuthorName(b.getAuthor().getName()).setId(b.getId());
 
@@ -37,10 +37,10 @@ public class BooksServiceImpl implements BooksService {
     @Override
     public BookDTO getBookById(Long id) {
 
-        return bookRepository.findById(id).stream().map(b -> {
+        return bookRepository.findById(id).stream().filter(b -> !b.isDelete()).map(b -> {
             BookDTO model = new BookDTO();
             model.setTitle(b.getTitle());
-            model.setAuthorName(b.getAuthor().getName());
+            model.setAuthorName(b.getAuthor().getName()).setId(b.getId());
 
             return model;
         }).findFirst().orElse(null);
@@ -51,7 +51,9 @@ public class BooksServiceImpl implements BooksService {
 
         Book book = bookRepository.findById(id).get();
 
-        bookRepository.delete(book);
+        book.setDelete(true);
+
+        bookRepository.save(book);
     }
 
     @Override

@@ -40,7 +40,7 @@ public class BooksController {
         }
     }
 
-    @GetMapping("/books/delete/{id}")
+    @DeleteMapping("/books/delete/{id}")
     public ResponseEntity<BookDTO> deleteBook(@PathVariable Long id) {
 
         booksService.deleteBook(id);

@@ -13,6 +13,8 @@ public class Book extends BaseEntity {
     @ManyToOne(cascade = CascadeType.ALL)
     private Author author;
 
+    private boolean isDelete = false;
+
     public Book() {
     }
 
@@ -31,6 +33,15 @@ public class Book extends BaseEntity {
 
     public Book setAuthor(Author author) {
         this.author = author;
+        return this;
+    }
+
+    public boolean isDelete() {
+        return isDelete;
+    }
+
+    public Book setDelete(boolean delete) {
+        isDelete = delete;
         return this;
     }
 }
