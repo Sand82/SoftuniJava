@@ -75,10 +75,17 @@ public class OffersController {
     }
 
     @DeleteMapping("/{id}") //Details Delete
-    public String deleteOffer(@PathVariable Long id) {
-        offerService.deleteOffer(id);
+    public String deleteOffer(@PathVariable Long id, Principal principal) {
 
-        return "redirect:/offers/all";
+
+        if (offerService.isOwner(principal.getName(), id)) {
+
+            offerService.deleteOffer(id);
+
+            return "redirect:/offers/all";
+        }
+
+        return "redirect:/";
     }
 
     @GetMapping("/{id}/edit") //Edit

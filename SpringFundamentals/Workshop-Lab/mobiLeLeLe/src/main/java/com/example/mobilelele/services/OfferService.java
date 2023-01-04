@@ -19,4 +19,5 @@ public interface OfferService {
     OfferUpdateBindingModel createOfferUpdateModel(Long id, OfferDetailsViewModel offerDetailsViewModel);
     List<AddModelViewModel> getModels();
     void createOffer(CarAddBindingModel carAddBindingModel, Principal principal);
+    boolean isOwner(String username, Long id);
 }

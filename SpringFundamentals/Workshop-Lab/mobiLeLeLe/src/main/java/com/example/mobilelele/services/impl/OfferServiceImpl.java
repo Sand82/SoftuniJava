@@ -5,23 +5,26 @@ import com.example.mobilelele.model.binding.OfferUpdateBindingModel;
 import com.example.mobilelele.model.entities.ModelEntity;
 import com.example.mobilelele.model.entities.OfferEntity;
 import com.example.mobilelele.model.entities.UserEntity;
+import com.example.mobilelele.model.entities.UserRoleEntity;
+import com.example.mobilelele.model.entities.enums.RoleEnum;
 import com.example.mobilelele.model.services.OfferUpdateServiceModel;
 import com.example.mobilelele.model.view.AddModelViewModel;
 import com.example.mobilelele.model.view.OfferDetailsViewModel;
 import com.example.mobilelele.model.view.OfferSummeryViewModel;
 import com.example.mobilelele.repositories.ModelRepository;
 import com.example.mobilelele.repositories.OfferRepository;
-
+import com.example.mobilelele.repositories.UserRepository;
 import com.example.mobilelele.services.ModelService;
 import com.example.mobilelele.services.OfferService;
 import com.example.mobilelele.services.UserService;
-import org.apache.catalina.User;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OfferServiceImpl implements OfferService {
@@ -32,19 +35,22 @@ public class OfferServiceImpl implements OfferService {
     private final ModelService modelService;
 
     private final UserService userService;
+    private final UserRepository userRepository;
 
     @Autowired
     public OfferServiceImpl(OfferRepository offerRepository,
                             ModelMapper mapper,
                             ModelRepository modelRepository,
                             ModelService modelService,
-                            UserService userService) {
+                            UserService userService,
+                            UserRepository userRepository) {
 
         this.offerRepository = offerRepository;
         this.mapper = mapper;
         this.modelRepository = modelRepository;
         this.modelService = modelService;
         this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -114,6 +120,25 @@ public class OfferServiceImpl implements OfferService {
 
         offerRepository.save(offer);
 
+    }
+
+    @Override
+    public boolean isOwner(String username, Long id) {
+
+       OfferEntity offerEntity = offerRepository.findById(id).orElse(null);
+
+       Optional<UserEntity> caller = userRepository.findByUsername(username);
+
+       if (offerEntity == null || caller.isEmpty()) {
+           return false;
+       }
+
+        return isAdmin(caller.get()) || offerEntity.getSeller().getUsername().equalsIgnoreCase(username);
+    }
+
+    private boolean isAdmin(UserEntity user) {
+
+        return user.getUserRoles().stream().map(UserRoleEntity::getRole).anyMatch(r -> r == RoleEnum.ADMIN);
     }
 
     private OfferUpdateServiceModel createOfferUpdateModel(OfferUpdateBindingModel offerModel) {
