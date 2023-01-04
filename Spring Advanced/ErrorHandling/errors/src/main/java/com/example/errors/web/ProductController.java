@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class ProductController {
 
     @GetMapping("/products/{id}/details")
-    public String showproductDetails(@PathVariable String id) {
+    public String showProductDetails(@PathVariable String id) {
 
         throw new ProductNotFoundException("Product whit id " + id + " was not found!");
     }
@@ -22,13 +22,5 @@ public class ProductController {
         throw new NullPointerException();
     }
 
-    @ExceptionHandler({ProductNotFoundException.class})
-    public ModelAndView handleDbException(ProductNotFoundException e) {
 
-        ModelAndView modelAndView = new ModelAndView("product-not-found");
-        modelAndView.addObject("message", e.getMessage());
-        modelAndView.setStatus(HttpStatus.NOT_FOUND);
-
-        return modelAndView;
-    }
 }
