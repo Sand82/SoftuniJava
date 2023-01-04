@@ -1,4 +1,4 @@
-package com.example.events;
+package com.example.events.schedulers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
