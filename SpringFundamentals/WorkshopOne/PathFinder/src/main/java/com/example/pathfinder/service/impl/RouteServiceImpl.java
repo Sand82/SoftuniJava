@@ -1,7 +1,6 @@
 package com.example.pathfinder.service.impl;
 
 import com.example.pathfinder.model.bindings.RouteAddBindingModel;
-import com.example.pathfinder.model.entities.Category;
 import com.example.pathfinder.model.entities.Route;
 import com.example.pathfinder.model.services.RouteServiceModel;
 import com.example.pathfinder.model.view.RouteDetailsViewModel;

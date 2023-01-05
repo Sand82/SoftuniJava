@@ -1,5 +1,6 @@
 package com.example.pathfinder.model.entities;
 
+import com.example.pathfinder.model.entities.BaseEntity;
 import jakarta.persistence.*;
 
 @Entity

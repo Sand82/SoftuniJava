@@ -1,10 +1,7 @@
 package com.example.pathfinder.model.view;
 
-import com.example.pathfinder.model.entities.Category;
 import com.example.pathfinder.model.entities.Picture;
-import com.example.pathfinder.model.entities.User;
 import com.example.pathfinder.model.entities.enums.LevelEnum;
-import jakarta.persistence.*;
 
 import java.util.Set;
 

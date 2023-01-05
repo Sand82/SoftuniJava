@@ -4,7 +4,6 @@ import com.example.pathfinder.model.entities.Picture;
 import com.example.pathfinder.model.entities.User;
 import com.example.pathfinder.model.entities.enums.CategoryNameEnum;
 import com.example.pathfinder.model.entities.enums.LevelEnum;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Set;
 

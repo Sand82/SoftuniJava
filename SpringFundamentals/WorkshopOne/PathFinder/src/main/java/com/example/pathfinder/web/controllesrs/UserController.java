@@ -1,12 +1,10 @@
 package com.example.pathfinder.web.controllesrs;
 
-
 import com.example.pathfinder.model.bindings.UserLoginBindingModel;
 import com.example.pathfinder.model.bindings.UserRegisterBindingModel;
 import com.example.pathfinder.model.services.UserServiceModel;
 import com.example.pathfinder.model.view.UserViewModel;
 import com.example.pathfinder.service.UserService;
-import com.example.pathfinder.util.CurrentUser;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
