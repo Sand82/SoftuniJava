@@ -9,6 +9,7 @@ import com.example.mobilelele.model.view.OfferDetailsViewModel;
 import com.example.mobilelele.repositories.OfferRepository;
 import com.example.mobilelele.services.OfferService;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -74,6 +75,7 @@ public class OffersController {
         return "details";
     }
 
+    @PreAuthorize("isOwner(#id")
     @DeleteMapping("/{id}") //Details Delete
     public String deleteOffer(@PathVariable Long id, Principal principal) {
 
