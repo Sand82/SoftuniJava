@@ -23,6 +23,9 @@ public class User extends BaseEntity {
    @Column(nullable = false)
    private String username;
 
+   @Column(nullable = false)
+   private String email;
+
    @ManyToMany(fetch = FetchType.EAGER)
    private Set<Role> roles;
 
@@ -80,6 +83,15 @@ public class User extends BaseEntity {
 
    public User setRoles(Set<Role> roles) {
       this.roles = roles;
+      return this;
+   }
+
+   public String getEmail() {
+      return email;
+   }
+
+   public User setEmail(String email) {
+      this.email = email;
       return this;
    }
 }
