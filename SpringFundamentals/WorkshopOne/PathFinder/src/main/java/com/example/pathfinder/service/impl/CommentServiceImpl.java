@@ -2,6 +2,7 @@ package com.example.pathfinder.service.impl;
 
 import com.example.pathfinder.model.entities.Route;
 import com.example.pathfinder.model.entities.Comment;
+import com.example.pathfinder.model.services.CommentServiceModel;
 import com.example.pathfinder.model.view.CommentsViewModel;
 import com.example.pathfinder.repository.CommentRepository;
 import com.example.pathfinder.repository.RouteRepository;
@@ -39,11 +40,12 @@ public class CommentServiceImpl implements CommentService {
             throw new ObjectNotFoundException("Route with route id " + routeId + " was not found!");
         }
 
-//        List<Comment> comments = commentRepository.findByRouteId(routeId);
-//
-//        List<CommentsViewModel> models = comments.stream().map(c -> mapper.map(c, CommentsViewModel.class)).toList();
-
         return route.get().getComments().stream().map(this::mapAsComment).toList();
+    }
+
+    @Override
+    public CommentsViewModel createComment(CommentServiceModel commentServiceModel) {
+        throw new UnsupportedOperationException("NOT YET!");
     }
 
     private CommentsViewModel mapAsComment(Comment comment) {
