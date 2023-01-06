@@ -12,7 +12,7 @@ public class ApplicationBeanConfiguration {
     @Bean
     public ModelMapper modelMapper() {
 
-        return  new ModelMapper();
+        return new ModelMapper();
     }
 
     @Bean

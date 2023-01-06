@@ -12,34 +12,35 @@
             <form
                     th:action="@{/users/login}"
                     th:method="POST"
-                    th:object="${userLoginBindingModel}">
+                    >
                 <div>
-                    <h5 th:if="${isNotExist}" class="bg-danger">Incorrect username of password!</h5>
+<!--                    <h5 th:if="${isNotExist}" class="bg-danger">Incorrect username of password!</h5>-->
                     <div class="col-auto">
-                        <label for="inputUsername" class="col-form-label ">Username</label>
+                        <label for="Email" class="col-form-label ">Email</label>
                     </div>
                     <div class="col-auto">
                         <input type="text"
-                               th:field="*{username}"
-                               th:errorclass="is-invalid"
-                               id="inputUsername"
+                               name="email"
+                               required
+                               id="email"
                                class="form-control"
-                               aria-describedby="usernameHelpInline">
+                               >
                     </div>
                     <p class="invalid-feedback errors alert alert-danger">
-                        Invalid username.
+                        Invalid email.
                     </p>
                 </div>
                 <div>
                     <div class="col-auto">
-                        <label for="inputPassword" class="col-form-label ">Password</label>
+                        <label for="Password" class="col-form-label ">Password</label>
                     </div>
                     <div class="col-auto">
                         <input type="password"
-                               th:field="*{password}"
-                               th:errorclass="is-invalid"
-                               id="inputPassword" class="form-control"
-                               aria-describedby="passwordHelpInline">
+                               name="password"
+                               id="password"
+                               required
+                               class="form-control"
+                               >
                         <p class="invalid-feedback errors alert alert-danger">
                             Invalid password.
                         </p>

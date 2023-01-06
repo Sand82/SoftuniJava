@@ -9,18 +9,18 @@ INSERT INTO roles (id, role)
 VALUES (3, 'USER');
 
 -- some test users
-INSERT INTO users (id, age, full_name, level, password, username, email)
-VALUES (1, 28, 'Admin Adminov', 'ADVANCED', '12345', 'admin', 'admin@abv.bg');
+INSERT INTO users (id, age, email, full_name, level, password, username)
+VALUES (1, 28, 'admin@abv.bg', 'Admin Adminov', 'ADVANCED', '174f7c21b30520ccb108a36c3f3ddef1a9df943eb3b53f53b896ce59ccb46686a4b17fbea462e7f8', 'admin');
 
-INSERT INTO users (id, age, full_name, level, password, username, email)
-VALUES (2, 29, 'Moderator Moderatorov', 'INTERMEDIATE', '12345',
-        'moderator', 'moderator@abv.bg');
+INSERT INTO users (id, age, email , full_name, level, password, username)
+VALUES (2, 29, 'moderator@abv.bg', 'Moderator Moderatorov', 'INTERMEDIATE', '174f7c21b30520ccb108a36c3f3ddef1a9df943eb3b53f53b896ce59ccb46686a4b17fbea462e7f8',
+        'moderator');
 
-INSERT INTO users (id, age, full_name, level, password, username, email)
-VALUES (3, 30, 'User Userov', 'BEGINNER', '12345', 'user', 'user@abv.bg');
+INSERT INTO users (id, age, email, full_name, level, password, username)
+VALUES (3, 30, 'user@abv.bg', 'User Userov', 'BEGINNER', '174f7c21b30520ccb108a36c3f3ddef1a9df943eb3b53f53b896ce59ccb46686a4b17fbea462e7f8', 'user');
 
-INSERT INTO users (id, age, full_name, level, password, username, email)
-VALUES (4, 33, 'Ivan Ivanov', 'BEGINNER', '12345', 'ivan', 'ivan@abv.bg');
+INSERT INTO users (id, age, email, full_name, level, password, username)
+VALUES (4, 33, 'ivan@abv.bg', 'Ivan Ivanov', 'BEGINNER', '174f7c21b30520ccb108a36c3f3ddef1a9df943eb3b53f53b896ce59ccb46686a4b17fbea462e7f8', 'ivan');
 -- user roles
 -- admin
 INSERT INTO users_roles (`user_id`, `roles_id`)
