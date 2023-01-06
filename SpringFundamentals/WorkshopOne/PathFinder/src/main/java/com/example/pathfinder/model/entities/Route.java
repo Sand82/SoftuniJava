@@ -3,6 +3,7 @@ package com.example.pathfinder.model.entities;
 import com.example.pathfinder.model.entities.enums.LevelEnum;
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -28,11 +29,14 @@ public class Route extends BaseEntity {
     @ManyToOne
     private User author;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Category> categories;
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Category> categories;
+
+    @OneToMany(mappedBy = "route", fetch = FetchType.LAZY)
+    private List<Picture> pictures;
 
     @OneToMany(mappedBy = "route", fetch = FetchType.EAGER)
-    private Set<Picture> pictures;
+    private List<Comment> comments;
 
     public Route() {
     }
@@ -85,20 +89,30 @@ public class Route extends BaseEntity {
         this.author = author;
     }
 
-    public Set<Category> getCategories() {
+    public List<Category> getCategories() {
         return categories;
     }
 
-    public void setCategories(Set<Category> categories) {
+    public Route setCategories(List<Category> categories) {
         this.categories = categories;
+        return this;
     }
 
-    public Set<Picture> getPictures() {
+    public List<Picture> getPictures() {
         return pictures;
     }
 
-    public Route setPictures(Set<Picture> pictures) {
+    public Route setPictures(List<Picture> pictures) {
         this.pictures = pictures;
+        return this;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public Route setComments(List<Comment> comments) {
+        this.comments = comments;
         return this;
     }
 }

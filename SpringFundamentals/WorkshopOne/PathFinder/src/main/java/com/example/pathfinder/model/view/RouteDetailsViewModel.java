@@ -7,6 +7,7 @@ import java.util.Set;
 
 public class RouteDetailsViewModel {
 
+    private Long id;
     private String name;
     private String description;
     private String gpxCoordinates;
@@ -24,6 +25,15 @@ public class RouteDetailsViewModel {
 
     public RouteDetailsViewModel setName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public RouteDetailsViewModel setId(Long id) {
+        this.id = id;
         return this;
     }
 
@@ -80,4 +90,5 @@ public class RouteDetailsViewModel {
         this.authorFullName = authorFullName;
         return this;
     }
+
 }

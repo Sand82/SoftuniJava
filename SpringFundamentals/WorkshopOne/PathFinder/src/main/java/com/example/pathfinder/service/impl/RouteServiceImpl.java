@@ -9,6 +9,7 @@ import com.example.pathfinder.repository.RouteRepository;
 import com.example.pathfinder.service.CategoryService;
 import com.example.pathfinder.service.RouteService;
 import com.example.pathfinder.service.UserService;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,7 @@ public class RouteServiceImpl implements RouteService {
         this.categoryService = categoryService;
     }
 
+    @Transactional
     @Override
     public List<RouteViewModel> findAllRoutesView() {
         return routeRepository.findAll().stream().map(r -> {
@@ -57,6 +59,7 @@ public class RouteServiceImpl implements RouteService {
         saveRoute(routeServiceModel);
     }
 
+    @Transactional
     @Override
     public RouteDetailsViewModel findRouteById(Long id) {
 

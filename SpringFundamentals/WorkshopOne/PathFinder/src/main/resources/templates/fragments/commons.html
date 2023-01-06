@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en"
+      xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 <head th:fragment="head">
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -18,9 +21,9 @@
 </head>
 <body>
 <header th:fragment="navigation">
-    <nav class="main-nav" >
-        <ul >
-
+    <nav class="main-nav">
+        <ul>
+            <th:block sec:authorize="!isAuthenticated()">
                 <li>
                     <a href="/">Home</a>
                 </li>
@@ -33,12 +36,13 @@
                 <li>
                     <a href="/about">About</a>
                 </li>
-
+            </th:block>
+            <th:block sec:authorize="isAuthenticated()">
                 <li>
                     <a href="/routes/add">Add new route</a>
                 </li>
                 <li>
-                    <a th:href="@{/users/profile/{id}(id =*{id})}">Profile</a>
+<!--                    <a th:href="@{/users/profile/{id}(id =*{id})}">Profile</a>-->
                 </li>
                 <li>
                     <a href="/">Admin</a>
@@ -47,7 +51,7 @@
                     <a href="/users/logout">Logout</a>
                 </li>
 
-
+            </th:block>
         </ul>
     </nav>
 </header>

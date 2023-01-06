@@ -3,6 +3,7 @@ package com.example.pathfinder.model.entities;
 import com.example.pathfinder.model.entities.enums.LevelEnum;
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,8 +27,8 @@ public class User extends BaseEntity {
    @Column(nullable = false)
    private String email;
 
-   @ManyToMany(fetch = FetchType.EAGER)
-   private Set<Role> roles;
+   @ManyToMany(fetch = FetchType.LAZY)
+   private List<Role> roles;
 
    public User() {
    }
@@ -77,11 +78,11 @@ public class User extends BaseEntity {
       return this;
    }
 
-   public Set<Role> getRoles() {
+   public List<Role> getRoles() {
       return roles;
    }
 
-   public User setRoles(Set<Role> roles) {
+   public User setRoles(List<Role> roles) {
       this.roles = roles;
       return this;
    }
