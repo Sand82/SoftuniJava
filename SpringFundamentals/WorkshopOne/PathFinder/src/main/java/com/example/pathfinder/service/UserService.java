@@ -8,15 +8,7 @@ import com.example.pathfinder.model.view.UserViewModel;
 public interface UserService {
     void registerUser(UserRegisterBindingModel userRegisterBindingModel);
 
-    UserServiceModel findUserByUserNameAndPassword(String userName, String password);
-
-    void loginUser(Long id, String username);
-
-    void logout();
-
     UserViewModel createUserViewModel(Long id);
-
-    boolean isNameExists(String username);
 
     User getById(Long id);
 }

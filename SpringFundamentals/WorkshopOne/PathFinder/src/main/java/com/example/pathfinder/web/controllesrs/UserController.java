@@ -28,55 +28,6 @@ public class UserController {
         return new UserRegisterBindingModel();
     }
 
-    @ModelAttribute
-    public UserLoginBindingModel userLoginBindingModel() {
-
-        return new UserLoginBindingModel();
-    }
-
-    @GetMapping("/login")
-    public String login(Model model) {
-
-        model.addAttribute("isNotExist", false);
-
-        return "login";
-    }
-
-    @PostMapping("/login")
-    public String loginConfirm(@Valid UserLoginBindingModel userLoginBindingModel, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-
-        if (bindingResult.hasErrors()) {
-
-            redirectAttributes
-                    .addFlashAttribute("userLoginBindingModel", userLoginBindingModel)
-                    .addFlashAttribute("org.springframework.validation.BindingResult.userLoginBindingModel", bindingResult);
-
-            return "redirect:login";
-        }
-
-        UserServiceModel user = userService.findUserByUserNameAndPassword(userLoginBindingModel.getUsername(), userLoginBindingModel.getPassword());
-
-        if (user == null) {
-
-            redirectAttributes
-                    .addFlashAttribute("isNotExist", true)
-                    .addFlashAttribute("userLoginBindingModel", userLoginBindingModel)
-                    .addFlashAttribute("org.springframework.validation.BindingResult.userLoginBindingModel", bindingResult);
-
-            return "redirect:login";
-        }
-
-        boolean isNameExists = userService.isNameExists(user.getUsername());
-
-        if (isNameExists) {
-            //TODO
-        }
-
-        userService.loginUser(user.getId(), user.getUsername());
-
-        return "redirect:/";
-    }
-
     @GetMapping("/register")
     public String register(Model model) {
 
@@ -104,7 +55,7 @@ public class UserController {
     @GetMapping("/logout")
     public String logout() {
 
-        userService.logout();
+        //userService.logout();
 
         return "redirect:/";
     }

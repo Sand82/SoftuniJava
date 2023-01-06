@@ -9,7 +9,6 @@ import com.example.pathfinder.repository.RouteRepository;
 import com.example.pathfinder.service.CategoryService;
 import com.example.pathfinder.service.RouteService;
 import com.example.pathfinder.service.UserService;
-import com.example.pathfinder.util.CurrentUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -23,16 +22,13 @@ public class RouteServiceImpl implements RouteService {
     private RouteRepository routeRepository;
     private ModelMapper mapper;
     private UserService userService;
-
     private CategoryService categoryService;
-    private CurrentUser currentUser;
 
-    public RouteServiceImpl(RouteRepository routeRepository, ModelMapper mapper, UserService userService, CategoryService categoryService, CurrentUser currentUser) {
+    public RouteServiceImpl(RouteRepository routeRepository, ModelMapper mapper, UserService userService, CategoryService categoryService) {
         this.routeRepository = routeRepository;
         this.mapper = mapper;
         this.userService = userService;
         this.categoryService = categoryService;
-        this.currentUser = currentUser;
     }
 
     @Override
@@ -74,13 +70,13 @@ public class RouteServiceImpl implements RouteService {
     private void saveRoute(RouteServiceModel routeServiceModel) {
 
         Route route = mapper.map(routeServiceModel, Route.class);
-
-        route.setAuthor(userService.getById(currentUser.getId()));
-        route.setCategories(routeServiceModel
-                .getCategories()
-                .stream()
-                .map(c -> categoryService.findCategoryByName(c))
-                .collect(Collectors.toSet()));
+//
+//        route.setAuthor(userService.getById(currentUser.getId()));
+//        route.setCategories(routeServiceModel
+//                .getCategories()
+//                .stream()
+//                .map(c -> categoryService.findCategoryByName(c))
+//                .collect(Collectors.toSet()));
 
         routeRepository.save(route);
     }

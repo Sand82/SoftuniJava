@@ -4,7 +4,7 @@ import com.example.pathfinder.model.bindings.RouteAddBindingModel;
 import com.example.pathfinder.model.view.RouteDetailsViewModel;
 import com.example.pathfinder.model.view.RouteViewModel;
 import com.example.pathfinder.service.RouteService;
-import com.example.pathfinder.util.CurrentUser;
+
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,11 +21,8 @@ public class RouteController {
 
     private RouteService routeService;
 
-    private CurrentUser currentUser;
-
-    public RouteController(RouteService routeService, CurrentUser currentUser) {
+    public RouteController(RouteService routeService) {
         this.routeService = routeService;
-        this.currentUser = currentUser;
     }
 
     @ModelAttribute
@@ -57,10 +54,10 @@ public class RouteController {
     @GetMapping("/add")
     public String add() {
 
-        if (currentUser.getUsername() == null) {
-
-            return "redirect:/users/login";
-        }
+//        if (currentUser.getUsername() == null) {
+//
+//            return "redirect:/users/login";
+//        }
 
         return "add-route";
     }

@@ -7,7 +7,6 @@ import com.example.pathfinder.model.services.UserServiceModel;
 import com.example.pathfinder.model.view.UserViewModel;
 import com.example.pathfinder.repository.UserRepository;
 import com.example.pathfinder.service.UserService;
-import com.example.pathfinder.util.CurrentUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,13 +18,11 @@ public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
     private ModelMapper mapper;
-    private CurrentUser currentUser;
     private PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper mapper, CurrentUser currentUser, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper mapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.mapper = mapper;
-        this.currentUser = currentUser;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -43,27 +40,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserServiceModel findUserByUserNameAndPassword(String userName, String password) {
-
-        return userRepository.findByUsernameAndPassword(userName, password).stream().map(u -> mapper.map(u, UserServiceModel.class)).findFirst().orElse(null);
-    }
-
-    @Override
-    public void loginUser(Long id, String username) {
-
-        currentUser
-                .setId(id)
-                .setUsername(username);
-    }
-
-    @Override
-    public void logout() {
-
-        currentUser.setUsername(null);
-        currentUser.setId(null);
-    }
-
-    @Override
     public UserViewModel createUserViewModel(Long id) {
 
         Optional<User> user = userRepository.findById(id);
@@ -71,12 +47,6 @@ public class UserServiceImpl implements UserService {
         UserViewModel userViewModel = mapper.map(user, UserViewModel.class);
 
         return userViewModel;
-    }
-
-    @Override
-    public boolean isNameExists(String username) {
-
-        return userRepository.existsByUsername(username);
     }
 
     @Override
