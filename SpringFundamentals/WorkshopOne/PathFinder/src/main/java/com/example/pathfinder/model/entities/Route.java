@@ -13,10 +13,11 @@ public class Route extends BaseEntity {
     @Column(unique = true, nullable = false)
     private String name;
 
-    @Column(columnDefinition = "TEXT")
+    @Lob
     private String description;
 
-    @Column(name = "gpx_coordinates", nullable = false, columnDefinition = "LONGTEXT")
+    @Column( nullable = false)
+    @Lob
     private String gpxCoordinates;
 
     @Column(nullable = false)
@@ -35,7 +36,7 @@ public class Route extends BaseEntity {
     @OneToMany(mappedBy = "route", fetch = FetchType.LAZY)
     private List<Picture> pictures;
 
-    @OneToMany(mappedBy = "route", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "route", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Comment> comments;
 
     public Route() {

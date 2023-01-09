@@ -1,4 +1,4 @@
-package com.example.pathfinder.web.controllesrs;
+package com.example.pathfinder.web;
 
 import com.example.pathfinder.model.bindings.RouteAddBindingModel;
 import com.example.pathfinder.model.view.RouteDetailsViewModel;

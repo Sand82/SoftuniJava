@@ -10,7 +10,7 @@ public class Picture extends BaseEntity {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Lob
     private String url;
 
     @ManyToOne

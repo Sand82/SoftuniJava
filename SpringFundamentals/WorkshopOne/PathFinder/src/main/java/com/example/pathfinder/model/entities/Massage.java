@@ -1,9 +1,6 @@
 package com.example.pathfinder.model.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
@@ -14,7 +11,8 @@ public class Massage extends BaseEntity {
     @Column(name = "date_time", nullable = false)
     private LocalDate dateTime;
 
-    @Column(name = "text_content", nullable = false,  columnDefinition = "TEXT")
+    @Lob
+    @Column(nullable = false)
     private LocalDate textContent;
 
     @ManyToOne

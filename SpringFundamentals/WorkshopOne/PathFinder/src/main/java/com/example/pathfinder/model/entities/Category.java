@@ -13,7 +13,7 @@ public class Category extends BaseEntity {
     @Column(nullable = false)
     private CategoryNameEnum name;
 
-    @Column(columnDefinition = "TEXT")
+    @Lob
     private String description;
 
     public Category() {

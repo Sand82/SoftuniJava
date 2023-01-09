@@ -1,4 +1,4 @@
-package com.example.pathfinder.web.controllesrs;
+package com.example.pathfinder.web;
 
 import com.example.pathfinder.service.impl.PictureService;
 import org.springframework.stereotype.Controller;

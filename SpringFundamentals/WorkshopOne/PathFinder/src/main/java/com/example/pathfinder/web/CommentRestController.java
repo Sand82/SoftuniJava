@@ -1,4 +1,4 @@
-package com.example.pathfinder.web.controllesrs;
+package com.example.pathfinder.web;
 
 import com.example.pathfinder.model.bindings.NewCommentBindingModel;
 import com.example.pathfinder.model.services.CommentServiceModel;
@@ -31,7 +31,7 @@ public class CommentRestController {
             @PathVariable Long id,
             Principal principal
     ) {
-        System.out.println(id);
+
         List<CommentsViewModel> comments = commentService.getComments(id);
 
         return ResponseEntity.ok(comments);
