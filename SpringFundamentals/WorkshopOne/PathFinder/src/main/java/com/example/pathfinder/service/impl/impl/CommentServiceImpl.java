@@ -6,12 +6,14 @@ import com.example.pathfinder.model.services.CommentServiceModel;
 import com.example.pathfinder.model.view.CommentsViewModel;
 import com.example.pathfinder.repository.CommentRepository;
 import com.example.pathfinder.repository.RouteRepository;
+import com.example.pathfinder.repository.UserRepository;
 import com.example.pathfinder.service.impl.CommentService;
 import com.example.pathfinder.service.impl.exceptions.ObjectNotFoundException;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,12 +22,14 @@ public class CommentServiceImpl implements CommentService {
 
     private CommentRepository commentRepository;
     private RouteRepository routeRepository;
+    private UserRepository userRepository;
     private ModelMapper mapper;
 
-    public CommentServiceImpl(CommentRepository commentRepository, RouteRepository routeRepository, ModelMapper mapper) {
+    public CommentServiceImpl(CommentRepository commentRepository, RouteRepository routeRepository, UserRepository userRepository, ModelMapper mapper) {
 
         this.commentRepository = commentRepository;
         this.routeRepository = routeRepository;
+        this.userRepository = userRepository;
         this.mapper = mapper;
     }
 
@@ -45,7 +49,22 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentsViewModel createComment(CommentServiceModel commentServiceModel) {
-        throw new UnsupportedOperationException("NOT YET!");
+        var route = routeRepository.findById((commentServiceModel.getRouteId()))
+                .orElseThrow(() -> new ObjectNotFoundException("Route with id " + commentServiceModel.getRouteId() +" not found."));
+
+        var author = userRepository.findByEmail(commentServiceModel.getCreator())
+                .orElseThrow(() -> new ObjectNotFoundException("Author with email " + commentServiceModel.getCreator() +" not found."));
+
+        Comment newComment = new Comment();
+        newComment.setApprove(false);
+        newComment.setTextContent(commentServiceModel.getMessage());
+        newComment.setCreated(LocalDate.now());
+        newComment.setRoute(route);
+        newComment.setAuthor(author);
+
+        Comment saveComment = commentRepository.save(newComment);
+
+        return mapAsComment(saveComment);
     }
 
     private CommentsViewModel mapAsComment(Comment comment) {

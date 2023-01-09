@@ -89,6 +89,16 @@
 			<version>6.0.1</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.github.lbovolini</groupId>
+			<artifactId>ObjectMapper</artifactId>
+			<version>0.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>io.github.javiercanillas</groupId>
+			<artifactId>jackson-masker</artifactId>
+			<version>0.9.9</version>
+		</dependency>
 
 	</dependencies>
 
