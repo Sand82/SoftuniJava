@@ -1,0 +1,27 @@
+logging:
+    level:
+        org:
+            hibernate:
+                SQL: DEBUG
+                type:
+                    descriptor:
+                        sql.BasicBinder: TRACE
+spring:
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        password: test
+        url: jdbc:mysql://localhost:3306/lazy_eager_loading?createDatabaseIfNotExist=true
+        username: root
+    jpa:
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.MySQL8Dialect
+                format_sql: true
+    main:
+        allow-circular-references: true
+    mvc:
+        hidden-method:
+            filter:
+                enabled: true
