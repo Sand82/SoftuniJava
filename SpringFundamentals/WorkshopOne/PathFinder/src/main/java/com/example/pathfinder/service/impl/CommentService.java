@@ -1,4 +1,4 @@
-package com.example.pathfinder.service;
+package com.example.pathfinder.service.impl;
 
 import com.example.pathfinder.model.services.CommentServiceModel;
 import com.example.pathfinder.model.view.CommentsViewModel;

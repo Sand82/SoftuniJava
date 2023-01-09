@@ -1,4 +1,4 @@
-package com.example.pathfinder.service.exceptions;
+package com.example.pathfinder.service.impl.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

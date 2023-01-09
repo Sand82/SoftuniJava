@@ -1,4 +1,4 @@
-package com.example.pathfinder.service.impl;
+package com.example.pathfinder.service.impl.impl;
 
 import com.example.pathfinder.model.entities.User;
 import com.example.pathfinder.repository.UserRepository;

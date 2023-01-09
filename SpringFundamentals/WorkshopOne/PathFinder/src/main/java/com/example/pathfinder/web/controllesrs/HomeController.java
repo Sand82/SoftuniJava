@@ -1,6 +1,6 @@
 package com.example.pathfinder.web.controllesrs;
 
-import com.example.pathfinder.service.PictureService;
+import com.example.pathfinder.service.impl.PictureService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

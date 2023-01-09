@@ -1,7 +1,7 @@
-package com.example.pathfinder.service.impl;
+package com.example.pathfinder.service.impl.impl;
 
 import com.example.pathfinder.repository.PictureRepository;
-import com.example.pathfinder.service.PictureService;
+import com.example.pathfinder.service.impl.PictureService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

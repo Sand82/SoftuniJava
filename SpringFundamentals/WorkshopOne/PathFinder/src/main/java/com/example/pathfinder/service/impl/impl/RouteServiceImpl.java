@@ -1,4 +1,4 @@
-package com.example.pathfinder.service.impl;
+package com.example.pathfinder.service.impl.impl;
 
 import com.example.pathfinder.model.bindings.RouteAddBindingModel;
 import com.example.pathfinder.model.entities.Route;
@@ -6,16 +6,15 @@ import com.example.pathfinder.model.services.RouteServiceModel;
 import com.example.pathfinder.model.view.RouteDetailsViewModel;
 import com.example.pathfinder.model.view.RouteViewModel;
 import com.example.pathfinder.repository.RouteRepository;
-import com.example.pathfinder.service.CategoryService;
-import com.example.pathfinder.service.RouteService;
-import com.example.pathfinder.service.UserService;
+import com.example.pathfinder.service.impl.CategoryService;
+import com.example.pathfinder.service.impl.RouteService;
+import com.example.pathfinder.service.impl.UserService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class RouteServiceImpl implements RouteService {

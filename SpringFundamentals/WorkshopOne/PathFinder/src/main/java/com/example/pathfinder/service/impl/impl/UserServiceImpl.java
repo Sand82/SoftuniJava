@@ -1,4 +1,4 @@
-package com.example.pathfinder.service.impl;
+package com.example.pathfinder.service.impl.impl;
 
 import com.example.pathfinder.model.bindings.UserRegisterBindingModel;
 import com.example.pathfinder.model.entities.User;
@@ -6,7 +6,7 @@ import com.example.pathfinder.model.entities.enums.LevelEnum;
 import com.example.pathfinder.model.services.UserServiceModel;
 import com.example.pathfinder.model.view.UserViewModel;
 import com.example.pathfinder.repository.UserRepository;
-import com.example.pathfinder.service.UserService;
+import com.example.pathfinder.service.impl.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

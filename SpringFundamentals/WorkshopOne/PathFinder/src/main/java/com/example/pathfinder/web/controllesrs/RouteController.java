@@ -3,7 +3,7 @@ package com.example.pathfinder.web.controllesrs;
 import com.example.pathfinder.model.bindings.RouteAddBindingModel;
 import com.example.pathfinder.model.view.RouteDetailsViewModel;
 import com.example.pathfinder.model.view.RouteViewModel;
-import com.example.pathfinder.service.RouteService;
+import com.example.pathfinder.service.impl.RouteService;
 
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;

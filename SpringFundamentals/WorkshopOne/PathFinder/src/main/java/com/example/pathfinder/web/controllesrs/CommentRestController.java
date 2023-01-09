@@ -4,7 +4,7 @@ import com.example.pathfinder.model.bindings.NewCommentBindingModel;
 import com.example.pathfinder.model.services.CommentServiceModel;
 import com.example.pathfinder.model.validation.ApiError;
 import com.example.pathfinder.model.view.CommentsViewModel;
-import com.example.pathfinder.service.CommentService;
+import com.example.pathfinder.service.impl.CommentService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;

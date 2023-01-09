@@ -1,4 +1,4 @@
-package com.example.pathfinder.service;
+package com.example.pathfinder.service.impl;
 
 import com.example.pathfinder.model.bindings.UserRegisterBindingModel;
 import com.example.pathfinder.model.entities.User;

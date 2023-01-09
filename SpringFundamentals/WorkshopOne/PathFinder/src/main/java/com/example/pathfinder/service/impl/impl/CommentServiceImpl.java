@@ -1,4 +1,4 @@
-package com.example.pathfinder.service.impl;
+package com.example.pathfinder.service.impl.impl;
 
 import com.example.pathfinder.model.entities.Route;
 import com.example.pathfinder.model.entities.Comment;
@@ -6,8 +6,8 @@ import com.example.pathfinder.model.services.CommentServiceModel;
 import com.example.pathfinder.model.view.CommentsViewModel;
 import com.example.pathfinder.repository.CommentRepository;
 import com.example.pathfinder.repository.RouteRepository;
-import com.example.pathfinder.service.CommentService;
-import com.example.pathfinder.service.exceptions.ObjectNotFoundException;
+import com.example.pathfinder.service.impl.CommentService;
+import com.example.pathfinder.service.impl.exceptions.ObjectNotFoundException;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;

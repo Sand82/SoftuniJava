@@ -1,4 +1,4 @@
-package com.example.pathfinder.service;
+package com.example.pathfinder.service.impl;
 
 import com.example.pathfinder.model.entities.Category;
 import com.example.pathfinder.model.entities.enums.CategoryNameEnum;

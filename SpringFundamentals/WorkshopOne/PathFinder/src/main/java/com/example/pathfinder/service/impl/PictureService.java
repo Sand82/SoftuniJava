@@ -1,4 +1,4 @@
-package com.example.pathfinder.service;
+package com.example.pathfinder.service.impl;
 
 import java.util.List;
 
