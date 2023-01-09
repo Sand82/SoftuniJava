@@ -28,7 +28,7 @@ public class UserController {
     public String getUsers(){
         System.out.println("--------------------------");
         System.out.println("Get all users");
-        List<UserEntity> users = userRepository.findAll();
+        List<UserEntity> users = userRepository.getUsersByEntityGraph();
         System.out.println("Get all users: [" + users.size() + "]");
 
         for (UserEntity user : users) {

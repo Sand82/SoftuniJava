@@ -4,6 +4,12 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
+@NamedEntityGraph(
+        name="user-roles",
+        attributeNodes = {
+                @NamedAttributeNode("roles")
+        }
+)
 @Entity
 @Table(name = "user")
 public class UserEntity {
