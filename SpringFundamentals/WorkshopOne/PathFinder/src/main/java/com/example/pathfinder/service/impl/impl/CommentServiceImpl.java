@@ -2,6 +2,7 @@ package com.example.pathfinder.service.impl.impl;
 
 import com.example.pathfinder.model.entities.Route;
 import com.example.pathfinder.model.entities.Comment;
+import com.example.pathfinder.model.entities.User;
 import com.example.pathfinder.model.services.CommentServiceModel;
 import com.example.pathfinder.model.view.CommentsViewModel;
 import com.example.pathfinder.repository.CommentRepository;
@@ -49,11 +50,12 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentsViewModel createComment(CommentServiceModel commentServiceModel) {
+
         var route = routeRepository.findById((commentServiceModel.getRouteId()))
                 .orElseThrow(() -> new ObjectNotFoundException("Route with id " + commentServiceModel.getRouteId() +" not found."));
 
-        var author = userRepository.findByEmail(commentServiceModel.getCreator())
-                .orElseThrow(() -> new ObjectNotFoundException("Author with email " + commentServiceModel.getCreator() +" not found."));
+        User author = userRepository.findByEmail(commentServiceModel.getCreator())
+                .orElseThrow(() -> new ObjectNotFoundException("User with email " + commentServiceModel.getCreator() +" not found."));
 
         Comment newComment = new Comment();
         newComment.setApprove(false);

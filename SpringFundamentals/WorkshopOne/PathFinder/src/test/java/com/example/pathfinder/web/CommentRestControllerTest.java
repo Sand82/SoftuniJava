@@ -1,38 +1,38 @@
 package com.example.pathfinder.web;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.example.pathfinder.model.bindings.NewCommentBindingModel;
 import com.example.pathfinder.model.entities.Comment;
+import com.example.pathfinder.model.entities.Role;
 import com.example.pathfinder.model.entities.Route;
 import com.example.pathfinder.model.entities.User;
 import com.example.pathfinder.model.entities.enums.LevelEnum;
+import com.example.pathfinder.model.entities.enums.RoleEnums;
 import com.example.pathfinder.repository.CommentRepository;
+import com.example.pathfinder.repository.RoleRepository;
 import com.example.pathfinder.repository.RouteRepository;
 import com.example.pathfinder.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.bytebuddy.matcher.ElementMatchers;
+
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.util.RouteMatcher;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@WithMockUser("Sand")
+@WithMockUser("sand@abv.bg")
 @SpringBootTest
 @AutoConfigureMockMvc
 public class CommentRestControllerTest {
@@ -46,8 +46,9 @@ public class CommentRestControllerTest {
     @Autowired
     private CommentRepository commentRepository;
     @Autowired
+    private RoleRepository roleRepository;
+    @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -55,11 +56,24 @@ public class CommentRestControllerTest {
 
     @BeforeEach
     void SetUp() {
+
+        RoleEnums admin = RoleEnums.ADMIN;
+        RoleEnums user = RoleEnums.USER;
+
+        Role adminRole = new Role();
+        adminRole.setRole(admin);
+
+        Role userRole = new Role();
+        userRole.setRole(user);
+
+        roleRepository.saveAll(List.of(adminRole, userRole));
+
         testUser = new User();
         testUser.setUsername("Sand")
                 .setPassword("111111")
                 .setEmail("sand@abv.bg")
-                .setFullName("Sand Stef");
+                .setFullName("Sand Stef")
+                .setRoles(List.of(adminRole, userRole));
 
         testUser = userRepository.save(testUser);
     }
