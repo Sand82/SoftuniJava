@@ -44,12 +44,12 @@ public class CommentRestController {
             @RequestBody @Valid NewCommentBindingModel newCommentBindingModel){
 
         CommentServiceModel bindingModel = new CommentServiceModel();
-        bindingModel.setRouteId(id).setMessage(newCommentBindingModel.getMassage()).setCreator(principal.getUsername());
+        bindingModel.setRouteId(id).setMessage(newCommentBindingModel.getMessage()).setCreator(principal.getUsername());
 
         CommentsViewModel newComment = commentService.createComment(bindingModel);
 
         URI locationOfNewComment =
-                URI.create(String.format("/api/%s/comments/%s", id, newComment.getCommendId()));
+                URI.create(String.format("/api/%s/comments/%s", id, newComment.getCommentId()));
 
         return ResponseEntity.created(locationOfNewComment).body(newComment);
     }

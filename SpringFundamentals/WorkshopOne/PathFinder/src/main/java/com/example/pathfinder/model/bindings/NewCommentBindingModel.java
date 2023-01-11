@@ -7,17 +7,17 @@ public class NewCommentBindingModel {
 
     @NotBlank
     @Size(min=10)
-    private String massage;
+    private String message;
 
     public NewCommentBindingModel() {
     }
 
-    public String getMassage() {
-        return massage;
+    public String getMessage() {
+        return message;
     }
 
-    public NewCommentBindingModel setMassage(String massage) {
-        this.massage = massage;
+    public NewCommentBindingModel setMessage(String message) {
+        this.message = message;
         return this;
     }
 }

@@ -5,8 +5,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class CommentsViewModel {
-    private long commendId;
-    private String massage;
+    private long commentId;
+    private String message;
     private String user;
     private LocalDate created;
     private boolean canApprove;
@@ -15,21 +15,22 @@ public class CommentsViewModel {
     public CommentsViewModel() {
     }
 
-    public long getCommendId() {
-        return commendId;
+
+    public long getCommentId() {
+        return commentId;
     }
 
-    public CommentsViewModel setCommendId(long commendId) {
-        this.commendId = commendId;
+    public CommentsViewModel setCommentId(long commentId) {
+        this.commentId = commentId;
         return this;
     }
 
-    public String getMassage() {
-        return massage;
+    public String getMessage() {
+        return message;
     }
 
-    public CommentsViewModel setMassage(String massage) {
-        this.massage = massage;
+    public CommentsViewModel setMessage(String message) {
+        this.message = message;
         return this;
     }
 

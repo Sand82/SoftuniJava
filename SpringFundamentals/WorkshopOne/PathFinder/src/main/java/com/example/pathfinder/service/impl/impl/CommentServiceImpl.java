@@ -73,7 +73,7 @@ public class CommentServiceImpl implements CommentService {
 
         CommentsViewModel model = new CommentsViewModel();
 
-        model.setCommendId(comment.getId()).setCanApprove(true).setCanDelete(true).setCreated(comment.getCreated()).setMassage(comment.getTextContent()).setUser(comment.getAuthor().getFullName());
+        model.setCommentId(comment.getId()).setCanApprove(true).setCanDelete(true).setCreated(comment.getCreated()).setMessage(comment.getTextContent()).setUser(comment.getAuthor().getFullName());
 
         return model;
     }
